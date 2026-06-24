@@ -412,6 +412,9 @@
     </div>
   </footer>
 
+  <!-- AUTOPLAY HINT -->
+  <div id="autoplayHint" style="position:fixed;bottom:70px;right:20px;background:rgba(0,0,0,0.75);color:#fff;font-size:0.75rem;padding:6px 12px;border-radius:20px;z-index:9999;transition:opacity 0.5s;pointer-events:none;">点击任意处播放音乐</div>
+
   <!-- MUSIC PLAYER -->
   <div class="music-player" id="musicPlayer">
     <button class="music-btn" id="musicBtn" title="播放/暂停" onclick="toggleMusic()">
@@ -480,11 +483,12 @@
     }
 
     function playTrack(index) {
+      if (index === undefined) index = currentTrack;
       const a = getAudio();
       a.src = playlist[index].url;
       document.getElementById('musicName').textContent = playlist[index].name;
       document.getElementById('musicStatus').textContent = `${index + 1} / ${playlist.length}`;
-      a.play().then(() => {
+      return a.play().then(() => {
         isPlaying = true;
         updateUI(true);
       }).catch(() => {
@@ -720,6 +724,23 @@
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
       });
+    });
+
+    // ===== MUSIC AUTOPLAY =====
+    let autoplayDone = false;
+    function doAutoplay() {
+      if (autoplayDone) return;
+      autoplayDone = true;
+      playTrack(currentTrack);
+      const hint = document.getElementById('autoplayHint');
+      if (hint) { setTimeout(() => { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 500); }, 2000); }
+    }
+    // 页面加载时尝试自动播放
+    const a = getAudio();
+    a.src = playlist[currentTrack].url;
+    const autoplayPromise = a.play();
+    autoplayPromise.then(() => { doAutoplay(); autoplayDone = true; }).catch(() => {
+      document.addEventListener('click', doAutoplay, { once: true });
     });
   </script>
 
