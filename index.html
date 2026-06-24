@@ -199,7 +199,8 @@
     /* Poetry list inside modal */
     .poem-item { border-bottom: 1px solid var(--light-gray); padding: 20px 0; }
     .poem-item:first-child { border-top: 1px solid var(--light-gray); }
-    .poem-item .poem-date { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+    .poem-item .poem-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--black); }
+    .poem-item .poem-date { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.6rem; letter-spacing: 0.03em; }
     .poem-item .poem-full { font-size: 0.95rem; line-height: 2; color: #333; white-space: pre-line; }
 
     /* Placeholder text inside cards */
@@ -263,18 +264,29 @@
     <div id="posts"></div>
     <div class="content list">
 
-      <!-- Card 1: 诗? -->
+      <!-- Card 1: 旅行见闻 (user's image 1) -->
       <div class="span4 fade-up"
-           style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&q=80')"
+           style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')"
+           onclick="openCardModal('travel')">
+        <div class="bg-layer"></div>
+        <div class="content-layer">
+          <h2>旅行见闻</h2>
+          <p>在路上遇见的故事</p>
+        </div>
+      </div>
+
+      <!-- Card 2: 诗？ (user's image 2) -->
+      <div class="span4 fade-up"
+           style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')"
            onclick="openCardModal('poetry')">
         <div class="bg-layer"></div>
         <div class="content-layer">
           <h2>诗？</h2>
-          <p>点击阅读全部7首诗</p>
+          <p>点击阅读全部诗</p>
         </div>
       </div>
 
-      <!-- Card 2: 随笔 -->
+      <!-- Card 3: 随笔 -->
       <div class="span4 fade-up"
            style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&q=80')"
            onclick="openCardModal('essay')">
@@ -282,17 +294,6 @@
         <div class="content-layer">
           <h2>随笔</h2>
           <p>记录生活与思考</p>
-        </div>
-      </div>
-
-      <!-- Card 3: 旅行见闻 -->
-      <div class="span4 fade-up"
-           style="background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80')"
-           onclick="openCardModal('travel')">
-        <div class="bg-layer"></div>
-        <div class="content-layer">
-          <h2>旅行见闻</h2>
-          <p>在路上遇见的故事</p>
         </div>
       </div>
 
@@ -384,29 +385,37 @@
   </div>
 
   <script>
-    // DATA
-    const poetryGroup = {
-      range: '2026.4.8——2026.6.20',
-      poems: [
-        {
-          date: '4月10日',
-          body: `四月十号
-我给青春举办了一场
-迟到十个月的葬礼
-那天下起的暴雨
-直到今天
-仍未停`
-        },
-        {
-          date: '清明',
-          body: `清明节那晚
-青春死了
-独剩下孤独
-为它收尸`
-        },
-        {
-          date: '清明',
-          body: `我能想象到
+    // POETRY DATA — 按日期排列
+    const poems = [
+      {
+        title: '风',
+        date: '2026.4.10',
+        body: `今晚 江边的风好大
+大到它会帮我擦干眼泪
+大到手中的烟我抽一半
+它抽一半`
+      },
+      {
+        title: '我爱过你吗',
+        date: '2026.4.13',
+        body: `如果没有
+那为什么
+在你离开以后
+痛苦找上了门`
+      },
+      {
+        title: '哭',
+        date: '2026.4.20',
+        body: `你爱我
+你爱哭
+直到有一天
+你发现
+其实我就是哭`
+      },
+      {
+        title: '罪人',
+        date: '2026.4.20',
+        body: `都能想象到
 在那一个月
 你的奶奶
 替你骂我
@@ -415,38 +424,34 @@
 你不知道的是
 就连我的朋友
 也成了你的朋友`
-        },
-        {
-          date: '某日',
-          body: `你爱我
-你爱哭
-直到有一天
-你发现
-其实我就是哭`
-        },
-        {
-          date: '某日',
-          body: `如果没有
-那为什么
-在你离开以后
-痛苦找上了门`
-        },
-        {
-          date: '某日',
-          body: `热恋与厌倦交替
+      },
+      {
+        title: '死亡',
+        date: '2026.4.20',
+        body: `清明节那晚
+青春死了
+独剩下孤独
+为它收尸`
+      },
+      {
+        title: '爱',
+        date: '2026.5.23',
+        body: `热恋与厌倦交替
 投入与敷衍交替
 时而上头
 时而嫌弃`
-        },
-        {
-          date: '某日',
-          body: `今晚 江边的风好大
-大到它会帮我擦干眼泪
-大到手中的烟我抽一半
-它抽一半`
-        }
-      ]
-    };
+      },
+      {
+        title: '雨未停',
+        date: '2026.6.18',
+        body: `四月十号
+我给青春举办了一场
+迟到十个月的葬礼
+那天下起的暴雨
+直到今天
+仍未停`
+      }
+    ];
 
     const galleryData = [
       { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', title: '山间晨雾 · 黄山' },
@@ -481,11 +486,12 @@
       body.innerHTML = '';
 
       if (type === 'poetry') {
-        title.textContent = '诗？ ' + poetryGroup.range;
-        poetryGroup.poems.forEach(poem => {
+        title.textContent = '诗';
+        poems.forEach(poem => {
           const div = document.createElement('div');
           div.className = 'poem-item';
           div.innerHTML = `
+            <p class="poem-title">${poem.title}</p>
             <p class="poem-date">${poem.date}</p>
             <div class="poem-full">${poem.body}</div>
           `;
