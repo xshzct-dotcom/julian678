@@ -226,6 +226,45 @@
     .page-title { text-align: center; padding: 50px 0 30px; }
     .page-title h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.06em; }
     .page-title p { font-size: 0.85rem; color: var(--gray); margin-top: 0.5rem; }
+
+    /* MUSIC PLAYER */
+    .music-player {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      display: flex; align-items: center; gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--light-gray);
+      border-radius: 40px;
+      padding: 8px 16px 8px 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .music-player:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+    .music-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%; background: var(--black); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease; flex-shrink: 0;
+    }
+    .music-btn:hover { background: var(--accent); transform: scale(1.1); }
+    .music-btn svg { width: 14px; height: 14px; fill: white; }
+    .music-info { display: flex; flex-direction: column; min-width: 0; }
+    .music-name { font-size: 0.78rem; font-weight: 600; color: var(--black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+    .music-status { font-size: 0.68rem; color: var(--gray); }
+    .music-wave {
+      display: flex; align-items: flex-end; gap: 2px; height: 16px; margin-left: 4px;
+    }
+    .music-wave span {
+      display: block; width: 3px; background: var(--accent);
+      border-radius: 2px; transition: height 0.2s ease;
+    }
+    .music-wave.playing span:nth-child(1) { height: 6px; animation: wave 0.8s ease-in-out infinite alternate; }
+    .music-wave.playing span:nth-child(2) { height: 12px; animation: wave 0.8s 0.2s ease-in-out infinite alternate; }
+    .music-wave.playing span:nth-child(3) { height: 8px; animation: wave 0.8s 0.4s ease-in-out infinite alternate; }
+    @keyframes wave { 0% { height: 4px; } 100% { height: 16px; } }
+    @media (max-width: 480px) {
+      .music-info { display: none; }
+      .music-player { padding: 10px; border-radius: 50%; }
+    }
   </style>
 </head>
 <body>
@@ -373,6 +412,21 @@
     </div>
   </footer>
 
+  <!-- MUSIC PLAYER -->
+  <div class="music-player" id="musicPlayer">
+    <button class="music-btn" id="musicBtn" title="播放/暂停" onclick="toggleMusic()">
+      <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <div class="music-info">
+      <span class="music-name" id="musicName">点击播放</span>
+      <span class="music-status" id="musicStatus">向天游的随笔</span>
+    </div>
+    <div class="music-wave" id="musicWave">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
   <!-- MODAL -->
   <div class="modal-overlay" id="cardModal">
     <div class="modal-box">
@@ -385,6 +439,78 @@
   </div>
 
   <script>
+    // MUSIC PLAYER DATA
+    const playlist = [
+      {
+        name: 'Song 1',
+        url: 'http://m701.music.126.net/20260625020949/840306d59c53691d0ba264b5dd2ac1b0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30008841736/c4a2/bb68/6167/9f05c4506ca6fc6295f21f8cf34c5b0c.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+      },
+      {
+        name: 'Song 2',
+        url: 'http://m701.music.126.net/20260625020950/51cedf6e2deb95be41f23d0be71e6168/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30008843041/0803/5bbe/236a/66397e512ee5acd78a7e9dceba86980b.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+      },
+      {
+        name: 'Song 3',
+        url: 'http://m701.music.126.net/20260625020950/ade11ccde12e90174813216f8cc5b7bb/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30978333658/662d/b9c3/cfee/9fa1f08d12fb39ac5310796b7277c714.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+      }
+    ];
+    let currentTrack = 0;
+    let isPlaying = false;
+    let audioEl = null;
+
+    function getAudio() {
+      if (!audioEl) {
+        audioEl = new Audio();
+        audioEl.crossOrigin = 'anonymous';
+        audioEl.volume = 0.6;
+        audioEl.addEventListener('ended', () => {
+          currentTrack = (currentTrack + 1) % playlist.length;
+          playTrack(currentTrack);
+        });
+        audioEl.addEventListener('error', () => {
+          document.getElementById('musicStatus').textContent = '播放失败';
+        });
+      }
+      return audioEl;
+    }
+
+    function playTrack(index) {
+      const a = getAudio();
+      a.src = playlist[index].url;
+      document.getElementById('musicName').textContent = playlist[index].name;
+      document.getElementById('musicStatus').textContent = `${index + 1} / ${playlist.length}`;
+      a.play().then(() => {
+        isPlaying = true;
+        updateUI(true);
+      }).catch(() => {
+        document.getElementById('musicStatus').textContent = '点击播放';
+        updateUI(false);
+      });
+    }
+
+    function toggleMusic() {
+      const a = getAudio();
+      if (isPlaying) {
+        a.pause();
+        isPlaying = false;
+        updateUI(false);
+      } else {
+        if (!a.src) {
+          playTrack(currentTrack);
+        } else {
+          a.play().then(() => { isPlaying = true; updateUI(true); }).catch(() => {});
+        }
+      }
+    }
+
+    function updateUI(playing) {
+      document.getElementById('iconPlay').style.display = playing ? 'none' : 'block';
+      document.getElementById('iconPause').style.display = playing ? 'block' : 'none';
+      const wave = document.getElementById('musicWave');
+      if (playing) wave.classList.add('playing');
+      else wave.classList.remove('playing');
+    }
+
     // POETRY DATA — 按日期排列
     const poems = [
       {
