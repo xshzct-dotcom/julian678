@@ -64,7 +64,7 @@
     /* HERO */
     .mapcontainer {
       margin-top: 56px; width: 100%; height: 420px;
-      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80') center center / cover no-repeat;
+      background: url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80') center center / cover no-repeat;
       position: relative;
     }
     .mapcontainer::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
@@ -444,7 +444,23 @@
   <script>
     // Auto-play music on page load
     window.addEventListener('load', () => {
-      setTimeout(() => playTrack(currentTrack), 800);
+      setTimeout(() => {
+        const a = getAudio();
+        a.src = playlist[currentTrack].url;
+        a.play().then(() => {
+          isPlaying = true;
+          updateUI(true);
+        }).catch(() => {
+          const hint = document.getElementById('autoplayHint');
+          if (hint) hint.style.display = 'block';
+          document.addEventListener('click', function once() {
+            playTrack(currentTrack);
+            document.removeEventListener('click', once);
+            const h = document.getElementById('autoplayHint');
+            if (h) { h.style.opacity = '0'; setTimeout(() => h.remove(), 500); }
+          });
+        });
+      }, 800);
     });
 
     // MUSIC PLAYER DATA
@@ -726,22 +742,6 @@
       });
     });
 
-    // ===== MUSIC AUTOPLAY =====
-    let autoplayDone = false;
-    function doAutoplay() {
-      if (autoplayDone) return;
-      autoplayDone = true;
-      playTrack(currentTrack);
-      const hint = document.getElementById('autoplayHint');
-      if (hint) { setTimeout(() => { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 500); }, 2000); }
-    }
-    // 页面加载时尝试自动播放
-    const a = getAudio();
-    a.src = playlist[currentTrack].url;
-    const autoplayPromise = a.play();
-    autoplayPromise.then(() => { doAutoplay(); autoplayDone = true; }).catch(() => {
-      document.addEventListener('click', doAutoplay, { once: true });
-    });
   </script>
 
 </body>
