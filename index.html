@@ -391,44 +391,28 @@
 
   <script>
     // DATA
-    const poetryData = [
-      {
-        title: '风',
-        date: '2026年',
-        body: `今晚 江边的风好大
-大到它会帮我擦干眼泪
-大到手中的烟我抽一半
-它抽一半`
-      },
-      {
-        title: '爱',
-        date: '2026年',
-        body: `热恋与厌倦交替
-投入与敷衍交替
-时而上头
-时而嫌弃`
-      },
-      {
-        title: '我爱过你吗',
-        date: '2026年',
-        body: `如果没有
-那为什么
-在你离开以后
-痛苦找上了门`
-      },
-      {
-        title: '哭',
-        date: '2026年',
-        body: `你爱我
-你爱哭
-直到有一天
-你发现
-其实我就是哭`
-      },
-      {
-        title: '罪人',
-        date: '2026年清明',
-        body: `我能想象到
+    const poetryGroup = {
+      range: '2026.4.8——2026.6.20',
+      poems: [
+        {
+          date: '4月10日',
+          body: `四月十号
+我给青春举办了一场
+迟到十个月的葬礼
+那天下起的暴雨
+直到今天
+仍未停`
+        },
+        {
+          date: '清明',
+          body: `清明节那晚
+青春死了
+独剩下孤独
+为它收尸`
+        },
+        {
+          date: '清明',
+          body: `我能想象到
 在那一个月
 你的奶奶
 替你骂我
@@ -437,26 +421,38 @@
 你不知道的是
 就连我的朋友
 也成了你的朋友`
-      },
-      {
-        title: '死亡',
-        date: '2026年清明节',
-        body: `清明节那晚
-青春死了
-独剩下孤独
-为它收尸`
-      },
-      {
-        title: '雨未停',
-        date: '2026年4月10日',
-        body: `四月十号
-我给青春举办了一场
-迟到十个月的葬礼
-那天下起的暴雨
-直到今天
-仍未停`
-      }
-    ];
+        },
+        {
+          date: '某日',
+          body: `你爱我
+你爱哭
+直到有一天
+你发现
+其实我就是哭`
+        },
+        {
+          date: '某日',
+          body: `如果没有
+那为什么
+在你离开以后
+痛苦找上了门`
+        },
+        {
+          date: '某日',
+          body: `热恋与厌倦交替
+投入与敷衍交替
+时而上头
+时而嫌弃`
+        },
+        {
+          date: '某日',
+          body: `今晚 江边的风好大
+大到它会帮我擦干眼泪
+大到手中的烟我抽一半
+它抽一半`
+        }
+      ]
+    };
 
     const galleryData = [
       { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', title: '山间晨雾 · 黄山' },
@@ -491,27 +487,14 @@
       body.innerHTML = '';
 
       if (type === 'poetry') {
-        title.textContent = '诗？';
-        poetryData.forEach(poem => {
+        title.textContent = '诗？ ' + poetryGroup.range;
+        poetryGroup.poems.forEach(poem => {
           const div = document.createElement('div');
           div.className = 'poem-item';
           div.innerHTML = `
-            <h3>${poem.title}</h3>
             <p class="poem-date">${poem.date}</p>
             <div class="poem-full">${poem.body}</div>
-            <p class="expand-hint">点击展开</p>
           `;
-          div.addEventListener('click', () => {
-            const wasExpanded = div.classList.contains('expanded');
-            // collapse all
-            document.querySelectorAll('.poem-item').forEach(p => p.classList.remove('expanded'));
-            if (!wasExpanded) {
-              div.classList.add('expanded');
-              div.querySelector('.expand-hint').textContent = '点击收起';
-            } else {
-              div.querySelector('.expand-hint').textContent = '点击展开';
-            }
-          });
           body.appendChild(div);
         });
 
