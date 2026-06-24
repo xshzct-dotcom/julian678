@@ -64,7 +64,7 @@
     /* HERO */
     .mapcontainer {
       margin-top: 56px; width: 100%; height: 420px;
-      background: url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80') center center / cover no-repeat;
+      background: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg') center center / cover no-repeat;
       position: relative;
     }
     .mapcontainer::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
@@ -305,7 +305,7 @@
 
       <!-- Card 1: 随笔 -->
       <div class="span4 fade-up"
-           style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&q=80')"
+           style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')"
            onclick="openCardModal('essay')">
         <div class="bg-layer"></div>
         <div class="content-layer">
@@ -373,7 +373,7 @@
     <!-- ABOUT -->
     <div id="about" class="about-section">
       <div class="about-inner">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="向天游">
+        <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游">
         <div>
           <h2>向天游</h2>
           <p>身高170，体重56kg，2002年11月出生。</p>
@@ -627,7 +627,6 @@
           div.className = 'poem-item';
           div.innerHTML = `
             <p class="poem-title">${poem.title}</p>
-            <p class="poem-date">${poem.date}</p>
             <div class="poem-full">${poem.body}</div>
           `;
           body.appendChild(div);
