@@ -8,133 +8,214 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     :root {
-      --black: #111111;
-      --white: #faf9f6;
-      --gray: #888888;
-      --light-gray: #e8e4df;
-      --accent: #8b7355;
-      --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
-      --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      --transition: 0.3s ease;
+      --bg: #faf8f4;
+      --bg-warm: #f5f0e8;
+      --ink: #1a1817;
+      --ink-light: #5c5651;
+      --ink-faint: #b0a89e;
+      --accent: #9b7b5c;
+      --accent-light: #c4a882;
+      --line: #e8e0d4;
+      --card-shadow: 0 8px 40px rgba(0,0,0,0.07);
+      --card-shadow-hover: 0 16px 60px rgba(0,0,0,0.13);
+      --serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    
+
     html { scroll-behavior: smooth; }
-    
+
     body {
-      font-family: var(--font-serif);
-      background: var(--white);
-      color: var(--black);
-      line-height: 1.8;
+      font-family: var(--serif);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.9;
       -webkit-font-smoothing: antialiased;
     }
-    
-    /* Header */
+
+    /* ─── HEADER ─── */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(250, 249, 246, 0.98);
-      backdrop-filter: blur(10px);
+      top: 0; left: 0; right: 0;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 1000;
-      padding: 1.2rem 3rem;
+      padding: 1.3rem 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--light-gray);
     }
-    
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 4rem; right: 4rem;
+      height: 1px;
+      background: var(--line);
+    }
+
     .logo {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--black);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
       text-decoration: none;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
     }
-    
-    nav { display: flex; gap: 2rem; }
-    
+
+    nav { display: flex; gap: 2.5rem; }
+
     nav a {
-      color: var(--gray);
+      color: var(--ink-light);
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: color var(--transition);
-      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s var(--ease);
+      font-family: var(--sans);
     }
-    
-    nav a:hover { color: var(--black); }
-    
-    /* Hero */
+
+    nav a:hover { color: var(--ink); }
+
+    /* ─── HERO ─── */
     .hero {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-                  url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600') center/cover no-repeat;
-      background-attachment: fixed;
-      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(20,16,12,0.55) 0%,
+        rgba(30,22,14,0.3) 50%,
+        rgba(10,8,6,0.6) 100%
+      ),
+      url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.8rem;
+    }
+
     .hero h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      letter-spacing: 0.08em;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: 0.18em;
+      line-height: 1.15;
+      margin-bottom: 1.8rem;
     }
-    
-    .hero p {
-      font-size: 1.2rem;
+
+    .hero h1 em {
       font-style: italic;
-      opacity: 0.9;
+      font-weight: 400;
+      opacity: 0.85;
     }
-    
-    /* Section */
-    .section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
-    
-    .page-title {
-      text-align: center;
-      margin-bottom: 3rem;
+
+    .hero p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.25em;
+      font-style: italic;
     }
-    
-    .page-title h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-    
-    .page-title p {
-      color: var(--gray);
-      font-size: 0.9rem;
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--sans);
+      font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
     }
-    
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--light-gray);
-      max-width: 900px;
-      margin: 0 auto;
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
     }
-    
-    /* Posts grid */
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 0.8; transform: scaleY(1); }
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { max-width: 1080px; margin: 0 auto; padding: 6rem 3rem; }
+
+    .section-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--ink-faint);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    /* ─── POSTS GRID (3 cards) ─── */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      gap: 1.8rem;
     }
-    
+
     @media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
-    
+    @media (max-width: 560px) { .posts-grid { grid-template-columns: 1fr; } }
+
     .post-card {
       position: relative;
       aspect-ratio: 3/4;
@@ -142,538 +223,884 @@
       cursor: pointer;
       background-size: cover;
       background-position: center;
+      border-radius: 6px;
       display: flex;
       align-items: flex-end;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
     }
-    
+
+    .post-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
     .post-card .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(transparent 50%, rgba(0,0,0,0.7));
+      background: linear-gradient(
+        to top,
+        rgba(12,10,8,0.82) 0%,
+        rgba(12,10,8,0.35) 45%,
+        transparent 70%
+      );
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 2rem;
-      transition: background var(--transition);
+      padding: 2.2rem 1.8rem;
+      transition: background 0.4s var(--ease);
     }
-    
+
     .post-card:hover .card-overlay {
-      background: linear-gradient(transparent 30%, rgba(0,0,0,0.85));
+      background: linear-gradient(
+        to top,
+        rgba(12,10,8,0.9) 0%,
+        rgba(12,10,8,0.4) 50%,
+        rgba(12,10,8,0.1) 80%
+      );
     }
-    
+
+    .card-num {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+    }
+
     .post-card .card-title {
       color: white;
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
     }
-    
+
     .post-card .card-subtitle {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-      font-family: var(--font-sans);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.78rem;
+      font-style: italic;
+      font-family: var(--sans);
     }
-    
-    /* Album grid */
+
+    /* ─── DIVIDER ─── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ─── ALBUM GRID ─── */
     .album-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1.4rem;
     }
-    
+
     @media (max-width: 900px) { .album-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .album-grid { grid-template-columns: 1fr; } }
-    
+    @media (max-width: 560px) { .album-grid { grid-template-columns: 1fr; } }
+
     .album-card {
       position: relative;
       aspect-ratio: 4/3;
       overflow: hidden;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 6px;
       background-size: cover;
       background-position: center;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
     }
-    
-    .album-card:hover { transform: scale(1.02); transition: transform 0.3s; }
-    
+
+    .album-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: var(--card-shadow-hover);
+    }
+
     .album-card .album-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.3);
+      background: linear-gradient(
+        to top,
+        rgba(10,8,6,0.75) 0%,
+        rgba(10,8,6,0.1) 55%,
+        transparent 80%
+      );
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      transition: background 0.4s var(--ease);
     }
-    
-    .album-card:hover .album-overlay { background: rgba(0,0,0,0.5); }
-    
+
+    .album-card:hover .album-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(10,8,6,0.88) 0%,
+        rgba(10,8,6,0.2) 60%,
+        rgba(10,8,6,0.05) 100%
+      );
+    }
+
     .album-card .album-title {
       color: white;
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
     }
-    
+
+    .album-card .album-subtitle {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      font-style: italic;
+      margin-top: 0.3rem;
+      font-family: var(--sans);
+    }
+
     .album-card .album-count {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-      font-family: var(--font-sans);
+      color: rgba(255,255,255,0.45);
+      font-size: 0.72rem;
+      margin-top: 0.4rem;
+      font-family: var(--sans);
     }
-    
-    /* Modal */
+
+    .album-card-placeholder {
+      background: var(--bg-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--ink-faint);
+    }
+
+    .album-card-placeholder .album-title { color: var(--ink-faint); }
+    .album-card-placeholder .album-count { color: var(--ink-faint); opacity: 0.7; }
+
+    /* ─── ABOUT ─── */
+    .about-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 6rem 3rem 8rem;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 800px) {
+      .about-inner { grid-template-columns: 1fr; text-align: center; }
+      .about-inner img { margin: 0 auto; }
+      .social-links { justify-content: center; }
+    }
+
+    .about-inner img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.1);
+    }
+
+    .about-inner h2 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+    }
+
+    .about-inner p {
+      color: var(--ink-light);
+      margin-bottom: 0.7rem;
+      line-height: 1.9;
+      font-size: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      font-family: var(--sans);
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+    }
+
+    .social-links a:hover {
+      color: var(--ink);
+      border-color: var(--accent);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 3.5rem 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    footer ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--ink-faint);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--sans);
+      transition: color 0.25s var(--ease);
+    }
+
+    footer a:hover { color: var(--ink); }
+
+    footer p {
+      color: var(--ink-faint);
+      font-size: 0.78rem;
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── MODAL ─── */
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.92);
+      background: rgba(14,12,10,0.97);
       z-index: 2000;
       display: flex;
       flex-direction: column;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s var(--ease);
       overflow-y: auto;
     }
-    
-    .modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
+
+    .modal.active { opacity: 1; pointer-events: all; }
+
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 3rem;
+      padding: 1.8rem 3.5rem;
       color: white;
       position: sticky;
       top: 0;
-      background: rgba(0,0,0,0.95);
+      background: rgba(14,12,10,0.97);
       z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
     }
-    
+
     .modal-back {
       background: none;
       border: none;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.45);
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.82rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: color var(--transition);
-      font-family: var(--font-sans);
-    }
-    
-    .modal-back:hover { color: white; }
-    
-    .modal-title {
-      font-size: 1.8rem;
-      font-weight: 700;
+      transition: color 0.25s var(--ease);
+      font-family: var(--sans);
       letter-spacing: 0.05em;
+      padding: 0.4rem 0;
+    }
+
+    .modal-back:hover { color: white; }
+
+    .modal-title {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
       flex: 1;
       text-align: center;
     }
-    
+
     .modal-close {
       background: none;
       border: none;
-      color: white;
+      color: rgba(255,255,255,0.4);
       font-size: 2rem;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 0.4rem;
       line-height: 1;
-      transition: opacity var(--transition);
+      transition: color 0.25s var(--ease);
       width: 40px;
     }
-    
-    .modal-close:hover { opacity: 0.6; }
-    
+
+    .modal-close:hover { color: white; }
+
     .modal-body {
-      padding: 2rem 3rem;
-      color: white;
-      max-width: 700px;
+      padding: 2.5rem 3.5rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 720px;
       margin: 0 auto;
       width: 100%;
+      flex: 1;
     }
-    
-    /* Article list (Level 2) */
+
+    /* Article list */
     .article-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.9rem;
     }
-    
+
     .article-item {
-      padding: 1.5rem 2rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
+      padding: 1.4rem 1.8rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: all 0.3s var(--ease);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
-    
+
     .article-item:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+      transform: translateX(6px);
     }
-    
+
     .article-item .title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .article-item .meta {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.5);
-      font-family: var(--font-sans);
-    }
-    
-    .article-item .arrow {
-      color: rgba(255,255,255,0.3);
-      font-size: 1.2rem;
-    }
-    
-    /* Poem/Article content (Level 3) */
-    .content-header {
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .content-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.03em;
-    }
-    
-    .content-meta {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.9rem;
-      font-family: var(--font-sans);
-    }
-    
-    .content-body {
-      font-size: 1.1rem;
-      line-height: 2.2;
-      white-space: pre-line;
+      font-size: 1.05rem;
+      font-weight: 400;
       letter-spacing: 0.02em;
     }
-    
+
+    .article-item .meta {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--sans);
+      white-space: nowrap;
+    }
+
+    .article-item .arrow {
+      color: rgba(255,255,255,0.2);
+      font-size: 1rem;
+      transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .article-item:hover .arrow {
+      transform: translateX(4px);
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Content view */
+    .content-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .content-title {
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+    }
+
+    .content-meta {
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      font-family: var(--sans);
+      letter-spacing: 0.08em;
+    }
+
+    .content-body {
+      font-size: 1.08rem;
+      line-height: 2.3;
+      white-space: pre-line;
+      letter-spacing: 0.015em;
+      color: rgba(255,255,255,0.82);
+    }
+
     .content-nav {
       display: flex;
       justify-content: space-between;
-      margin-top: 3rem;
+      margin-top: 3.5rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      gap: 1rem;
     }
-    
+
     .content-nav button {
       background: none;
-      border: 1px solid rgba(255,255,255,0.3);
-      color: white;
-      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: 0.7rem 1.8rem;
       cursor: pointer;
-      font-size: 0.85rem;
-      transition: all var(--transition);
-      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      transition: all 0.3s var(--ease);
+      font-family: var(--sans);
+      border-radius: 4px;
     }
-    
+
     .content-nav button:hover {
       background: white;
-      color: black;
+      color: var(--ink);
+      border-color: white;
     }
-    
-    /* Album photos grid (Level 2) */
+
+    .content-nav button:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .content-nav button:disabled:hover {
+      background: none;
+      color: rgba(255,255,255,0.6);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* Album photos grid */
     .album-photos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
-    
+
     @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
-    
+
     .album-photo-item {
       position: relative;
       aspect-ratio: 4/3;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
+      background: rgba(255,255,255,0.04);
     }
-    
+
     .album-photo-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s;
+      transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
     }
-    
-    .album-photo-item:hover img { transform: scale(1.05); }
-    
+
+    .album-photo-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+
     /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.97);
+      background: rgba(6,5,4,0.98);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.3s var(--ease);
     }
-    
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
+
+    .lightbox.active { opacity: 1; pointer-events: all; }
+
     .lightbox img {
       max-width: 90%;
-      max-height: 90vh;
+      max-height: 88vh;
       object-fit: contain;
       border-radius: 4px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.6);
     }
-    
+
     .lightbox-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.1);
+      top: 22px; right: 22px;
+      background: rgba(255,255,255,0.07);
       border: none;
-      color: white;
-      font-size: 2rem;
-      width: 50px;
-      height: 50px;
+      color: rgba(255,255,255,0.6);
+      font-size: 1.8rem;
+      width: 46px; height: 46px;
       cursor: pointer;
       border-radius: 50%;
-      transition: background var(--transition);
+      transition: all 0.25s var(--ease);
+      line-height: 1;
     }
-    
-    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
-    
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
     .lightbox-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.07);
       border: none;
-      color: white;
-      font-size: 2.5rem;
-      width: 60px;
-      height: 60px;
+      color: rgba(255,255,255,0.6);
+      font-size: 2.2rem;
+      width: 56px; height: 56px;
       cursor: pointer;
       border-radius: 50%;
-      transition: background var(--transition);
+      transition: all 0.25s var(--ease);
+      line-height: 1;
     }
-    
-    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
     .lightbox-prev { left: 20px; }
     .lightbox-next { right: 20px; }
-    
+
     .lightbox-counter {
       position: absolute;
-      bottom: 20px;
-      left: 50%;
+      bottom: 22px; left: 50%;
       transform: translateX(-50%);
-      color: rgba(255,255,255,0.7);
-      font-size: 0.95rem;
-      font-family: var(--font-sans);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.82rem;
+      font-family: var(--sans);
+      letter-spacing: 0.1em;
     }
-    
-    /* About */
-    .about-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-    
-    .about-inner {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-    
-    @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; text-align: center; } }
-    
-    .about-inner img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-    
-    .about-inner h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      letter-spacing: 0.05em;
-    }
-    
-    .about-inner p {
-      color: var(--gray);
-      margin-bottom: 0.8rem;
-      line-height: 1.8;
-    }
-    
-    .social-links {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    
-    .social-links a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid transparent;
-      transition: border-color var(--transition);
-    }
-    
-    .social-links a:hover { border-color: var(--accent); }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--gray);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--light-gray);
-      margin-top: 4rem;
-    }
-    
-    footer ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    footer a { color: var(--gray); text-decoration: none; transition: color var(--transition); }
-    footer a:hover { color: var(--black); }
-    
-    /* Music player */
+
+    /* ─── MUSIC PLAYER ─── */
     .music-player {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: rgba(17,17,17,0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(18, 15, 12, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
+      border-radius: 18px;
+      z-index: 999;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: all 0.35s var(--ease);
+      overflow: hidden;
+      width: 58px;
+      height: 58px;
+    }
+
+    .music-player:hover {
+      box-shadow: 0 12px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .music-player.expanded {
+      width: 300px;
+      border-radius: 18px;
+    }
+
+    .music-top {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      z-index: 999;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      cursor: pointer;
-      transition: all var(--transition);
+      padding: 0.85rem 1.1rem;
+      gap: 0.9rem;
     }
-    
-    .music-player:hover { transform: scale(1.05); }
-    .music-player.expanded { border-radius: 12px; }
-    
-    .music-info { display: none; }
-    .music-player.expanded .music-info { display: block; }
-    
-    .music-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
-    
-    .music-controls { display: flex; align-items: center; gap: 0.8rem; }
-    
+
+    .music-cover {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6b4c34);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .music-playing .music-cover {
+      animation: spinCover 8s linear infinite;
+    }
+
+    @keyframes spinCover {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .music-mini-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .music-mini-title {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .music-mini-sub {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--sans);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .music-expand-icon {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.35s var(--ease);
+      flex-shrink: 0;
+    }
+
+    .music-player.expanded .music-expand-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Expanded panel */
+    .music-expanded-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease);
+    }
+
+    .music-player.expanded .music-expanded-panel {
+      max-height: 200px;
+    }
+
+    .music-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .music-expanded-inner {
+      padding: 1rem 1.1rem 1.2rem;
+    }
+
+    .music-expanded-title {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-expanded-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      font-family: var(--sans);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .music-progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .music-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent-light), var(--accent));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.5s linear;
+    }
+
+    .music-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
     .music-btn {
       background: none;
       border: none;
-      color: white;
+      color: rgba(255,255,255,0.55);
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       padding: 0.3rem;
-      transition: opacity var(--transition);
+      transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    
-    .music-btn:hover { opacity: 0.6; }
-    
-    .music-progress {
-      width: 150px;
-      height: 3px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-    
-    .music-progress-bar {
-      height: 100%;
-      background: white;
-      width: 0%;
-      transition: width 0.3s;
-    }
-    
-    /* Autoplay hint */
-    .autoplay-hint {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.85);
+
+    .music-btn:hover {
       color: white;
-      padding: 2rem 3rem;
-      border-radius: 8px;
-      z-index: 3000;
-      text-align: center;
-      cursor: pointer;
-      display: none;
+      transform: scale(1.12);
     }
-    
-    .autoplay-hint.show { display: block; }
-    .autoplay-hint h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
-    .autoplay-hint p { font-size: 0.9rem; opacity: 0.8; }
-    
-    /* Fade up animation */
+
+    .music-btn-play {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      font-size: 1rem;
+      transition: background 0.25s var(--ease), transform 0.25s var(--ease), color 0.25s var(--ease);
+    }
+
+    .music-btn-play:hover {
+      background: rgba(255,255,255,0.18);
+      transform: scale(1.08);
+    }
+
+    .music-playlist {
+      padding: 0 1.1rem 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease);
+    }
+
+    .music-player.expanded .music-playlist {
+      max-height: 300px;
+    }
+
+    .music-playlist-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      font-family: var(--sans);
+    }
+
+    .music-playlist-item:last-child { border-bottom: none; }
+
+    .music-playlist-item.active {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .music-playlist-item:hover { opacity: 0.8; }
+
+    .music-playlist-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Floating music pulse (bottom-left, no blocking) */
+    .music-float {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(18,15,12,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: white;
+      padding: 0.6rem 1rem 0.6rem 0.75rem;
+      border-radius: 50px;
+      z-index: 998;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      transition: all 0.3s var(--ease);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .music-float.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .music-float:hover {
+      background: rgba(30,25,20,0.95);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+    }
+
+    .music-float-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6b4c34);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .music-float.playing .music-float-dot {
+      animation: pulseDot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .music-float-text { color: rgba(255,255,255,0.7); }
+    .music-float-playing { color: rgba(255,255,255,0.35); font-size: 0.65rem; }
+
+    /* Fade-up animation */
     .fade-up {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
-    
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
     /* Responsive */
     @media (max-width: 768px) {
       header { padding: 1rem 1.5rem; }
-      .hero h1 { font-size: 2.5rem; }
-      .section { padding: 3rem 1.5rem; }
-      .page-title h1 { font-size: 1.8rem; }
-      .modal-header { padding: 1.5rem; }
+      header::after { left: 1.5rem; right: 1.5rem; }
+      nav { gap: 1.5rem; }
+      .section { padding: 4rem 1.5rem; }
+      .modal-header { padding: 1.3rem 1.5rem; }
       .modal-body { padding: 1.5rem; }
-      .music-player { bottom: 1rem; right: 1rem; }
-      .lightbox-nav { width: 45px; height: 45px; font-size: 1.8rem; }
+      .music-player { bottom: 1.2rem; right: 1.2rem; }
+      .music-float { bottom: 1.2rem; left: 1.2rem; }
+      .lightbox-nav { width: 44px; height: 44px; font-size: 1.6rem; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="autoplay-hint" id="autoplayHint" onclick="this.classList.remove('show'); document.getElementById('bgMusic').play();">
-    <h3>🎵 点击任意处播放音乐</h3>
-    <p>浏览器限制，需要您的互动</p>
-  </div>
-
   <header>
-    <a href="#hero" class="logo">向天游的随笔</a>
+    <a href="#hero" class="logo">向天游</a>
     <nav>
-      <a href="#posts">首页</a>
+      <a href="#posts">随笔</a>
       <a href="#gallery">摄影</a>
       <a href="#about">关于</a>
     </nav>
@@ -681,8 +1108,13 @@
 
   <div class="hero" id="hero">
     <div>
-      <h1>向天游的随笔</h1>
+      <div class="hero-eyebrow">Xiang Tianyou</div>
+      <h1>向<em>天</em>游</h1>
       <p>记录诗歌、摄影与路上的风景</p>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>向下</span>
     </div>
   </div>
 
@@ -691,22 +1123,25 @@
     <div class="posts-grid">
       <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openCardModal('essay')">
         <div class="card-overlay">
+          <div class="card-num">01</div>
           <div class="card-title">随笔</div>
-          <div class="card-subtitle"> thoughts &amp; reflections</div>
+          <div class="card-subtitle">thoughts &amp; reflections</div>
         </div>
       </div>
 
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openCardModal('travel')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg'); transition-delay: 0.1s" onclick="openCardModal('travel')">
         <div class="card-overlay">
+          <div class="card-num">02</div>
           <div class="card-title">旅行见闻</div>
-          <div class="card-subtitle"> on the road</div>
+          <div class="card-subtitle">on the road</div>
         </div>
       </div>
 
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg'); transition-delay: 0.2s" onclick="openCardModal('poems')">
         <div class="card-overlay">
+          <div class="card-num">03</div>
           <div class="card-title">诗？</div>
-          <div class="card-subtitle"> poems &amp; verses</div>
+          <div class="card-subtitle">poems &amp; verses</div>
         </div>
       </div>
     </div>
@@ -714,11 +1149,12 @@
 
   <hr class="section-divider">
 
-  <!-- GALLERY / ALBUMS -->
+  <!-- GALLERY -->
   <div class="section" id="gallery">
-    <div class="page-title">
-      <h1>我眼中的世界</h1>
-      <p>MY WORLD</p>
+    <div class="section-eyebrow">Gallery</div>
+    <div class="section-title">
+      <h2>我眼中的世界</h2>
+      <p>MY WORLD IN FRAMES</p>
     </div>
     <div class="album-grid" id="album-grid"></div>
   </div>
@@ -727,6 +1163,10 @@
 
   <!-- ABOUT -->
   <div class="about-section" id="about">
+    <div class="section-eyebrow">About</div>
+    <div class="section-title">
+      <h2>关于</h2>
+    </div>
     <div class="about-inner">
       <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" loading="lazy">
       <div>
@@ -747,27 +1187,49 @@
   <footer>
     <div>
       <ul>
-        <li><a href="#posts">首页</a></li>
+        <li><a href="#posts">随笔</a></li>
         <li><a href="#gallery">摄影</a></li>
         <li><a href="#about">关于</a></li>
         <li><a href="mailto:hello@example.com">联系</a></li>
       </ul>
-      <p>© 2026 向天游的随笔 · 记录生活</p>
+      <p>© 2026 向天游 · 记录生活</p>
     </div>
   </footer>
 
   <!-- MUSIC PLAYER -->
   <div class="music-player" id="musicPlayer" onclick="togglePlayer()">
-    <div class="music-controls">
-      <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
-      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
-      <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
-    </div>
-    <div class="music-info">
-      <div class="music-title" id="musicTitle">旅行的意义（吉他独奏）</div>
-      <div class="music-progress">
-        <div class="music-progress-bar" id="musicProgress"></div>
+    <div class="music-top">
+      <div class="music-cover" id="musicCover">♪</div>
+      <div class="music-mini-info">
+        <div class="music-mini-title" id="musicMiniTitle">海芋恋（live版）</div>
+        <div class="music-mini-sub" id="musicMiniSub">点击展开</div>
       </div>
+      <div class="music-expand-icon">⌄</div>
+    </div>
+    <div class="music-divider"></div>
+    <div class="music-expanded-panel">
+      <div class="music-expanded-inner">
+        <div class="music-expanded-title" id="musicExpTitle">海芋恋（live版）</div>
+        <div class="music-expanded-sub" id="musicExpSub">向天游</div>
+        <div class="music-progress">
+          <div class="music-progress-bar" id="musicProgress"></div>
+        </div>
+        <div class="music-controls">
+          <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
+          <button class="music-btn music-btn-play" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
+          <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
+        </div>
+      </div>
+      <div class="music-playlist" id="musicPlaylist"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING MUSIC INDICATOR -->
+  <div class="music-float" id="musicFloat" onclick="document.getElementById('musicPlayer').scrollIntoView({behavior:'smooth'});">
+    <div class="music-float-dot" id="musicFloatDot">♪</div>
+    <div>
+      <div class="music-float-text" id="musicFloatText">海芋恋（live版）</div>
+      <div class="music-float-playing" id="musicFloatPlaying">点击展开</div>
     </div>
   </div>
 
@@ -797,15 +1259,15 @@
 
   <script>
     // ==================== DATA ====================
-    
-    // MUSIC
+
+    // MUSIC — new order: 海芋恋 → 旅行的意义 → 太聪明
     const MUSIC_PREFIX = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music/';
     const playlist = [
-      { name: '旅行的意义（吉他独奏）', url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3') },
       { name: '海芋恋（live版）', url: MUSIC_PREFIX + encodeURIComponent('2海芋恋（live版）.mp3') },
+      { name: '旅行的意义（吉他独奏）', url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3') },
       { name: '爵士吉他独奏', url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3') }
     ];
-    
+
     // POEMS (7首)
     const poems = [
       { title: '风', date: '2026.4.10', body: `今晚 江边的风好大\n大到它会帮我擦干眼泪\n大到手中的烟我抽一半\n它抽一半` },
@@ -816,23 +1278,23 @@
       { title: '爱', date: '2026.5.23', body: `热恋与厌倦交替\n投入与敷衍交替\n时而上头\n时而嫌弃` },
       { title: '雨未停', date: '2026.6.18', body: `四月十号\n我为青春举办了一场\n迟到了十个月的葬礼\n那天下起的大雨\n直到今天\n仍未停` }
     ];
-    
-    // ESSAYS — grouped by category
+
+    // ESSAYS
     const essayCategories = [
       {
         id: 'childhood',
         title: '童年篇',
         articles: [
-          { 
-            title: '老大', 
+          {
+            title: '老大',
             body: `那是个满大街都流行播放着"凤凰传奇"的年代，那时我还在福田读小学，认拜了一个所谓的"老大"。
 
 他是福建人，皮肤黝黑，声音沙哑，口音奇怪，老喜欢吹牛说自己加入了动画片"侠岚"里面的一个组织。他是那种爱显摆的吹牛大王，只是除了我，没人会在意他。
 
 他很珍惜我的崇拜，所以教我后空翻，教我画龙。我觉得后来喜欢上画画也是因为他。`
           },
-          { 
-            title: '欧阳海已', 
+          {
+            title: '欧阳海已',
             body: `玩的最好的兄弟叫欧阳海已，这么多年还记得他名字，也是因为第一次知道名字原来还有四个字的。
 
 他皮肤也很黑，但是长得很端正，是那种你一看到他就知道他很好相处的乖孩子。他经常对我笑，我也心照不宣，默契回应他不怀好意的坏笑。
@@ -841,8 +1303,8 @@
 
 对待我像是她的第二个孩子般，她给到我那段时间父母对我缺失的爱，以至于我在往后的人生中每遇到像她妈妈这种类型的人都会天然产生好感。`
           },
-          { 
-            title: '女顽童', 
+          {
+            title: '女顽童',
             body: `她很特别，自认为自己是男孩，打扮中性，留着短发，平时也不跟女生玩，只喜欢跟男孩们闹，像是有多动症，比班里最顽皮的男孩还要再疯癫十倍！
 
 我跟她几乎没有过交集，只记得她被叫过几次家长了。她妈妈看起来像是夜市街边的摊主，胖胖的背着个挎包，声音粗、嗓门大，不留情面地指责她。但女顽童很叛逆，一点都不在乎。
@@ -851,16 +1313,16 @@
 
 虽然大家都没提，班里的气氛还是变得有点怪怪的，小孩们不会表达复杂情绪，只是不习惯那个平时最吵闹的人已经不在了。`
           },
-          { 
-            title: '薄嘴唇猴阿志', 
+          {
+            title: '薄嘴唇猴阿志',
             body: `我习惯叫他阿志，他是那种活泼、调皮、机灵的中二病小孩，长着薄嘴唇，发际线很靠后。因为他爬树很厉害，所以在我印象里他像只薄嘴唇的猴子。
 
 平时也是跟他出去玩的最多。周末我们几个小朋友一起约在公园玩，因为公园里有运动的器械，还有舞狮表演的踏台柱子，最喜欢爬跳上去玩，也不用担心安全问题，因为下面有很厚的军绿色沙袋。
 
 有一次夏天晚上我们在公园里爬树，看到一对情侣坐在我们树下的石板凳上，做出不雅行为。年轻尚小的我哪里懂这些，当时只是觉得很奇怪。全能的阿志则跟我"科普知识"，虽然现在看来，很多都是他自己脑补出来的，简直是漏洞百出！`
           },
-          { 
-            title: '彤 · 未送出的礼物', 
+          {
+            title: '彤 · 未送出的礼物',
             body: `对她的印象，像是青苹果般带着我初次暗恋的悸动。她的全名我已经忘记了，只记得最后一个字叫彤。
 
 印象里的她经常穿着酒红色羽绒服，脸长得有点混血小孩，皮肤很白。因为她也有点腼腆孤僻，平时也不太爱说话，在班里朋友并不多，是那种典型的乖乖女。
@@ -971,11 +1433,11 @@
         articles: []
       }
     ];
-    
-    // TRAVEL (1篇)
+
+    // TRAVEL
     const travels = [
-      { 
-        title: '苏州回三水的高铁上', 
+      {
+        title: '苏州回三水的高铁上',
         date: '2026.6.22',
         body: `从苏州回三水的路上，高铁隔壁座是一对30岁左右的年轻夫妇，带着一个两岁大的小女孩。
 
@@ -992,8 +1454,8 @@
 那一刻忽然有几丝哀伤，才发觉自己已经不是一个学生挺久了，暑假当然也就不属于我。停顿了几秒，我转过头回答道：家。`
       }
     ];
-    
-    // XINJIANG ALBUM (54 photos)
+
+    // XINJIANG
     const xinjiangPhotos = [
       '微信图片_20260625125511_26_6.jpg',
       'IMG_20240928_001246_看图王.jpg',
@@ -1049,7 +1511,7 @@
       'Z30_6472_看图王.jpg',
       'Z30_6487_看图王.jpg'
     ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent(f));
-    
+
     const albums = [
       { id: 'xinjiang', title: '新疆', subtitle: '', cover: xinjiangPhotos[0], photos: xinjiangPhotos },
       { id: 'chuanxi', title: '川西', subtitle: '分手航班', cover: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/' + encodeURIComponent('DSC_3770_看图王.jpg'), photos: [
@@ -1099,348 +1561,324 @@
       { id: 'album5', title: '待更新', subtitle: '', cover: '', photos: [] },
       { id: 'album6', title: '待更新', subtitle: '', cover: '', photos: [] }
     ];
-    
+
     // ==================== MODAL STATE ====================
-    let modalStack = []; // Stack for 3-level navigation
+    let modalStack = [];
     let currentAlbumPhotos = [];
     let currentPhotoIndex = 0;
-    
+
     // ==================== MUSIC PLAYER ====================
     let currentSong = 0;
     let isPlaying = false;
     const audio = document.getElementById('bgMusic');
     const playBtn = document.getElementById('playBtn');
-    const musicTitle = document.getElementById('musicTitle');
     const musicProgress = document.getElementById('musicProgress');
     const musicPlayer = document.getElementById('musicPlayer');
-    
+    const musicFloat = document.getElementById('musicFloat');
+
+    // Initial load
     audio.src = playlist[currentSong].url;
-    musicTitle.textContent = playlist[currentSong].name;
-    
+    updateMusicUI();
+
+    // Render playlist in player
+    renderPlaylist();
+
+    function updateMusicUI() {
+      const song = playlist[currentSong];
+      document.getElementById('musicMiniTitle').textContent = song.name;
+      document.getElementById('musicMiniSub').textContent = isPlaying ? '播放中' : '已暂停';
+      document.getElementById('musicExpTitle').textContent = song.name;
+      document.getElementById('musicExpSub').textContent = '向天游';
+      document.getElementById('musicFloatText').textContent = song.name;
+      document.getElementById('musicFloatPlaying').textContent = isPlaying ? '♪ 播放中' : '已暂停';
+      document.getElementById('playBtn').textContent = isPlaying ? '⏸' : '▶';
+      playBtn.textContent = isPlaying ? '⏸' : '▶';
+      if (isPlaying) {
+        musicPlayer.classList.add('music-playing');
+        musicFloat.classList.add('playing');
+      } else {
+        musicPlayer.classList.remove('music-playing');
+        musicFloat.classList.remove('playing');
+      }
+      // Update playlist highlight
+      document.querySelectorAll('.music-playlist-item').forEach(function(el, i) {
+        el.classList.toggle('active', i === currentSong);
+      });
+    }
+
+    function renderPlaylist() {
+      var container = document.getElementById('musicPlaylist');
+      container.innerHTML = playlist.map(function(s, i) {
+        return '<div class="music-playlist-item' + (i === currentSong ? ' active' : '') + '" onclick="jumpToSong(' + i + ')"><div class="music-playlist-dot"></div>' + s.name + '</div>';
+      }).join('');
+    }
+
+    function jumpToSong(idx) {
+      currentSong = idx;
+      audio.src = playlist[currentSong].url;
+      updateMusicUI();
+      renderPlaylist();
+      if (isPlaying) audio.play();
+    }
+
     function togglePlay() {
       if (isPlaying) {
         audio.pause();
-        playBtn.textContent = '▶';
       } else {
-        audio.play().then(() => { playBtn.textContent = '⏸'; }).catch(() => {});
-        playBtn.textContent = '⏸';
+        audio.play().catch(function() {});
       }
       isPlaying = !isPlaying;
+      updateMusicUI();
     }
-    
+
     function nextSong() {
       currentSong = (currentSong + 1) % playlist.length;
       audio.src = playlist[currentSong].url;
-      musicTitle.textContent = playlist[currentSong].name;
+      updateMusicUI();
+      renderPlaylist();
       if (isPlaying) audio.play();
     }
-    
+
     function prevSong() {
       currentSong = (currentSong - 1 + playlist.length) % playlist.length;
       audio.src = playlist[currentSong].url;
-      musicTitle.textContent = playlist[currentSong].name;
+      updateMusicUI();
+      renderPlaylist();
       if (isPlaying) audio.play();
     }
-    
-    function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
-    
+
+    function togglePlayer() {
+      musicPlayer.classList.toggle('expanded');
+    }
+
     audio.addEventListener('ended', nextSong);
-    audio.addEventListener('timeupdate', () => {
+    audio.addEventListener('timeupdate', function() {
       if (audio.duration) musicProgress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
     });
-    
-    window.addEventListener('load', () => {
-      audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; }).catch(() => {
-        document.getElementById('autoplayHint').classList.add('show');
-        document.addEventListener('click', function initMusic() {
-          audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; document.getElementById('autoplayHint').classList.remove('show'); }).catch(() => {});
-          document.removeEventListener('click', initMusic);
-        }, { once: true });
+
+    // Auto-play on load, non-blocking
+    window.addEventListener('load', function() {
+      audio.play().then(function() {
+        isPlaying = true;
+        updateMusicUI();
+        musicFloat.classList.add('show');
+      }).catch(function() {
+        // Silently fail — user interacts via player button instead
       });
     });
-    
+
     // ==================== RENDER ALBUMS ====================
-    const albumGrid = document.getElementById('album-grid');
-    albums.forEach((album, index) => {
-      const card = document.createElement('div');
+    var albumGrid = document.getElementById('album-grid');
+    albums.forEach(function(album, index) {
+      var card = document.createElement('div');
       card.className = 'album-card fade-up';
-      card.style.transitionDelay = `${(index % 3) * 0.1}s`;
+      card.style.transitionDelay = ((index % 3) * 0.1) + 's';
       if (album.cover) {
-        card.style.backgroundImage = `url('${album.cover}')`;
-        const subtitleHtml = album.subtitle ? `<div class="album-subtitle">${album.subtitle}</div>` : '';
-        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div>${subtitleHtml}<div class="album-count">${album.photos.length} 张照片</div></div>`;
-        card.onclick = () => openAlbumModal(album.id);
+        card.style.backgroundImage = "url('" + album.cover + "')";
+        var subtitleHtml = album.subtitle ? '<div class="album-subtitle">' + album.subtitle + '</div>' : '';
+        card.innerHTML = '<div class="album-overlay"><div class="album-title">' + album.title + '</div>' + subtitleHtml + '<div class="album-count">' + album.photos.length + ' 张照片</div></div>';
+        card.onclick = function() { openAlbumModal(album.id); };
       } else {
-        card.style.background = '#e0e0e0';
-        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">即将更新</div></div>`;
+        card.classList.add('album-card-placeholder');
+        card.innerHTML = '<div class="album-overlay"><div class="album-title">' + album.title + '</div><div class="album-count">即将更新</div></div>';
       }
       albumGrid.appendChild(card);
     });
-    
+
     // ==================== 4-LEVEL MODAL NAVIGATION ====================
-    
-    // Level 1: Open card (essay/travel/poems) → shows type list or category list
+
     function openCardModal(type) {
-      modalStack = [{ type, index: -1 }];
+      modalStack = [{ type: type, index: -1 }];
       updateModalView();
     }
-    
-    // Open album → shows photos grid
+
     function openAlbumModal(albumId) {
-      const album = albums.find(a => a.id === albumId);
+      var album = albums.find(function(a) { return a.id === albumId; });
       if (!album || album.photos.length === 0) return;
-      
       currentAlbumPhotos = album.photos;
-      modalStack = [{ type: 'album', albumId, index: -1 }];
+      modalStack = [{ type: 'album', albumId: albumId, index: -1 }];
       updateModalView();
     }
-    
-    // Level 2/3: Click category or article → shows sub-list or content
+
     function openCategory(catIndex) {
-      modalStack.push({ type: 'essayCategory', catIndex, index: -1 });
+      var cat = essayCategories[catIndex];
+      if (!cat) return;
+      modalStack.push({ type: 'category', catIndex: catIndex, index: -1 });
       updateModalView();
     }
-    
-    // Level 3/4: Click item in list → shows content
-    function openContent(type, index) {
-      modalStack.push({ type, index });
+
+    function openArticle(catIndex, artIndex) {
+      modalStack.push({ type: 'article', catIndex: catIndex, artIndex: artIndex });
       updateModalView();
     }
-    
-    // Go back one level
+
+    function openTravel(artIndex) {
+      modalStack.push({ type: 'travel', artIndex: artIndex });
+      updateModalView();
+    }
+
     function modalGoBack() {
-      if (modalStack.length > 1) {
-        modalStack.pop();
-        updateModalView();
-      }
+      if (modalStack.length <= 1) { closeModal(); return; }
+      modalStack.pop();
+      updateModalView();
     }
-    
-    // Update modal content based on stack
+
     function updateModalView() {
-      const modal = document.getElementById('cardModal');
-      const title = document.getElementById('modalTitle');
-      const body = document.getElementById('modalBody');
-      const backBtn = document.getElementById('modalBack');
-      
-      const current = modalStack[modalStack.length - 1];
-      
-      // Show/hide back button
+      var state = modalStack[modalStack.length - 1];
+      var modal = document.getElementById('cardModal');
+      var title = document.getElementById('modalTitle');
+      var body = document.getElementById('modalBody');
+      var backBtn = document.getElementById('modalBack');
+
       backBtn.style.visibility = modalStack.length > 1 ? 'visible' : 'hidden';
-      
-      if (current.type === 'essay') {
-        if (current.index === -1) {
-          // Level 2: Show essay categories (童年篇 / 初恋篇 / 所思所想)
+
+      if (state.type === 'essay' || state.type === 'travel' || state.type === 'poems') {
+        if (state.type === 'essay') {
           title.textContent = '随笔';
-          body.innerHTML = `<div class="article-list">${essayCategories.map((cat, i) => `
-            <div class="article-item" onclick="openCategory(${i})">
-              <div>
-                <div class="title">${cat.title}</div>
-                <div class="meta">${cat.articles.length} 篇</div>
-              </div>
-              <div class="arrow">→</div>
-            </div>
-          `).join('')}</div>`;
-        }
-      } else if (current.type === 'essayCategory') {
-        const cat = essayCategories[current.catIndex];
-        if (current.index === -1) {
-          // Level 3: Show article list for this category
-          if (cat.articles.length === 0) {
-            title.textContent = cat.title;
-            body.innerHTML = `<div style="text-align:center;padding:3rem 0;color:rgba(255,255,255,0.4);font-size:1.1rem;">暂无内容，待更新</div>`;
-          } else {
-            title.textContent = cat.title;
-            body.innerHTML = `<div class="article-list">${cat.articles.map((e, i) => `
-              <div class="article-item" onclick="openEssayArticle(${current.catIndex}, ${i})">
-                <div><div class="title">${e.title}</div></div>
-                <div class="arrow">→</div>
-              </div>
-            `).join('')}</div>`;
-          }
-        }
-      } else if (current.type === 'essayArticle') {
-        // Level 4: Show essay content
-        const cat = essayCategories[current.catIndex];
-        const essay = cat.articles[current.index];
-        title.textContent = essay.title;
-        body.innerHTML = `
-          <div class="content-header">
-            <div class="content-title">${essay.title}</div>
-          </div>
-          <div class="content-body">${essay.body}</div>
-          <div class="content-nav">
-            <button onclick="prevEssayArticle(${current.catIndex}, ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
-            <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${cat.articles.length}</span>
-            <button onclick="nextEssayArticle(${current.catIndex}, ${current.index})" ${current.index === cat.articles.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
-          </div>
-        `;
-      } else if (current.type === 'travel') {
-        if (current.index === -1) {
-          // Level 2: Show travel list
+          var html = '<div class="article-list">';
+          essayCategories.forEach(function(cat, ci) {
+            if (cat.articles.length > 0) {
+              html += '<div class="article-item" onclick="openCategory(' + ci + ')">';
+              html += '<span class="title">' + cat.title + '</span>';
+              html += '<span class="meta">' + cat.articles.length + ' 篇</span>';
+              html += '<span class="arrow">→</span></div>';
+            }
+          });
+          html += '</div>';
+          body.innerHTML = html;
+        } else if (state.type === 'travel') {
           title.textContent = '旅行见闻';
-          body.innerHTML = `<div class="article-list">${travels.map((t, i) => `
-            <div class="article-item" onclick="openContent('travel', ${i})">
-              <div><div class="title">${t.title}</div><div class="meta">${t.date}</div></div>
-              <div class="arrow">→</div>
-            </div>
-          `).join('')}</div>`;
+          body.innerHTML = '<div class="article-list">' + travels.map(function(t, i) {
+            var meta = t.date ? t.date : '';
+            return '<div class="article-item" onclick="openTravel(' + i + ')">' +
+              '<span class="title">' + t.title + '</span>' +
+              '<span class="meta">' + meta + '</span>' +
+              '<span class="arrow">→</span></div>';
+          }).join('') + '</div>';
         } else {
-          // Level 3: Show travel content
-          const travel = travels[current.index];
-          title.textContent = travel.title;
-          body.innerHTML = `
-            <div class="content-header">
-              <div class="content-meta">${travel.date}</div>
-            </div>
-            <div class="content-body">${travel.body}</div>
-            <div class="content-nav">
-              <button disabled style="opacity:0.3">← 上一篇</button>
-              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">1 / 1</span>
-              <button disabled style="opacity:0.3">下一篇 →</button>
-            </div>
-          `;
-        }
-      } else if (current.type === 'poems') {
-        if (current.index === -1) {
-          // Level 2: Show poem list
           title.textContent = '诗？';
-          body.innerHTML = `<div class="article-list">${poems.map((p, i) => `
-            <div class="article-item" onclick="openContent('poems', ${i})">
-              <div><div class="title">${p.title}</div><div class="meta">${p.date}</div></div>
-              <div class="arrow">→</div>
-            </div>
-          `).join('')}</div>`;
-        } else {
-          // Level 3: Show poem content
-          const poem = poems[current.index];
-          title.textContent = poem.title;
-          body.innerHTML = `
-            <div class="content-header">
-              <div class="content-meta">${poem.date}</div>
-            </div>
-            <div class="content-body">${poem.body}</div>
-            <div class="content-nav">
-              <button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一首</button>
-              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span>
-              <button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一首 →</button>
-            </div>
-          `;
+          body.innerHTML = '<div class="article-list">' + poems.map(function(p, i) {
+            var meta = p.date ? p.date : '';
+            return '<div class="article-item" onclick="openPoem(' + i + ')">' +
+              '<span class="title">' + p.title + '</span>' +
+              '<span class="meta">' + meta + '</span>' +
+              '<span class="arrow">→</span></div>';
+          }).join('') + '</div>';
         }
-      } else if (current.type === 'album') {
-        // Level 2: Show photos grid
-        title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
-        body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
-          <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${photo}" alt="照片 ${i + 1}" loading="lazy">
-          </div>
-        `).join('')}</div>`;
+      } else if (state.type === 'category') {
+        var cat = essayCategories[state.catIndex];
+        title.textContent = cat.title;
+        body.innerHTML = '<div class="article-list">' + cat.articles.map(function(a, i) {
+          var artDate = a.date ? a.date : '';
+          return '<div class="article-item" onclick="openArticle(' + state.catIndex + ',' + i + ')">' +
+            '<span class="title">' + a.title + '</span>' +
+            '<span class="meta">' + artDate + '</span>' +
+            '<span class="arrow">→</span></div>';
+        }).join('') + '</div>';
+      } else if (state.type === 'article') {
+        var cat = essayCategories[state.catIndex];
+        var art = cat.articles[state.artIndex];
+        title.textContent = art.title;
+        var artDate = art.date ? art.date : '';
+        var prevArt = state.artIndex > 0 ? cat.articles[state.artIndex - 1] : null;
+        var nextArt = state.artIndex < cat.articles.length - 1 ? cat.articles[state.artIndex + 1] : null;
+        var navHtml = '<div class="content-nav">' +
+          '<button ' + (prevArt ? 'onclick="openArticle(' + state.catIndex + ',' + (state.artIndex - 1) + ')"' : 'disabled') + '>← 上一篇</button>' +
+          '<button ' + (nextArt ? 'onclick="openArticle(' + state.catIndex + ',' + (state.artIndex + 1) + ')"' : 'disabled') + '>下一篇 →</button></div>';
+        body.innerHTML = '<div class="content-header"><div class="content-title">' + art.title + '</div>' +
+          (artDate ? '<div class="content-meta">' + artDate + '</div>' : '') + '</div>' +
+          '<div class="content-body">' + art.body + '</div>' + navHtml;
+      } else if (state.type === 'travel') {
+        var t = travels[state.artIndex];
+        title.textContent = t.title;
+        var tDate = t.date ? t.date : '';
+        body.innerHTML = '<div class="content-header"><div class="content-title">' + t.title + '</div>' +
+          (tDate ? '<div class="content-meta">' + tDate + '</div>' : '') + '</div>' +
+          '<div class="content-body">' + t.body + '</div>';
+      } else if (state.type === 'poem') {
+        var p = poems[state.index];
+        title.textContent = p.title;
+        var pDate = p.date ? p.date : '';
+        var prevP = state.index > 0 ? poems[state.index - 1] : null;
+        var nextP = state.index < poems.length - 1 ? poems[state.index + 1] : null;
+        var pNavHtml = '<div class="content-nav">' +
+          '<button ' + (prevP ? 'onclick="openPoem(' + (state.index - 1) + ')"' : 'disabled') + '>← 上一篇</button>' +
+          '<button ' + (nextP ? 'onclick="openPoem(' + (state.index + 1) + ')"' : 'disabled') + '>下一篇 →</button></div>';
+        body.innerHTML = '<div class="content-header"><div class="content-title">' + p.title + '</div>' +
+          (pDate ? '<div class="content-meta">' + pDate + '</div>' : '') + '</div>' +
+          '<div class="content-body">' + p.body + '</div>' + pNavHtml;
+      } else if (state.type === 'album') {
+        var album = albums.find(function(a) { return a.id === state.albumId; });
+        title.textContent = album.title + (album.subtitle ? ' · ' + album.subtitle : '');
+        body.innerHTML = '<div class="album-photos-grid">' + currentAlbumPhotos.map(function(src, i) {
+          return '<div class="album-photo-item" onclick="openLightbox(' + i + ')"><img src="' + src + '" alt="" loading="lazy"></div>';
+        }).join('') + '</div>';
       }
-      
+
       modal.classList.add('active');
+      modal.scrollTop = 0;
       document.body.style.overflow = 'hidden';
     }
-    
-    // Navigation between content items
-    function nextContent(type, currentIndex) {
-      const items = type === 'poems' ? poems : travels;
-      if (currentIndex < items.length - 1) {
-        modalStack[modalStack.length - 1].index = currentIndex + 1;
-        updateModalView();
-      }
-    }
-    
-    function prevContent(type, currentIndex) {
-      if (currentIndex > 0) {
-        modalStack[modalStack.length - 1].index = currentIndex - 1;
-        updateModalView();
-      }
-    }
-    
-    // Essay article navigation (within a category)
-    function openEssayArticle(catIndex, artIndex) {
-      modalStack.push({ type: 'essayArticle', catIndex, index: artIndex });
+
+    function openPoem(index) {
+      modalStack.push({ type: 'poem', index: index });
       updateModalView();
     }
-    
-    function nextEssayArticle(catIndex, currentIndex) {
-      const cat = essayCategories[catIndex];
-      if (currentIndex < cat.articles.length - 1) {
-        modalStack[modalStack.length - 1].index = currentIndex + 1;
-        updateModalView();
-      }
-    }
-    
-    function prevEssayArticle(catIndex, currentIndex) {
-      if (currentIndex > 0) {
-        modalStack[modalStack.length - 1].index = currentIndex - 1;
-        updateModalView();
-      }
-    }
-    
+
     function closeModal() {
-      const modal = document.getElementById('cardModal');
-      modal.classList.remove('active');
+      document.getElementById('cardModal').classList.remove('active');
       document.body.style.overflow = '';
       modalStack = [];
     }
-    
+
     // ==================== LIGHTBOX ====================
+
     function openLightbox(index) {
       currentPhotoIndex = index;
-      const lb = document.getElementById('lightbox');
-      const img = document.getElementById('lightboxImg');
-      const counter = document.getElementById('lightboxCounter');
-      
-      img.src = currentAlbumPhotos[index];
-      counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
-      lb.classList.add('active');
+      var lightbox = document.getElementById('lightbox');
+      document.getElementById('lightboxImg').src = currentAlbumPhotos[index];
+      document.getElementById('lightboxCounter').textContent = (index + 1) + ' / ' + currentAlbumPhotos.length;
+      lightbox.classList.add('active');
     }
-    
+
     function closeLightbox() {
       document.getElementById('lightbox').classList.remove('active');
     }
-    
+
     function changePhoto(dir) {
       currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
       document.getElementById('lightboxImg').src = currentAlbumPhotos[currentPhotoIndex];
-      document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+      document.getElementById('lightboxCounter').textContent = (currentPhotoIndex + 1) + ' / ' + currentAlbumPhotos.length;
     }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      // Lightbox keyboard nav
+
+    document.addEventListener('keydown', function(e) {
       if (document.getElementById('lightbox').classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') changePhoto(-1);
         if (e.key === 'ArrowRight') changePhoto(1);
-        if (e.key === 'Escape') closeLightbox();
-      }
-      // Modal keyboard nav
-      if (document.getElementById('cardModal').classList.contains('active')) {
-        if (e.key === 'Escape') closeModal();
       }
     });
-    
-    // ==================== ANIMATIONS ====================
-    const fadeElements = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
+
+    // Close modal on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('cardModal').classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // ==================== FADE-UP ON SCROLL ====================
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          setTimeout(() => { entry.target.classList.add('visible'); }, index * 100);
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
-    fadeElements.forEach(el => observer.observe(el));
-    
-    // Smooth scroll
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
     });
   </script>
-
 </body>
 </html>
