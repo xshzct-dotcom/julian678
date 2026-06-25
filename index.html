@@ -134,18 +134,31 @@
 
     /* GALLERY */
     .photo-gallery { padding: 40px 0; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-    .gallery-item { position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: pointer; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-item .gallery-overlay {
-      position: absolute; inset: 0; background: rgba(0,0,0,0);
-      display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;
+    .album-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .album-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .album-grid { grid-template-columns: 1fr; } }
+    .album-card {
+      position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: pointer;
+      background-size: cover; background-position: center;
     }
-    .gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.4); }
-    .gallery-overlay span { color: white; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; opacity: 0; transition: opacity 0.3s ease; }
-    .gallery-item:hover .gallery-overlay span { opacity: 1; }
+    .album-card .album-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.3);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .album-card:hover .album-overlay { background: rgba(0,0,0,0.5); }
+    .album-card .album-title {
+      color: white; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .album-card .album-count {
+      color: rgba(255,255,255,0.8); font-size: 0.8rem; margin-top: 0.5rem;
+    }
+    /* Album photos modal */
+    .album-photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    .album-photo-item { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+    .album-photo-item img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ABOUT */
     .about-section { padding: 50px 0; }
@@ -359,13 +372,13 @@
 
     <hr class="section-divider">
 
-    <!-- GALLERY -->
+    <!-- ALBUMS -->
     <div id="gallery" class="photo-gallery">
       <div class="page-title">
         <h1>旅行的意义</h1>
         <p>TRAVEL</p>
       </div>
-      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="album-grid" id="album-grid"></div>
     </div>
 
     <hr class="section-divider">
@@ -605,28 +618,70 @@
       }
     ];
 
-    const prefix = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/';
-    const galleryData = [
-      { src: prefix + encodeURIComponent('微信图片_20260625125511_26_6.jpg'), title: '新疆' },
-      { src: prefix + encodeURIComponent('IMG_20240928_001246_看图王.jpg'), title: '新疆' },
-      { src: prefix + encodeURIComponent('IMG_20250804_020042_看图王.jpg'), title: '新疆' },
-      { src: prefix + encodeURIComponent('IMG_20250804_233652_看图王.jpg'), title: '新疆' },
-      { src: prefix + encodeURIComponent('IMG_20250805_001615_看图王.jpg'), title: '新疆' },
-      { src: prefix + encodeURIComponent('IMG_20250805_204040_看图王(1).jpg'), title: '新疆' }
+    // ALBUMS DATA
+    const albums = [
+      {
+        id: 'xinjiang',
+        title: '新疆',
+        cover: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent('微信图片_20260625125511_26_6.jpg'),
+        photos: [
+          '微信图片_20260625125511_26_6.jpg',
+          'IMG_20240928_001246_看图王.jpg',
+          'IMG_20250804_020042_看图王.jpg',
+          'IMG_20250804_233652_看图王.jpg',
+          'IMG_20250805_001615_看图王.jpg',
+          'IMG_20250805_204040_看图王(1).jpg'
+        ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent(f))
+      },
+      { id: 'album2', title: '待更新', cover: '', photos: [] },
+      { id: 'album3', title: '待更新', cover: '', photos: [] },
+      { id: 'album4', title: '待更新', cover: '', photos: [] },
+      { id: 'album5', title: '待更新', cover: '', photos: [] },
+      { id: 'album6', title: '待更新', cover: '', photos: [] }
     ];
 
-    // RENDER GALLERY
-    const galleryGrid = document.getElementById('gallery-grid');
-    galleryData.forEach((photo, index) => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.style.transitionDelay = `${(index % 3) * 0.08}s`;
-      item.innerHTML = `
-        <img src="${photo.src}" alt="${photo.title}" loading="lazy">
-        <div class="gallery-overlay"><span>${photo.title}</span></div>
+    // RENDER ALBUMS
+    const albumGrid = document.getElementById('album-grid');
+    albums.forEach((album, index) => {
+      const card = document.createElement('div');
+      card.className = 'album-card fade-up';
+      card.style.transitionDelay = `${(index % 3) * 0.1}s`;
+      if (album.cover) {
+        card.style.backgroundImage = `url('${album.cover}')`;
+      } else {
+        card.style.background = '#e0e0e0';
+      }
+      card.innerHTML = `
+        <div class="album-overlay">
+          <div class="album-title">${album.title}</div>
+          <div class="album-count">${album.photos.length > 0 ? album.photos.length + ' 张照片' : '即将更新'}</div>
+        </div>
       `;
-      galleryGrid.appendChild(item);
+      if (album.photos.length > 0) {
+        card.onclick = () => openAlbumModal(album.id);
+      }
+      albumGrid.appendChild(card);
     });
+
+    // ALBUM MODAL
+    function openAlbumModal(albumId) {
+      const album = albums.find(a => a.id === albumId);
+      if (!album) return;
+      const modal = document.getElementById('cardModal');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      title.textContent = album.title;
+      body.innerHTML = '<div class="album-photos-grid"></div>';
+      const grid = body.querySelector('.album-photos-grid');
+      album.photos.forEach(photo => {
+        const item = document.createElement('div');
+        item.className = 'album-photo-item';
+        item.innerHTML = `<img src="${photo}" alt="${album.title}" loading="lazy">`;
+        grid.appendChild(item);
+      });
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
     // MODAL
     function openCardModal(type) {
