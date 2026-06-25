@@ -464,18 +464,19 @@
     });
 
     // MUSIC PLAYER DATA
+    const MUSIC_PREFIX = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music/';
     const playlist = [
       {
-        name: 'Song 1',
-        url: 'http://m701.music.126.net/20260625020949/840306d59c53691d0ba264b5dd2ac1b0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30008841736/c4a2/bb68/6167/9f05c4506ca6fc6295f21f8cf34c5b0c.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+        name: '旅行的意义（吉他独奏）',
+        url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3')
       },
       {
-        name: 'Song 2',
-        url: 'http://m701.music.126.net/20260625020950/51cedf6e2deb95be41f23d0be71e6168/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30008843041/0803/5bbe/236a/66397e512ee5acd78a7e9dceba86980b.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+        name: '海芋恋',
+        url: MUSIC_PREFIX + encodeURIComponent('2海芋恋）.mp3')
       },
       {
-        name: 'Song 3',
-        url: 'http://m701.music.126.net/20260625020950/ade11ccde12e90174813216f8cc5b7bb/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30978333658/662d/b9c3/cfee/9fa1f08d12fb39ac5310796b7277c714.mp3?cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA'
+        name: '爵士吉他独奏',
+        url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3')
       }
     ];
     let currentTrack = 0;
