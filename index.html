@@ -920,7 +920,6 @@
       'Z30_5295_看图王.jpg',
       'Z30_5308_看图王.jpg',
       'Z30_5347_看图王.jpg',
-      'Z30_5351_看图王.jpg',
       'Z30_5379_看图王.jpg',
       'Z30_5391_看图王.jpg',
       'Z30_5431_看图王.jpg',
@@ -1112,9 +1111,9 @@
             </div>
             <div class="content-body">${essay.body}</div>
             <div class="content-nav">
-              <button onclick="prevContent('essay', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
+              <button onclick="prevContent('essays', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
               <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${essays.length}</span>
-              <button onclick="nextContent('essay', ${current.index})" ${current.index === essays.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
+              <button onclick="nextContent('essays', ${current.index})" ${current.index === essays.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
             </div>
           `;
         }
