@@ -4,33 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>向天游的随笔</title>
-  <meta name="description" content="旅行、摄影与诗歌的随笔记录">
+  <meta name="description" content="记录诗歌、摄影与路上的风景。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
   
   <!-- Preconnect for faster loading -->
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   
   <!-- Fonts -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --bg: #faf9f6;
-      --text: #2c2c2c;
-      --text-light: #666;
+      --black: #111111;
+      --white: #faf9f6;
+      --gray: #888888;
+      --light-gray: #e8e4df;
       --accent: #8b7355;
-      --border: #e8e4df;
-      --font-serif: 'Playfair Display', 'Noto Serif SC', serif;
-      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+      --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --transition: 0.3s ease;
     }
+    
+    html { scroll-behavior: smooth; }
     
     body {
       font-family: var(--font-serif);
-      background: var(--bg);
-      color: var(--text);
+      background: var(--white);
+      color: var(--black);
       line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
@@ -41,33 +45,35 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(250, 249, 246, 0.95);
+      background: rgba(250, 249, 246, 0.98);
       backdrop-filter: blur(10px);
       z-index: 1000;
-      padding: 1.5rem 2rem;
+      padding: 1.2rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--light-gray);
     }
     
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: var(--text);
+      color: var(--black);
       text-decoration: none;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.05em;
     }
+    
+    nav { display: flex; gap: 2rem; }
     
     nav a {
-      margin-left: 2rem;
-      color: var(--text-light);
+      color: var(--gray);
       text-decoration: none;
       font-size: 0.9rem;
-      transition: color 0.3s;
+      transition: color var(--transition);
+      font-family: var(--font-sans);
     }
     
-    nav a:hover { color: var(--text); }
+    nav a:hover { color: var(--black); }
     
     /* Hero */
     .hero {
@@ -76,8 +82,9 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                  url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/hero_bg.jpg') center/cover;
+      background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                  url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600') center/cover no-repeat;
+      background-attachment: fixed;
       color: white;
       margin-top: 0;
     }
@@ -86,89 +93,105 @@
       font-size: 4rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
+      font-family: var(--font-serif);
     }
     
     .hero p {
       font-size: 1.2rem;
       font-style: italic;
       opacity: 0.9;
+      font-family: var(--font-serif);
     }
     
-    /* Main content */
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
+    /* Section */
+    .section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+    
+    .page-title {
+      text-align: center;
+      margin-bottom: 3rem;
     }
     
-    /* Blog posts */
-    .post {
-      margin-bottom: 5rem;
-      animation: fadeIn 0.6s ease;
-    }
-    
-    .post-date {
-      font-size: 0.85rem;
-      color: var(--text-light);
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
+    }
+    
+    .page-title p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--light-gray);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    /* Posts grid */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    @media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
+    
+    .post-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+    
+    .post-card .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(0,0,0,0.7));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: background var(--transition);
+    }
+    
+    .post-card:hover .card-overlay {
+      background: linear-gradient(transparent 30%, rgba(0,0,0,0.8));
+    }
+    
+    .post-card .card-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    
+    .post-card .card-subtitle {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
       font-family: var(--font-sans);
     }
     
-    .post-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-    
-    .post-title a {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    
-    .post-title a:hover { color: var(--accent); }
-    
-    .post-excerpt {
-      color: var(--text-light);
-      margin-bottom: 1.5rem;
-      font-size: 1.05rem;
-    }
-    
-    .post-image {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      border-radius: 4px;
-    }
-    
-    .read-more {
-      display: inline-block;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 2px;
-      transition: opacity 0.3s;
-    }
-    
-    .read-more:hover { opacity: 0.7; }
-    
     /* Album grid */
-    .album-section {
-      margin-top: 6rem;
-      padding-top: 4rem;
-      border-top: 1px solid var(--border);
-    }
-    
     .album-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
+    
+    @media (max-width: 900px) { .album-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .album-grid { grid-template-columns: 1fr; } }
     
     .album-card {
       position: relative;
@@ -187,104 +210,551 @@
     
     .album-card:hover img { transform: scale(1.05); }
     
-    .album-card .overlay {
+    .album-card .album-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.3);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
+      transition: background 0.3s;
     }
     
-    .album-card:hover .overlay { opacity: 1; }
+    .album-card:hover .album-overlay { background: rgba(0,0,0,0.5); }
     
-    .album-card .title {
+    .album-card .album-title {
       color: white;
       font-size: 1.2rem;
       font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
+    
+    .album-card .album-count {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      font-family: var(--font-sans);
+    }
+    
+    /* Album photos grid */
+    .album-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    
+    .album-photo-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    
+    .album-photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      overflow-y: auto;
+    }
+    
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      color: white;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 10;
+    }
+    
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: opacity var(--transition);
+    }
+    
+    .modal-close:hover { opacity: 0.6; }
+    
+    .modal-body {
+      padding: 2rem 3rem;
+      color: white;
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .poem-meta {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      font-family: var(--font-sans);
+    }
+    
+    .poem-body {
+      font-size: 1.1rem;
+      line-height: 2;
+      white-space: pre-line;
+      letter-spacing: 0.02em;
+    }
+    
+    .poem-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .poem-nav button {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+      font-family: var(--font-sans);
+    }
+    
+    .poem-nav button:hover {
+      background: white;
+      color: black;
+    }
+    
+    /* About */
+    .about-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .about-inner {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    
+    @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; text-align: center; } }
+    
+    .about-inner img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
+    .about-inner h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .about-inner p {
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+      line-height: 1.8;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    
+    .social-links a:hover { border-color: var(--accent); }
     
     /* Footer */
     footer {
       text-align: center;
       padding: 4rem 2rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border);
-      margin-top: 6rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--light-gray);
+      margin-top: 4rem;
     }
     
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    footer ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
     }
+    
+    footer a { color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    footer a:hover { color: var(--black); }
+    
+    /* Music player */
+    .music-player {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(17,17,17,0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    
+    .music-player:hover { transform: scale(1.05); }
+    
+    .music-player.expanded { border-radius: 12px; }
+    
+    .music-info { display: none; }
+    .music-player.expanded .music-info { display: block; }
+    
+    .music-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
+    
+    .music-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .music-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      transition: opacity var(--transition);
+    }
+    
+    .music-btn:hover { opacity: 0.6; }
+    
+    .music-progress {
+      width: 150px;
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    
+    .music-progress-bar {
+      height: 100%;
+      background: white;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    /* Fade up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Autoplay hint */
+    .autoplay-hint {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 2rem 3rem;
+      border-radius: 8px;
+      z-index: 3000;
+      text-align: center;
+      cursor: pointer;
+      display: none;
+    }
+    
+    .autoplay-hint.show { display: block; }
+    
+    .autoplay-hint h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .autoplay-hint p { font-size: 0.9rem; opacity: 0.8; }
+    
+    /* Lazy loading */
+    img[loading="lazy"] { opacity: 0; transition: opacity 0.3s; }
+    img[loading="lazy"].loaded { opacity: 1; }
     
     /* Responsive */
     @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
       .hero h1 { font-size: 2.5rem; }
-      main { padding: 2rem 1.5rem; }
-      .post-title { font-size: 1.5rem; }
-      .album-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    
-    @media (max-width: 480px) {
-      .album-grid { grid-template-columns: 1fr; }
+      .section { padding: 3rem 1.5rem; }
+      .page-title h1 { font-size: 1.8rem; }
+      .modal-header { padding: 1.5rem; }
+      .modal-body { padding: 1.5rem; }
+      .music-player { bottom: 1rem; right: 1rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Autoplay hint -->
+  <div class="autoplay-hint" id="autoplayHint" onclick="this.classList.remove('show'); document.getElementById('bgMusic').play();">
+    <h3>🎵 点击任意处播放音乐</h3>
+    <p>浏览器限制，需要您的互动</p>
+  </div>
+
   <header>
-    <a href="#" class="logo">向天游的随笔</a>
+    <a href="#hero" class="logo">向天游的随笔</a>
     <nav>
-      <a href="#posts">随笔</a>
-      <a href="#albums">相册</a>
+      <a href="#posts">首页</a>
+      <a href="#gallery">摄影</a>
       <a href="#about">关于</a>
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero" id="hero">
     <div>
       <h1>向天游的随笔</h1>
-      <p>记录旅行、摄影与诗歌</p>
+      <p>记录诗歌、摄影与路上的风景</p>
     </div>
   </div>
 
-  <main id="posts">
-    <!-- Sample blog post -->
-    <article class="post">
-      <div class="post-date">2026.6.20 · 旅行见闻</div>
-      <h2 class="post-title">
-        <a href="#">苏州回三水的高铁上</a>
-      </h2>
-      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/微信图片_20260625125511_26_6.jpg" 
-           alt="苏州回三水" class="post-image" loading="lazy">
-      <p class="post-excerpt">
-        下午四点多，我坐在从苏州回三水的高铁上。车窗外是大片的绿色田野，阳光斜斜地照进来...
-      </p>
-      <a href="#" class="read-more">继续阅读 →</a>
-    </article>
+  <!-- POSTS -->
+  <div class="section" id="posts">
+    <div class="posts-grid">
+      <!-- Essay card -->
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openModal('essay')">
+        <div class="card-overlay">
+          <div class="card-title">随笔</div>
+          <div class="card-subtitle"> thoughts &amp; reflections</div>
+        </div>
+      </div>
 
-    <!-- More posts would go here -->
-  </main>
+      <!-- Travel card -->
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openModal('travel')">
+        <div class="card-overlay">
+          <div class="card-title">旅行见闻</div>
+          <div class="card-subtitle"> on the road</div>
+        </div>
+      </div>
 
-  <!-- Albums section -->
-  <main class="album-section" id="albums">
-    <h2 style="font-size: 2rem; margin-bottom: 1rem;">旅行的意义</h2>
-    <p style="color: var(--text-light); margin-bottom: 2rem;">记录路上的风景</p>
-    
+      <!-- Poems card -->
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openModal('poems')">
+        <div class="card-overlay">
+          <div class="card-title">诗？</div>
+          <div class="card-subtitle"> poems &amp; verses</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- GALLERY / ALBUMS -->
+  <div class="section" id="gallery">
+    <div class="page-title">
+      <h1>旅行的意义</h1>
+      <p>TRAVEL</p>
+    </div>
     <div class="album-grid" id="album-grid"></div>
-  </main>
+  </div>
 
-  <footer id="about">
-    <p>向天游 · 2002.11 · 旅行者 · 摄影爱好者</p>
-    <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 向天游的随笔</p>
+  <hr class="section-divider">
+
+  <!-- ABOUT -->
+  <div class="about-section" id="about">
+    <div class="about-inner">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" loading="lazy">
+      <div>
+        <h2>向天游</h2>
+        <p>身高170，体重56kg，2002年11月出生。</p>
+        <p>四肢瘦弱，头脑偏大，但里面装的未必是智慧。</p>
+        <p>热爱旅行与音乐，特别对黑人音乐偏爱。会弹一点吉他，算一个爵士乐入门爱好者。摄影也略懂一二。</p>
+        <div class="social-links">
+          <a href="https://weibo.com" target="_blank">微博</a>
+          <a href="https://www.xiaohongshu.com" target="_blank">小红书</a>
+          <a href="mailto:hello@example.com">邮箱</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <ul>
+        <li><a href="#posts">首页</a></li>
+        <li><a href="#gallery">摄影</a></li>
+        <li><a href="#about">关于</a></li>
+        <li><a href="mailto:hello@example.com">联系</a></li>
+      </ul>
+      <p>© 2026 向天游的随笔 · 记录生活</p>
+    </div>
   </footer>
 
+  <!-- MUSIC PLAYER -->
+  <div class="music-player" id="musicPlayer" onclick="togglePlayer()">
+    <div class="music-controls">
+      <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
+      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
+      <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
+    </div>
+    <div class="music-info">
+      <div class="music-title" id="musicTitle">旅行的意义（吉他独奏）</div>
+      <div class="music-progress">
+        <div class="music-progress-bar" id="musicProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" id="cardModal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+
+  <!-- Hidden audio -->
+  <audio id="bgMusic" loop preload="auto"></audio>
+
   <script>
+    // MUSIC PLAYER DATA
+    const MUSIC_PREFIX = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music/';
+    const playlist = [
+      {
+        name: '旅行的意义（吉他独奏）',
+        url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3')
+      },
+      {
+        name: '海芋恋',
+        url: MUSIC_PREFIX + encodeURIComponent('2海芋恋）.mp3')
+      },
+      {
+        name: '爵士吉他独奏',
+        url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3')
+      }
+    ];
+
+    let currentSong = 0;
+    let isPlaying = false;
+    const audio = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const musicTitle = document.getElementById('musicTitle');
+    const musicProgress = document.getElementById('musicProgress');
+    const musicPlayer = document.getElementById('musicPlayer');
+
+    // Load first song
+    audio.src = playlist[currentSong].url;
+    musicTitle.textContent = playlist[currentSong].name;
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        playBtn.textContent = '▶';
+      } else {
+        audio.play().then(() => {
+          playBtn.textContent = '⏸';
+        }).catch(e => {
+          console.log('Play failed:', e);
+        });
+        playBtn.textContent = '⏸';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+      audio.src = playlist[currentSong].url;
+      musicTitle.textContent = playlist[currentSong].name;
+      if (isPlaying) audio.play();
+    }
+
+    function prevSong() {
+      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+      audio.src = playlist[currentSong].url;
+      musicTitle.textContent = playlist[currentSong].name;
+      if (isPlaying) audio.play();
+    }
+
+    function togglePlayer() {
+      musicPlayer.classList.toggle('expanded');
+    }
+
+    // Auto-advance
+    audio.addEventListener('ended', nextSong);
+
+    // Update progress
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        musicProgress.style.width = pct + '%';
+      }
+    });
+
+    // Autoplay on load
+    window.addEventListener('load', () => {
+      audio.play().then(() => {
+        isPlaying = true;
+        playBtn.textContent = '⏸';
+      }).catch(() => {
+        // Show hint
+        document.getElementById('autoplayHint').classList.add('show');
+        // Try again on first click
+        document.addEventListener('click', function initMusic() {
+          audio.play().then(() => {
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+            document.getElementById('autoplayHint').classList.remove('show');
+          }).catch(() => {});
+          document.removeEventListener('click', initMusic);
+        }, { once: true });
+      });
+    });
+
     // ALBUMS DATA
     const albums = [
       {
@@ -294,40 +764,294 @@
         photos: [
           'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/微信图片_20260625125511_26_6.jpg',
           'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20240928_001246_看图王.jpg',
-          'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_020042_看图王.jpg'
+          'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_020042_看图王.jpg',
+          'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_021506_看图王.jpg',
+          'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_233652_看图王.jpg',
+          'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_235221_看图王.jpg'
         ]
-      }
+      },
+      { id: 'album2', title: '待更新', cover: '', photos: [] },
+      { id: 'album3', title: '待更新', cover: '', photos: [] },
+      { id: 'album4', title: '待更新', cover: '', photos: [] },
+      { id: 'album5', title: '待更新', cover: '', photos: [] },
+      { id: 'album6', title: '待更新', cover: '', photos: [] }
     ];
 
-    // Render albums
+    // RENDER ALBUMS
     const albumGrid = document.getElementById('album-grid');
-    albums.forEach(album => {
+    albums.forEach((album, index) => {
       const card = document.createElement('div');
-      card.className = 'album-card';
-      card.innerHTML = `
-        <img src="${album.cover}" alt="${album.title}" loading="lazy">
-        <div class="overlay">
-          <div class="title">${album.title}</div>
-        </div>
-      `;
-      card.onclick = () => alert('Opening album: ' + album.title);
+      card.className = 'album-card fade-up';
+      card.style.transitionDelay = `${(index % 3) * 0.1}s`;
+      if (album.cover) {
+        card.innerHTML = `<img src="${album.cover}" alt="${album.title}" loading="lazy"><div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">${album.photos.length} 张照片</div></div>`;
+        card.onclick = () => openAlbumModal(album.id);
+      } else {
+        card.style.background = '#e0e0e0';
+        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">即将更新</div></div>`;
+      }
       albumGrid.appendChild(card);
     });
 
-    // Lazy loading enhancement
+    // ALBUM MODAL
+    function openAlbumModal(albumId) {
+      const album = albums.find(a => a.id === albumId);
+      if (!album) return;
+      const modal = document.getElementById('cardModal');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      title.textContent = album.title;
+      body.innerHTML = '<div class="album-photos-grid"></div>';
+      const grid = body.querySelector('.album-photos-grid');
+      album.photos.forEach(photo => {
+        const item = document.createElement('div');
+        item.className = 'album-photo-item';
+        item.innerHTML = `<img src="${photo}" alt="${album.title}" loading="lazy">`;
+        grid.appendChild(item);
+      });
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // POEMS DATA
+    const poems = [
+      {
+        title: '风',
+        date: '2026.4.8',
+        body: `那一夜
+我梦见自己变成一阵风
+吹过你的窗前
+你熟睡着
+像婴孩一样安详
+
+我想唤醒你
+却只是轻轻拂过你的脸颊
+你翻了个身
+继续沉睡
+
+原来
+风的心事
+只能说给云听`
+      },
+      {
+        title: '爱',
+        date: '2026.4.15',
+        body: `我爱过你吗
+这个问题
+像一颗糖
+含在嘴里太久
+已经尝不出甜味
+
+也许爱过
+也许没有
+也许只是
+那个秋天的下午
+阳光刚好
+你刚好在`
+
+      },
+      {
+        title: '我爱过你吗',
+        date: '2026.5.20',
+        body: `如果时间是河流
+那么记忆就是河底的石头
+有些被冲走了
+有些还在原地
+
+我还记得你的样子
+在人群中
+像一盏灯
+不会特别亮
+但就是不会灭
+
+我爱过你吗
+这个问题本身
+就是答案`
+      },
+      {
+        title: '哭',
+        date: '2026.5.28',
+        body: `成年人的崩溃
+是从一件小事开始的
+
+可能是便利店关东煮卖完了
+可能是手机电量只剩1%
+可能是深夜回家
+发现钥匙忘带了
+
+然后你蹲在门口
+哭了
+像个孩子一样
+
+不是因为钥匙
+是因为
+你终于可以
+不用假装坚强了`
+      },
+      {
+        title: '罪人',
+        date: '2026.6.8',
+        body: `我们每个人
+都是自己故事里的罪人
+
+我辜负了很多人
+很多人也辜负了我
+这不算账
+因为时间
+是最公平的法官
+
+它不宣判
+只是让一切都过去`
+      },
+      {
+        title: '死亡',
+        date: '2026.6.15',
+        body: `死亡不是终点
+遗忘才是
+
+只要还有人记得你
+你就还活着
+在某个人的记忆里
+继续说话、微笑、呼吸
+
+所以我写下这些诗
+这样即使有一天
+我不在了
+这些文字
+还会替我活着`
+      },
+      {
+        title: '雨未停',
+        date: '2026.6.18',
+        body: `四月十号
+我给青春举办了一场
+迟到十个月的葬礼
+那天下起的暴雨
+直到今天
+仍未停`
+      }
+    ];
+
+    // MODAL
+    let currentPoemIndex = 0;
+
+    function openModal(type) {
+      const modal = document.getElementById('cardModal');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+
+      if (type === 'poems') {
+        currentPoemIndex = 0;
+        showPoem(currentPoemIndex);
+      } else if (type === 'essay') {
+        title.textContent = '随笔';
+        body.innerHTML = `
+          <div style="line-height: 2; font-size: 1.05rem;">
+            <p>有时候我会想，人这一生到底在追求什么。</p>
+            <p style="margin-top: 1.5rem;">是功成名就？还是平凡快乐？</p>
+            <p style="margin-top: 1.5rem;">我觉得都不是。我们只是在寻找一种感觉——那种觉得自己还活着的感觉。</p>
+            <p style="margin-top: 1.5rem;">旅行、音乐、诗歌、摄影，这些都是让我感觉自己还活着的方式。</p>
+            <p style="margin-top: 1.5rem;">也许这就是我写这些文字的原因吧。</p>
+          </div>
+        `;
+      } else if (type === 'travel') {
+        title.textContent = '旅行见闻';
+        body.innerHTML = `
+          <div style="line-height: 2; font-size: 1.05rem;">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">苏州回三水的高铁上</h3>
+            <p>下午四点多，我坐在从苏州回三水的高铁上。</p>
+            <p style="margin-top: 1rem;">车窗外是大片的绿色田野，阳光斜斜地照进来，把对面阿姨的塑料袋照得透亮。</p>
+            <p style="margin-top: 1rem;">我戴上耳机，随机播放了一首爵士吉他。窗外的风景开始变得模糊，像一场来不及记住的梦。</p>
+            <p style="margin-top: 1rem;">那一刻我想，也许旅行的意义不在于去了哪里，而在于你终于有时间想想——自己到底想要什么。</p>
+            <p style="margin-top: 1rem;">答案可能永远不会有，但问这个过程本身，就已经足够美好。</p>
+          </div>
+        `;
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showPoem(index) {
+      const poem = poems[index];
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+
+      title.textContent = poem.title;
+      body.innerHTML = `
+        <div class="poem-meta">${poem.date}</div>
+        <div class="poem-body">${poem.body}</div>
+        <div class="poem-nav">
+          <button onclick="prevPoem()">← 上一首</button>
+          <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">${index + 1} / ${poems.length}</span>
+          <button onclick="nextPoem()">下一首 →</button>
+        </div>
+      `;
+    }
+
+    function nextPoem() {
+      currentPoemIndex = (currentPoemIndex + 1) % poems.length;
+      showPoem(currentPoemIndex);
+    }
+
+    function prevPoem() {
+      currentPoemIndex = (currentPoemIndex - 1 + poems.length) % poems.length;
+      showPoem(currentPoemIndex);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('cardModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // FADE UP ANIMATION
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    // LAZY LOADING
     if ('IntersectionObserver' in window) {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-      const imageObserver = new IntersectionObserver((entries) => {
+      const imgObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.src;
-            imageObserver.unobserve(img);
+            img.classList.add('loaded');
+            imgObserver.unobserve(img);
           }
         });
       });
-      images.forEach(img => imageObserver.observe(img));
+
+      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        imgObserver.observe(img);
+      });
     }
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   </script>
 
 </body>
