@@ -963,12 +963,53 @@
     ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent(f));
     
     const albums = [
-      { id: 'xinjiang', title: '新疆', cover: xinjiangPhotos[0], photos: xinjiangPhotos },
-      { id: 'album2', title: '待更新', cover: '', photos: [] },
-      { id: 'album3', title: '待更新', cover: '', photos: [] },
-      { id: 'album4', title: '待更新', cover: '', photos: [] },
-      { id: 'album5', title: '待更新', cover: '', photos: [] },
-      { id: 'album6', title: '待更新', cover: '', photos: [] }
+      { id: 'xinjiang', title: '新疆', subtitle: '', cover: xinjiangPhotos[0], photos: xinjiangPhotos },
+      { id: 'chuanxi', title: '川西', subtitle: '分手航班', cover: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/' + encodeURIComponent('DSC_3770_看图王.jpg'), photos: [
+        'DSC_3770_看图王.jpg',
+        'DSC_3812_看图王.jpg',
+        'DSC_3814_看图王.jpg',
+        'DSC_3835_看图王.jpg',
+        'DSC_3837_看图王.jpg',
+        'DSC_3860_看图王.jpg',
+        'DSC_3955_看图王.jpg',
+        'DSC_3970_看图王.jpg',
+        'DSC_3971_看图王.jpg',
+        'DSC_3982_看图王.jpg',
+        'DSC_3992_看图王.jpg',
+        'DSC_4045_看图王.jpg',
+        'DSC_4124_看图王.jpg',
+        'DSC_4206_看图王.jpg',
+        'DSC_4207_看图王.jpg',
+        'DSC_4217_看图王.jpg',
+        'DSC_4231_看图王.jpg',
+        'DSC_4246_看图王.jpg',
+        'DSC_4319_看图王.jpg',
+        'DSC_4388_看图王.jpg',
+        'DSC_4416_看图王.jpg',
+        'DSC_4438_看图王.jpg',
+        'DSC_4447_看图王.jpg',
+        'DSC_4530_看图王.jpg',
+        'DSC_4531_看图王.jpg',
+        'DSC_4544_看图王.jpg',
+        'DSC_4590_看图王.jpg',
+        'DSC_4600_看图王.jpg',
+        'DSC_4643_看图王.jpg',
+        'DSC_4659_看图王.jpg',
+        'DSC_4770_看图王.jpg',
+        'DSC_4816_看图王.jpg',
+        'DSC_4820_看图王.jpg',
+        'DSC_4824_看图王.jpg',
+        'DSC_4845_看图王.jpg',
+        'DSC_4850_看图王.jpg',
+        'DSC_4862_看图王.jpg',
+        'DSC_5024_看图王.jpg',
+        'DSC_5025_看图王.jpg',
+        '微信图片_20260625180858_27_6.jpg'
+      ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/' + encodeURIComponent(f)) },
+      { id: 'album3', title: '待更新', subtitle: '', cover: '', photos: [] },
+      { id: 'album4', title: '待更新', subtitle: '', cover: '', photos: [] },
+      { id: 'album5', title: '待更新', subtitle: '', cover: '', photos: [] },
+      { id: 'album6', title: '待更新', subtitle: '', cover: '', photos: [] }
     ];
     
     // ==================== MODAL STATE ====================
@@ -1038,7 +1079,8 @@
       card.style.transitionDelay = `${(index % 3) * 0.1}s`;
       if (album.cover) {
         card.style.backgroundImage = `url('${album.cover}')`;
-        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">${album.photos.length} 张照片</div></div>`;
+        const subtitleHtml = album.subtitle ? `<div class="album-subtitle">${album.subtitle}</div>` : '';
+        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div>${subtitleHtml}<div class="album-count">${album.photos.length} 张照片</div></div>`;
         card.onclick = () => openAlbumModal(album.id);
       } else {
         card.style.background = '#e0e0e0';
