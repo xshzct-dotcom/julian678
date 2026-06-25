@@ -711,7 +711,7 @@
 
       <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
         <div class="card-overlay">
-          <div class="card-title">诗</div>
+          <div class="card-title">诗？</div>
           <div class="card-subtitle"> poems &amp; verses</div>
         </div>
       </div>
@@ -1082,10 +1082,30 @@
         'DSC_5025_看图王.jpg',
         '微信图片_20260625180858_27_6.jpg'
       ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/' + encodeURIComponent(f)) },
-      { id: 'album3', title: '待更新', subtitle: '', cover: '', photos: [] },
+      { id: 'daily', title: '日常', subtitle: '', cover: dailyPhotos[0], photos: dailyPhotos.map(function(f) { return 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/daily/' + encodeURIComponent(f); }) },
       { id: 'album4', title: '待更新', subtitle: '', cover: '', photos: [] },
       { id: 'album5', title: '待更新', subtitle: '', cover: '', photos: [] },
       { id: 'album6', title: '待更新', subtitle: '', cover: '', photos: [] }
+    ];
+
+    const dailyPhotos = [
+      '微信图片_20260626004408_33_6.jpg',
+      '微信图片_20260626004410_34_6.jpg',
+      '微信图片_20260626004412_35_6.jpg',
+      '微信图片_20260626004413_36_6.jpg',
+      '微信图片_20260626004415_37_6.jpg',
+      '微信图片_20260626004417_38_6.jpg',
+      '微信图片_20260626004419_39_6.jpg',
+      '微信图片_20260626004420_40_6.jpg',
+      '微信图片_20260626004622_42_6.jpg',
+      '微信图片_20260626004623_43_6.jpg',
+      '微信图片_20260626004625_44_6.jpg',
+      '微信图片_20260626004627_45_6.jpg',
+      '微信图片_20260626004628_46_6.jpg',
+      '微信图片_20260626004630_47_6.jpg',
+      '微信图片_20260626004632_48_6.jpg',
+      '微信图片_20260626004633_49_6.jpg',
+      '微信图片_20260626004635_50_6.jpg'
     ];
     
     // ==================== MODAL STATE ====================
@@ -1292,7 +1312,7 @@
       } else if (current.type === 'poems') {
         if (current.index === -1) {
           // Level 2: Show poem list
-          title.textContent = '诗';
+          title.textContent = '诗？';
           body.innerHTML = `<div class="article-list">${poems.map((p, i) => `
             <div class="article-item" onclick="openContent('poems', ${i})">
               <div><div class="title">${p.title}</div><div class="meta">${p.date}</div></div>
