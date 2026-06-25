@@ -817,52 +817,51 @@
       { title: '雨未停', date: '2026.6.18', body: `四月十号\n我给青春举办了一场\n迟到十个月的葬礼\n那天下起的暴雨\n直到今天\n仍未停` }
     ];
     
-    // ESSAYS (5篇)
-    const essays = [
-      { 
-        title: '老大', 
-        date: '',
-        body: `那是个满大街都流行播放着"凤凰传奇"的年代，那时我还在福田读小学，认拜了一个所谓的"老大"。
+    // ESSAYS — grouped by category
+    const essayCategories = [
+      {
+        id: 'childhood',
+        title: '童年篇',
+        articles: [
+          { 
+            title: '老大', 
+            body: `那是个满大街都流行播放着"凤凰传奇"的年代，那时我还在福田读小学，认拜了一个所谓的"老大"。
 
 他是福建人，皮肤黝黑，声音沙哑，口音奇怪，老喜欢吹牛说自己加入了动画片"侠岚"里面的一个组织。他是那种爱显摆的吹牛大王，只是除了我，没人会在意他。
 
 他很珍惜我的崇拜，所以教我后空翻，教我画龙。我觉得后来喜欢上画画也是因为他。`
-      },
-      { 
-        title: '欧阳海已', 
-        date: '',
-        body: `玩的最好的兄弟叫欧阳海已，这么多年还记得他名字，也是因为第一次知道名字原来还有四个字的。
+          },
+          { 
+            title: '欧阳海已', 
+            body: `玩的最好的兄弟叫欧阳海已，这么多年还记得他名字，也是因为第一次知道名字原来还有四个字的。
 
 他皮肤也很黑，但是长得很端正，是那种你一看到他就知道他很好相处的乖孩子。他经常对我笑，我也心照不宣，默契回应他不怀好意的坏笑。
 
 开学没几天，我们就玩到一起去了，像是天注定的好基友一样。他的家庭是那种富裕高知家庭，他的妈妈很温柔礼貌，对我好到不行，经常在周末带我们出去玩、吃东西。
 
 对待我像是她的第二个孩子般，她给到我那段时间父母对我缺失的爱，以至于我在往后的人生中每遇到像她妈妈这种类型的人都会天然产生好感。`
-      },
-      { 
-        title: '女顽童', 
-        date: '',
-        body: `她很特别，自认为自己是男孩，打扮中性，留着短发，平时也不跟女生玩，只喜欢跟男孩们闹，像是有多动症，比班里最顽皮的男孩还要再疯癫十倍！
+          },
+          { 
+            title: '女顽童', 
+            body: `她很特别，自认为自己是男孩，打扮中性，留着短发，平时也不跟女生玩，只喜欢跟男孩们闹，像是有多动症，比班里最顽皮的男孩还要再疯癫十倍！
 
 我跟她几乎没有过交集，只记得她被叫过几次家长了。她妈妈看起来像是夜市街边的摊主，胖胖的背着个挎包，声音粗、嗓门大，不留情面地指责她。但女顽童很叛逆，一点都不在乎。
 
 大概过了半个学期，某天早上，老师突然说她已经转学了，一切毫无征兆，甚至她抽屉里的书本都还在。在她走后的那两三天，班里也确实安静了许多，但也感觉缺少了些什么东西。
 
 虽然大家都没提，班里的气氛还是变得有点怪怪的，小孩们不会表达复杂情绪，只是不习惯那个平时最吵闹的人已经不在了。`
-      },
-      { 
-        title: '薄嘴唇猴阿志', 
-        date: '',
-        body: `我习惯叫他阿志，他是那种活泼、调皮、机灵的中二病小孩，长着薄嘴唇，发际线很靠后。因为他爬树很厉害，所以在我印象里他像只薄嘴唇的猴子。
+          },
+          { 
+            title: '薄嘴唇猴阿志', 
+            body: `我习惯叫他阿志，他是那种活泼、调皮、机灵的中二病小孩，长着薄嘴唇，发际线很靠后。因为他爬树很厉害，所以在我印象里他像只薄嘴唇的猴子。
 
 平时也是跟他出去玩的最多。周末我们几个小朋友一起约在公园玩，因为公园里有运动的器械，还有舞狮表演的踏台柱子，最喜欢爬跳上去玩，也不用担心安全问题，因为下面有很厚的军绿色沙袋。
 
 有一次夏天晚上我们在公园里爬树，看到一对情侣坐在我们树下的石板凳上，做出不雅行为。年轻尚小的我哪里懂这些，当时只是觉得很奇怪。全能的阿志则跟我"科普知识"，虽然现在看来，很多都是他自己脑补出来的，简直是漏洞百出！`
-      },
-      { 
-        title: '彤 · 未送出的礼物', 
-        date: '',
-        body: `对她的印象，像是青苹果般带着我初次暗恋的悸动。她的全名我已经忘记了，只记得最后一个字叫彤。
+          },
+          { 
+            title: '彤 · 未送出的礼物', 
+            body: `对她的印象，像是青苹果般带着我初次暗恋的悸动。她的全名我已经忘记了，只记得最后一个字叫彤。
 
 印象里的她经常穿着酒红色羽绒服，脸长得有点混血小孩，皮肤很白。因为她也有点腼腆孤僻，平时也不太爱说话，在班里朋友并不多，是那种典型的乖乖女。
 
@@ -881,6 +880,18 @@
 在学期末最后那几天，我答应过她要在散学典礼的时候给她送礼物。到了那天，我却记错了开会时间。等我跟老妈匆匆忙忙赶到的时候，会已经开完了，所有人都已走光。
 
 我看着空空的教室，写着告别语的黑板，无比失落。接着去了办公室领奖状，老妈在跟老师谈我的学期表现，而我则站在一旁，心不在焉。`
+          }
+        ]
+      },
+      {
+        id: 'firstlove',
+        title: '初恋篇',
+        articles: []
+      },
+      {
+        id: 'thoughts',
+        title: '所思所想',
+        articles: []
       }
     ];
     
@@ -1089,9 +1100,9 @@
       albumGrid.appendChild(card);
     });
     
-    // ==================== 3-LEVEL MODAL NAVIGATION ====================
+    // ==================== 4-LEVEL MODAL NAVIGATION ====================
     
-    // Level 1: Open card (essay/travel/poems) → shows list
+    // Level 1: Open card (essay/travel/poems) → shows type list or category list
     function openCardModal(type) {
       modalStack = [{ type, index: -1 }];
       updateModalView();
@@ -1107,7 +1118,13 @@
       updateModalView();
     }
     
-    // Level 2: Click item in list → shows content
+    // Level 2/3: Click category or article → shows sub-list or content
+    function openCategory(catIndex) {
+      modalStack.push({ type: 'essayCategory', catIndex, index: -1 });
+      updateModalView();
+    }
+    
+    // Level 3/4: Click item in list → shows content
     function openContent(type, index) {
       modalStack.push({ type, index });
       updateModalView();
@@ -1135,30 +1152,51 @@
       
       if (current.type === 'essay') {
         if (current.index === -1) {
-          // Level 2: Show essay list
+          // Level 2: Show essay categories (童年篇 / 初恋篇 / 所思所想)
           title.textContent = '随笔';
-          body.innerHTML = `<div class="article-list">${essays.map((e, i) => `
-            <div class="article-item" onclick="openContent('essay', ${i})">
-              <div><div class="title">${e.title}</div></div>
+          body.innerHTML = `<div class="article-list">${essayCategories.map((cat, i) => `
+            <div class="article-item" onclick="openCategory(${i})">
+              <div>
+                <div class="title">${cat.title}</div>
+                <div class="meta">${cat.articles.length} 篇</div>
+              </div>
               <div class="arrow">→</div>
             </div>
           `).join('')}</div>`;
-        } else {
-          // Level 3: Show essay content
-          const essay = essays[current.index];
-          title.textContent = essay.title;
-          body.innerHTML = `
-            <div class="content-header">
-              <div class="content-title">${essay.title}</div>
-            </div>
-            <div class="content-body">${essay.body}</div>
-            <div class="content-nav">
-              <button onclick="prevContent('essays', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
-              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${essays.length}</span>
-              <button onclick="nextContent('essays', ${current.index})" ${current.index === essays.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
-            </div>
-          `;
         }
+      } else if (current.type === 'essayCategory') {
+        const cat = essayCategories[current.catIndex];
+        if (current.index === -1) {
+          // Level 3: Show article list for this category
+          if (cat.articles.length === 0) {
+            title.textContent = cat.title;
+            body.innerHTML = `<div style="text-align:center;padding:3rem 0;color:rgba(255,255,255,0.4);font-size:1.1rem;">暂无内容，待更新</div>`;
+          } else {
+            title.textContent = cat.title;
+            body.innerHTML = `<div class="article-list">${cat.articles.map((e, i) => `
+              <div class="article-item" onclick="openEssayArticle(${current.catIndex}, ${i})">
+                <div><div class="title">${e.title}</div></div>
+                <div class="arrow">→</div>
+              </div>
+            `).join('')}</div>`;
+          }
+        }
+      } else if (current.type === 'essayArticle') {
+        // Level 4: Show essay content
+        const cat = essayCategories[current.catIndex];
+        const essay = cat.articles[current.index];
+        title.textContent = essay.title;
+        body.innerHTML = `
+          <div class="content-header">
+            <div class="content-title">${essay.title}</div>
+          </div>
+          <div class="content-body">${essay.body}</div>
+          <div class="content-nav">
+            <button onclick="prevEssayArticle(${current.catIndex}, ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
+            <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${cat.articles.length}</span>
+            <button onclick="nextEssayArticle(${current.catIndex}, ${current.index})" ${current.index === cat.articles.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
+          </div>
+        `;
       } else if (current.type === 'travel') {
         if (current.index === -1) {
           // Level 2: Show travel list
@@ -1227,7 +1265,7 @@
     
     // Navigation between content items
     function nextContent(type, currentIndex) {
-      const items = type === 'poems' ? poems : type === 'essays' ? essays : travels;
+      const items = type === 'poems' ? poems : travels;
       if (currentIndex < items.length - 1) {
         modalStack[modalStack.length - 1].index = currentIndex + 1;
         updateModalView();
@@ -1235,6 +1273,27 @@
     }
     
     function prevContent(type, currentIndex) {
+      if (currentIndex > 0) {
+        modalStack[modalStack.length - 1].index = currentIndex - 1;
+        updateModalView();
+      }
+    }
+    
+    // Essay article navigation (within a category)
+    function openEssayArticle(catIndex, artIndex) {
+      modalStack.push({ type: 'essayArticle', catIndex, index: artIndex });
+      updateModalView();
+    }
+    
+    function nextEssayArticle(catIndex, currentIndex) {
+      const cat = essayCategories[catIndex];
+      if (currentIndex < cat.articles.length - 1) {
+        modalStack[modalStack.length - 1].index = currentIndex + 1;
+        updateModalView();
+      }
+    }
+    
+    function prevEssayArticle(catIndex, currentIndex) {
       if (currentIndex > 0) {
         modalStack[modalStack.length - 1].index = currentIndex - 1;
         updateModalView();
