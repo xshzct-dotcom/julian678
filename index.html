@@ -619,19 +619,67 @@
     ];
 
     // ALBUMS DATA
-    const albums = [
+const albums = [
       {
         id: 'xinjiang',
         title: '新疆',
-        cover: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent('微信图片_20260625125511_26_6.jpg'),
+        cover: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20240928_001246_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
         photos: [
-          '微信图片_20260625125511_26_6.jpg',
-          'IMG_20240928_001246_看图王.jpg',
-          'IMG_20250804_020042_看图王.jpg',
-          'IMG_20250804_233652_看图王.jpg',
-          'IMG_20250805_001615_看图王.jpg',
-          'IMG_20250805_204040_看图王(1).jpg'
-        ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent(f))
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20240928_001246_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_020042_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_021506_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_233652_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250804_235221_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250805_001615_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250805_001750_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/IMG_20250805_204040_%E7%9C%8B%E5%9B%BE%E7%8E%8B(1).jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5291_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5295_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5308_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5347_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5351_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5379_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5391_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5431_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5437_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5580_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5601_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5605_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5610_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5614_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5627_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5628_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5668_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5766_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5801_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5805_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5823_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5851_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5853_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5859_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5917_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5920_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5937_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_5991_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6084_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6099_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6170_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6190_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6209_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6215_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6262_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6265_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6284_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6291_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6292_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6297_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6414_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6448_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6452_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6472_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/Z30_6487_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg',
+      'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260625125511_26_6.jpg'
+    ]
       },
       { id: 'album2', title: '待更新', cover: '', photos: [] },
       { id: 'album3', title: '待更新', cover: '', photos: [] },
@@ -639,8 +687,6 @@
       { id: 'album5', title: '待更新', cover: '', photos: [] },
       { id: 'album6', title: '待更新', cover: '', photos: [] }
     ];
-
-    // RENDER ALBUMS
     const albumGrid = document.getElementById('album-grid');
     albums.forEach((album, index) => {
       const card = document.createElement('div');
