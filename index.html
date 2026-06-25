@@ -711,7 +711,7 @@
 
       <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
         <div class="card-overlay">
-          <div class="card-title">诗？</div>
+          <div class="card-title">诗</div>
           <div class="card-subtitle"> poems &amp; verses</div>
         </div>
       </div>
@@ -1292,7 +1292,7 @@
       } else if (current.type === 'poems') {
         if (current.index === -1) {
           // Level 2: Show poem list
-          title.textContent = '诗？';
+          title.textContent = '诗';
           body.innerHTML = `<div class="article-list">${poems.map((p, i) => `
             <div class="article-item" onclick="openContent('poems', ${i})">
               <div><div class="title">${p.title}</div><div class="meta">${p.date}</div></div>
