@@ -6,13 +6,8 @@
   <title>向天游的随笔</title>
   <meta name="description" content="记录诗歌、摄影与路上的风景。">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
-  
-  <!-- Preconnect for faster loading -->
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  
-  <!-- Fonts -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   
   <style>
@@ -86,7 +81,6 @@
                   url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600') center/cover no-repeat;
       background-attachment: fixed;
       color: white;
-      margin-top: 0;
     }
     
     .hero h1 {
@@ -94,14 +88,12 @@
       font-weight: 700;
       margin-bottom: 1rem;
       letter-spacing: 0.08em;
-      font-family: var(--font-serif);
     }
     
     .hero p {
       font-size: 1.2rem;
       font-style: italic;
       opacity: 0.9;
-      font-family: var(--font-serif);
     }
     
     /* Section */
@@ -166,7 +158,7 @@
     }
     
     .post-card:hover .card-overlay {
-      background: linear-gradient(transparent 30%, rgba(0,0,0,0.8));
+      background: linear-gradient(transparent 30%, rgba(0,0,0,0.85));
     }
     
     .post-card .card-title {
@@ -199,16 +191,11 @@
       overflow: hidden;
       cursor: pointer;
       border-radius: 4px;
+      background-size: cover;
+      background-position: center;
     }
     
-    .album-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    .album-card:hover img { transform: scale(1.05); }
+    .album-card:hover { transform: scale(1.02); transition: transform 0.3s; }
     
     .album-card .album-overlay {
       position: absolute;
@@ -235,28 +222,6 @@
       font-size: 0.8rem;
       margin-top: 0.5rem;
       font-family: var(--font-sans);
-    }
-    
-    /* Album photos grid */
-    .album-photos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    
-    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
-    
-    .album-photo-item {
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-    }
-    
-    .album-photo-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: pointer;
     }
     
     /* Modal */
@@ -286,14 +251,31 @@
       color: white;
       position: sticky;
       top: 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       z-index: 10;
     }
+    
+    .modal-back {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition);
+      font-family: var(--font-sans);
+    }
+    
+    .modal-back:hover { color: white; }
     
     .modal-title {
       font-size: 1.8rem;
       font-weight: 700;
       letter-spacing: 0.05em;
+      flex: 1;
+      text-align: center;
     }
     
     .modal-close {
@@ -305,6 +287,7 @@
       padding: 0.5rem;
       line-height: 1;
       transition: opacity var(--transition);
+      width: 40px;
     }
     
     .modal-close:hover { opacity: 0.6; }
@@ -317,29 +300,82 @@
       width: 100%;
     }
     
-    .poem-meta {
-      color: rgba(255,255,255,0.6);
+    /* Article list (Level 2) */
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .article-item {
+      padding: 1.5rem 2rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .article-item:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    .article-item .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .article-item .meta {
       font-size: 0.85rem;
-      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.5);
       font-family: var(--font-sans);
     }
     
-    .poem-body {
+    .article-item .arrow {
+      color: rgba(255,255,255,0.3);
+      font-size: 1.2rem;
+    }
+    
+    /* Poem/Article content (Level 3) */
+    .content-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .content-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    
+    .content-meta {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+    }
+    
+    .content-body {
       font-size: 1.1rem;
-      line-height: 2;
+      line-height: 2.2;
       white-space: pre-line;
       letter-spacing: 0.02em;
     }
     
-    .poem-nav {
+    .content-nav {
       display: flex;
       justify-content: space-between;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
     
-    .poem-nav button {
+    .content-nav button {
       background: none;
       border: 1px solid rgba(255,255,255,0.3);
       color: white;
@@ -350,9 +386,107 @@
       font-family: var(--font-sans);
     }
     
-    .poem-nav button:hover {
+    .content-nav button:hover {
       background: white;
       color: black;
+    }
+    
+    /* Album photos grid (Level 2) */
+    .album-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    
+    .album-photo-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .album-photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .album-photo-item:hover img { transform: scale(1.05); }
+    
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background var(--transition);
+    }
+    
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background var(--transition);
+    }
+    
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      font-family: var(--font-sans);
     }
     
     /* About */
@@ -447,7 +581,6 @@
     }
     
     .music-player:hover { transform: scale(1.05); }
-    
     .music-player.expanded { border-radius: 12px; }
     
     .music-info { display: none; }
@@ -455,11 +588,7 @@
     
     .music-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
     
-    .music-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
+    .music-controls { display: flex; align-items: center; gap: 0.8rem; }
     
     .music-btn {
       background: none;
@@ -489,18 +618,6 @@
       transition: width 0.3s;
     }
     
-    /* Fade up animation */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
     /* Autoplay hint */
     .autoplay-hint {
       position: fixed;
@@ -518,13 +635,20 @@
     }
     
     .autoplay-hint.show { display: block; }
-    
     .autoplay-hint h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
     .autoplay-hint p { font-size: 0.9rem; opacity: 0.8; }
     
-    /* Lazy loading */
-    img[loading="lazy"] { opacity: 0; transition: opacity 0.3s; }
-    img[loading="lazy"].loaded { opacity: 1; }
+    /* Fade up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     /* Responsive */
     @media (max-width: 768px) {
@@ -535,12 +659,12 @@
       .modal-header { padding: 1.5rem; }
       .modal-body { padding: 1.5rem; }
       .music-player { bottom: 1rem; right: 1rem; }
+      .lightbox-nav { width: 45px; height: 45px; font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Autoplay hint -->
   <div class="autoplay-hint" id="autoplayHint" onclick="this.classList.remove('show'); document.getElementById('bgMusic').play();">
     <h3>🎵 点击任意处播放音乐</h3>
     <p>浏览器限制，需要您的互动</p>
@@ -562,27 +686,24 @@
     </div>
   </div>
 
-  <!-- POSTS -->
+  <!-- POSTS (Level 1) -->
   <div class="section" id="posts">
     <div class="posts-grid">
-      <!-- Essay card -->
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openModal('essay')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openCardModal('essay')">
         <div class="card-overlay">
           <div class="card-title">随笔</div>
           <div class="card-subtitle"> thoughts &amp; reflections</div>
         </div>
       </div>
 
-      <!-- Travel card -->
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openModal('travel')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openCardModal('travel')">
         <div class="card-overlay">
           <div class="card-title">旅行见闻</div>
           <div class="card-subtitle"> on the road</div>
         </div>
       </div>
 
-      <!-- Poems card -->
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openModal('poems')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
         <div class="card-overlay">
           <div class="card-title">诗？</div>
           <div class="card-subtitle"> poems &amp; verses</div>
@@ -650,114 +771,142 @@
     </div>
   </div>
 
-  <!-- MODAL -->
+  <!-- MAIN MODAL -->
   <div class="modal" id="cardModal">
     <div class="modal-header">
+      <button class="modal-back" id="modalBack" onclick="modalGoBack()" style="visibility: hidden;">
+        ← 返回
+      </button>
       <div class="modal-title" id="modalTitle"></div>
       <button class="modal-close" onclick="closeModal()">×</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
   <!-- Hidden audio -->
   <audio id="bgMusic" loop preload="auto"></audio>
 
   <script>
-    // MUSIC PLAYER DATA
+    // ==================== DATA ====================
+    
+    // MUSIC
     const MUSIC_PREFIX = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music/';
     const playlist = [
-      {
-        name: '旅行的意义（吉他独奏）',
-        url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3')
+      { name: '旅行的意义（吉他独奏）', url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3') },
+      { name: '海芋恋', url: MUSIC_PREFIX + encodeURIComponent('2海芋恋）.mp3') },
+      { name: '爵士吉他独奏', url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3') }
+    ];
+    
+    // POEMS (7首)
+    const poems = [
+      { title: '风', date: '2026.4.10', body: `今晚 江边的风好大\n大到它会帮我擦干眼泪\n大到手中的烟我抽一半\n它抽一半` },
+      { title: '我爱过你吗', date: '2026.4.13', body: `如果没有\n那为什么\n在你离开以后\n痛苦找上了门` },
+      { title: '哭', date: '2026.4.20', body: `你爱我\n你爱哭\n直到有一天\n你发现\n其实我就是哭` },
+      { title: '罪人', date: '2026.4.20', body: `都能想象到\n在那一个月\n你的奶奶\n替你骂我\n你的朋友\n替你骂我\n你不知道的是\n就连我的朋友\n也成了你的朋友` },
+      { title: '死亡', date: '2026.4.20', body: `清明节那晚\n青春死了\n独剩下孤独\n为它收尸` },
+      { title: '爱', date: '2026.5.23', body: `热恋与厌倦交替\n投入与敷衍交替\n时而上头\n时而嫌弃` },
+      { title: '雨未停', date: '2026.6.18', body: `四月十号\n我给青春举办了一场\n迟到十个月的葬礼\n那天下起的暴雨\n直到今天\n仍未停` }
+    ];
+    
+    // ESSAYS (5篇)
+    const essays = [
+      { 
+        title: '老大', 
+        date: '',
+        body: `那是个满大街都流行播放着"凤凰传奇"的年代，那时我还在福田读小学，认拜了一个所谓的"老大"。
+
+他是福建人，皮肤黝黑，声音沙哑，口音奇怪，老喜欢吹牛说自己加入了动画片"侠岚"里面的一个组织。他是那种爱显摆的吹牛大王，只是除了我，没人会在意他。
+
+他很珍惜我的崇拜，所以教我后空翻，教我画龙。我觉得后来喜欢上画画也是因为他。`
       },
-      {
-        name: '海芋恋',
-        url: MUSIC_PREFIX + encodeURIComponent('2海芋恋）.mp3')
+      { 
+        title: '欧阳海已', 
+        date: '',
+        body: `玩的最好的兄弟叫欧阳海已，这么多年还记得他名字，也是因为第一次知道名字原来还有四个字的。
+
+他皮肤也很黑，但是长得很端正，是那种你一看到他就知道他很好相处的乖孩子。他经常对我笑，我也心照不宣，默契回应他不怀好意的坏笑。
+
+开学没几天，我们就玩到一起去了，像是天注定的好基友一样。他的家庭是那种富裕高知家庭，他的妈妈很温柔礼貌，对我好到不行，经常在周末带我们出去玩、吃东西。
+
+对待我像是她的第二个孩子般，她给到我那段时间父母对我缺失的爱，以至于我在往后的人生中每遇到像她妈妈这种类型的人都会天然产生好感。`
       },
-      {
-        name: '爵士吉他独奏',
-        url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3')
+      { 
+        title: '女顽童', 
+        date: '',
+        body: `她很特别，自认为自己是男孩，打扮中性，留着短发，平时也不跟女生玩，只喜欢跟男孩们闹，像是有多动症，比班里最顽皮的男孩还要再疯癫十倍！
+
+我跟她几乎没有过交集，只记得她被叫过几次家长了。她妈妈看起来像是夜市街边的摊主，胖胖的背着个挎包，声音粗、嗓门大，不留情面地指责她。但女顽童很叛逆，一点都不在乎。
+
+大概过了半个学期，某天早上，老师突然说她已经转学了，一切毫无征兆，甚至她抽屉里的书本都还在。在她走后的那两三天，班里也确实安静了许多，但也感觉缺少了些什么东西。
+
+虽然大家都没提，班里的气氛还是变得有点怪怪的，小孩们不会表达复杂情绪，只是不习惯那个平时最吵闹的人已经不在了。`
+      },
+      { 
+        title: '薄嘴唇猴阿志', 
+        date: '',
+        body: `我习惯叫他阿志，他是那种活泼、调皮、机灵的中二病小孩，长着薄嘴唇，发际线很靠后。因为他爬树很厉害，所以在我印象里他像只薄嘴唇的猴子。
+
+平时也是跟他出去玩的最多。周末我们几个小朋友一起约在公园玩，因为公园里有运动的器械，还有舞狮表演的踏台柱子，最喜欢爬跳上去玩，也不用担心安全问题，因为下面有很厚的军绿色沙袋。
+
+有一次夏天晚上我们在公园里爬树，看到一对情侣坐在我们树下的石板凳上，做出不雅行为。年轻尚小的我哪里懂这些，当时只是觉得很奇怪。全能的阿志则跟我"科普知识"，虽然现在看来，很多都是他自己脑补出来的，简直是漏洞百出！`
+      },
+      { 
+        title: '彤 · 未送出的礼物', 
+        date: '',
+        body: `对她的印象，像是青苹果般带着我初次暗恋的悸动。她的全名我已经忘记了，只记得最后一个字叫彤。
+
+印象里的她经常穿着酒红色羽绒服，脸长得有点混血小孩，皮肤很白。因为她也有点腼腆孤僻，平时也不太爱说话，在班里朋友并不多，是那种典型的乖乖女。
+
+我是因为跟她同桌才开始注意到她的，因为上课老跟基友讲话，所以被调到跟彤坐一起。调位置时她也会主动帮我搬东西，是很善良的一个女孩。
+
+夏天最炎热的时候，不记得我犯了些什么蠢事，被罚站在门口。我被热的不行，汗一直止不住地流。到了下课，终于可以回到座位上，彤默默递给我一包纸巾。
+
+对于同样腼腆的我，这是会令我尴尬的情景，为了不让气氛进一步尴尬我还是接过了纸巾，然后装作冷漠地说了声谢谢。在余光快速扫过她脸的时候，发现她正同情的看着我脸上流下的汗。
+
+到了冬天，学校举办运动会，基友在老师面前怂恿举荐我参加跑步比赛。我其实并不想参加，但还是被他计划得逞了。
+
+比赛前，我站在跑道旁的树底下紧张地来回踱步，基友则到处跟别人显摆炫耀他新买的溜溜球。不知道什么时候，彤跟她的朋友突然出现在我旁边，笑着叫我要加油。她笑起来的酒窝很好看。
+
+但这突如其来的鼓励，也让我这个很少被认可的内向小孩不知道该说些什么好，只能尴尬地点头答应，内心当然会很开心，但同时也给我带来不小压力。最后我得了第二名。
+
+在学期末最后那几天，我答应过她要在散学典礼的时候给她送礼物。到了那天，我却记错了开会时间。等我跟老妈匆匆忙忙赶到的时候，会已经开完了，所有人都已走光。
+
+我看着空空的教室，写着告别语的黑板，无比失落。接着去了办公室领奖状，老妈在跟老师谈我的学期表现，而我则站在一旁，心不在焉。`
       }
     ];
+    
+    // TRAVEL (1篇)
+    const travels = [
+      { 
+        title: '苏州回三水的高铁上', 
+        date: '2026.6.22',
+        body: `从苏州回三水的路上，高铁隔壁座是一对30岁左右的年轻夫妇，带着一个两岁大的小女孩。
 
-    let currentSong = 0;
-    let isPlaying = false;
-    const audio = document.getElementById('bgMusic');
-    const playBtn = document.getElementById('playBtn');
-    const musicTitle = document.getElementById('musicTitle');
-    const musicProgress = document.getElementById('musicProgress');
-    const musicPlayer = document.getElementById('musicPlayer');
+妈妈的性格很像你，爸爸也是我幻想中自己的样子。小女孩挺顽皮，脚总踢碰到我，妈妈严肃地制止，大概以为我会介意吧。
 
-    // Load first song
-    audio.src = playlist[currentSong].url;
-    musicTitle.textContent = playlist[currentSong].name;
+其实哪会呢，他们肯定不知道我从小就想要一个这样的女儿。
 
-    function togglePlay() {
-      if (isPlaying) {
-        audio.pause();
-        playBtn.textContent = '▶';
-      } else {
-        audio.play().then(() => {
-          playBtn.textContent = '⏸';
-        }).catch(e => {
-          console.log('Play failed:', e);
-        });
-        playBtn.textContent = '⏸';
+后面一路上我都在逗小女孩玩儿，时而说说笑笑。看着他们，真是幸福的一家子，那种平平淡淡的幸福。
+
+下站的时候女孩爸爸帮我把行李箱拉出来，"帅哥这么快就到站了吗？"（因为我就坐一个站），我说是啊。接过行李箱道谢后，慢慢走向侧门等待。
+
+"你是暑假回家还是回学校？"身后传来那女孩爸爸的声音。
+
+那一刻忽然有几丝哀伤，才发觉自己已经不是一个学生挺久了，暑假当然也就不属于我。停顿了几秒，我转过头回答道：家。`
       }
-      isPlaying = !isPlaying;
-    }
-
-    function nextSong() {
-      currentSong = (currentSong + 1) % playlist.length;
-      audio.src = playlist[currentSong].url;
-      musicTitle.textContent = playlist[currentSong].name;
-      if (isPlaying) audio.play();
-    }
-
-    function prevSong() {
-      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
-      audio.src = playlist[currentSong].url;
-      musicTitle.textContent = playlist[currentSong].name;
-      if (isPlaying) audio.play();
-    }
-
-    function togglePlayer() {
-      musicPlayer.classList.toggle('expanded');
-    }
-
-    // Auto-advance
-    audio.addEventListener('ended', nextSong);
-
-    // Update progress
-    audio.addEventListener('timeupdate', () => {
-      if (audio.duration) {
-        const pct = (audio.currentTime / audio.duration) * 100;
-        musicProgress.style.width = pct + '%';
-      }
-    });
-
-    // Autoplay on load
-    window.addEventListener('load', () => {
-      audio.play().then(() => {
-        isPlaying = true;
-        playBtn.textContent = '⏸';
-      }).catch(() => {
-        // Show hint
-        document.getElementById('autoplayHint').classList.add('show');
-        // Try again on first click
-        document.addEventListener('click', function initMusic() {
-          audio.play().then(() => {
-            isPlaying = true;
-            playBtn.textContent = '⏸';
-            document.getElementById('autoplayHint').classList.remove('show');
-          }).catch(() => {});
-          document.removeEventListener('click', initMusic);
-        }, { once: true });
-      });
-    });
-
-    // ALBUMS DATA (54 photos)
-    const albumPhotos = [
+    ];
+    
+    // XINJIANG ALBUM (54 photos)
+    const xinjiangPhotos = [
       '微信图片_20260625125511_26_6.jpg',
       'IMG_20240928_001246_看图王.jpg',
       'IMG_20250804_020042_看图王.jpg',
@@ -813,29 +962,84 @@
       'Z30_6472_看图王.jpg',
       'Z30_6487_看图王.jpg'
     ].map(f => 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/xinjiang/' + encodeURIComponent(f));
-
+    
     const albums = [
-      {
-        id: 'xinjiang',
-        title: '新疆',
-        cover: albumPhotos[0],
-        photos: albumPhotos
-      },
+      { id: 'xinjiang', title: '新疆', cover: xinjiangPhotos[0], photos: xinjiangPhotos },
       { id: 'album2', title: '待更新', cover: '', photos: [] },
       { id: 'album3', title: '待更新', cover: '', photos: [] },
       { id: 'album4', title: '待更新', cover: '', photos: [] },
       { id: 'album5', title: '待更新', cover: '', photos: [] },
       { id: 'album6', title: '待更新', cover: '', photos: [] }
     ];
-
-    // RENDER ALBUMS
+    
+    // ==================== MODAL STATE ====================
+    let modalStack = []; // Stack for 3-level navigation
+    let currentAlbumPhotos = [];
+    let currentPhotoIndex = 0;
+    
+    // ==================== MUSIC PLAYER ====================
+    let currentSong = 0;
+    let isPlaying = false;
+    const audio = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const musicTitle = document.getElementById('musicTitle');
+    const musicProgress = document.getElementById('musicProgress');
+    const musicPlayer = document.getElementById('musicPlayer');
+    
+    audio.src = playlist[currentSong].url;
+    musicTitle.textContent = playlist[currentSong].name;
+    
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        playBtn.textContent = '▶';
+      } else {
+        audio.play().then(() => { playBtn.textContent = '⏸'; }).catch(() => {});
+        playBtn.textContent = '⏸';
+      }
+      isPlaying = !isPlaying;
+    }
+    
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+      audio.src = playlist[currentSong].url;
+      musicTitle.textContent = playlist[currentSong].name;
+      if (isPlaying) audio.play();
+    }
+    
+    function prevSong() {
+      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+      audio.src = playlist[currentSong].url;
+      musicTitle.textContent = playlist[currentSong].name;
+      if (isPlaying) audio.play();
+    }
+    
+    function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
+    
+    audio.addEventListener('ended', nextSong);
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) musicProgress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+    });
+    
+    window.addEventListener('load', () => {
+      audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; }).catch(() => {
+        document.getElementById('autoplayHint').classList.add('show');
+        document.addEventListener('click', function initMusic() {
+          audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; document.getElementById('autoplayHint').classList.remove('show'); }).catch(() => {});
+          document.removeEventListener('click', initMusic);
+        }, { once: true });
+      });
+    });
+    
+    // ==================== RENDER ALBUMS ====================
     const albumGrid = document.getElementById('album-grid');
     albums.forEach((album, index) => {
       const card = document.createElement('div');
       card.className = 'album-card fade-up';
       card.style.transitionDelay = `${(index % 3) * 0.1}s`;
       if (album.cover) {
-        card.innerHTML = `<img src="${album.cover}" alt="${album.title}" loading="lazy"><div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">${album.photos.length} 张照片</div></div>`;
+        card.style.backgroundImage = `url('${album.cover}')`;
+        card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">${album.photos.length} 张照片</div></div>`;
         card.onclick = () => openAlbumModal(album.id);
       } else {
         card.style.background = '#e0e0e0';
@@ -843,288 +1047,220 @@
       }
       albumGrid.appendChild(card);
     });
-
-    // ALBUM MODAL (with lightbox)
+    
+    // ==================== 3-LEVEL MODAL NAVIGATION ====================
+    
+    // Level 1: Open card (essay/travel/poems) → shows list
+    function openCardModal(type) {
+      modalStack = [{ type, index: -1 }];
+      updateModalView();
+    }
+    
+    // Open album → shows photos grid
     function openAlbumModal(albumId) {
       const album = albums.find(a => a.id === albumId);
-      if (!album) return;
+      if (!album || album.photos.length === 0) return;
+      
+      currentAlbumPhotos = album.photos;
+      modalStack = [{ type: 'album', albumId, index: -1 }];
+      updateModalView();
+    }
+    
+    // Level 2: Click item in list → shows content
+    function openContent(type, index) {
+      modalStack.push({ type, index });
+      updateModalView();
+    }
+    
+    // Go back one level
+    function modalGoBack() {
+      if (modalStack.length > 1) {
+        modalStack.pop();
+        updateModalView();
+      }
+    }
+    
+    // Update modal content based on stack
+    function updateModalView() {
       const modal = document.getElementById('cardModal');
       const title = document.getElementById('modalTitle');
       const body = document.getElementById('modalBody');
-      title.textContent = album.title;
-      body.innerHTML = '<div class="album-photos-grid"></div>';
-      const grid = body.querySelector('.album-photos-grid');
-      album.photos.forEach((photo, idx) => {
-        const item = document.createElement('div');
-        item.className = 'album-photo-item';
-        item.innerHTML = `<img src="${photo}" alt="${album.title} ${idx + 1}" loading="lazy" onclick="openLightbox(${idx})">`;
-        grid.appendChild(item);
-      });
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    // LIGHTBOX
-    let currentLightboxIndex = 0;
-
-    function openLightbox(index) {
-      currentLightboxIndex = index;
-      const album = albums.find(a => a.id === 'xinjiang');
-      if (!album) return;
+      const backBtn = document.getElementById('modalBack');
       
-      const lb = document.createElement('div');
-      lb.id = 'lightbox';
-      lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-      lb.innerHTML = `
-        <img src="${album.photos[index]}" style="max-width:90%;max-height:90%;object-fit:contain;border-radius:4px;" onclick="event.stopPropagation();">
-        <button onclick="event.stopPropagation();changeLightbox(-1);" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.2);border:none;color:white;font-size:2rem;padding:10px 15px;cursor:pointer;border-radius:5px;">‹</button>
-        <button onclick="event.stopPropagation();changeLightbox(1);" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.2);border:none;color:white;font-size:2rem;padding:10px 15px;cursor:pointer;border-radius:5px;">›</button>
-        <span style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.7);font-size:0.9rem;">${index + 1} / ${album.photos.length}</span>
-      `;
-      lb.onclick = () => lb.remove();
-      document.body.appendChild(lb);
-    }
-
-    function changeLightbox(dir) {
-      const album = albums.find(a => a.id === 'xinjiang');
-      if (!album) return;
+      const current = modalStack[modalStack.length - 1];
       
-      currentLightboxIndex = (currentLightboxIndex + dir + album.photos.length) % album.photos.length;
-      const lb = document.getElementById('lightbox');
-      if (lb) {
-        lb.querySelector('img').src = album.photos[currentLightboxIndex];
-        lb.querySelector('span').textContent = (currentLightboxIndex + 1) + ' / ' + album.photos.length;
-      }
-    }
-
-    // Keyboard navigation for lightbox
-    document.addEventListener('keydown', (e) => {
-      if (document.getElementById('lightbox')) {
-        if (e.key === 'ArrowLeft') changeLightbox(-1);
-        if (e.key === 'ArrowRight') changeLightbox(1);
-        if (e.key === 'Escape') {
-          const lb = document.getElementById('lightbox');
-          if (lb) lb.remove();
+      // Show/hide back button
+      backBtn.style.visibility = modalStack.length > 1 ? 'visible' : 'hidden';
+      
+      if (current.type === 'essay') {
+        if (current.index === -1) {
+          // Level 2: Show essay list
+          title.textContent = '随笔';
+          body.innerHTML = `<div class="article-list">${essays.map((e, i) => `
+            <div class="article-item" onclick="openContent('essay', ${i})">
+              <div><div class="title">${e.title}</div></div>
+              <div class="arrow">→</div>
+            </div>
+          `).join('')}</div>`;
+        } else {
+          // Level 3: Show essay content
+          const essay = essays[current.index];
+          title.textContent = essay.title;
+          body.innerHTML = `
+            <div class="content-header">
+              <div class="content-title">${essay.title}</div>
+            </div>
+            <div class="content-body">${essay.body}</div>
+            <div class="content-nav">
+              <button onclick="prevContent('essay', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一篇</button>
+              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${essays.length}</span>
+              <button onclick="nextContent('essay', ${current.index})" ${current.index === essays.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一篇 →</button>
+            </div>
+          `;
         }
-      }
-    });
-
-    // POEMS DATA
-    const poems = [
-      {
-        title: '风',
-        date: '2026.4.10',
-        body: `今晚 江边的风好大
-大到它会帮我擦干眼泪
-大到手中的烟我抽一半
-它抽一半`
-      },
-      {
-        title: '我爱过你吗',
-        date: '2026.4.13',
-        body: `如果没有
-那为什么
-在你离开以后
-痛苦找上了门`
-      },
-      {
-        title: '哭',
-        date: '2026.4.20',
-        body: `你爱我
-你爱哭
-直到有一天
-你发现
-其实我就是哭`
-      },
-      {
-        title: '罪人',
-        date: '2026.4.20',
-        body: `都能想象到
-在那一个月
-你的奶奶
-替你骂我
-你的朋友
-替你骂我
-你不知道的是
-就连我的朋友
-也成了你的朋友`
-      },
-      {
-        title: '死亡',
-        date: '2026.4.20',
-        body: `清明节那晚
-青春死了
-独剩下孤独
-为它收尸`
-      },
-      {
-        title: '爱',
-        date: '2026.5.23',
-        body: `热恋与厌倦交替
-投入与敷衍交替
-时而上头
-时而嫌弃`
-      },
-      {
-        title: '雨未停',
-        date: '2026.6.18',
-        body: `四月十号
-我给青春举办了一场
-迟到十个月的葬礼
-那天下起的暴雨
-直到今天
-仍未停`
-      }
-    ];
-
-    // MODAL
-    let currentPoemIndex = 0;
-
-    function openModal(type) {
-      const modal = document.getElementById('cardModal');
-      const title = document.getElementById('modalTitle');
-      const body = document.getElementById('modalBody');
-
-      if (type === 'poems') {
-        currentPoemIndex = 0;
-        showPoem(currentPoemIndex);
-      } else if (type === 'essay') {
-        title.textContent = '随笔';
-        body.innerHTML = `
-          <div style="line-height: 2; font-size: 1.05rem;">
-            <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem;">老大</h3>
-            <p>那是个满大街都流行播放着"凤凰传奇"的年代，那时我还在福田读小学，认拜了一个所谓的"老大"。</p>
-            <p style="margin-top: 1rem;">他是福建人，皮肤黝黑，声音沙哑，口音奇怪，老喜欢吹牛说自己加入了动画片"侠岚"里面的一个组织。他是那种爱显摆的吹牛大王，只是除了我，没人会在意他。</p>
-            <p style="margin-top: 1rem;">他很珍惜我的崇拜，所以教我后空翻，教我画龙。我觉得后来喜欢上画画也是因为他。</p>
-            
-            <h3 style="font-size: 1.3rem; margin: 2rem 0 1.5rem;">欧阳海已</h3>
-            <p>玩的最好的兄弟叫欧阳海已，这么多年还记得他名字，也是因为第一次知道名字原来还有四个字的。</p>
-            <p style="margin-top: 1rem;">他皮肤也很黑，但是长得很端正，是那种你一看到他就知道他很好相处的乖孩子。他经常对我笑，我也心照不宣，默契回应他不怀好意的坏笑。</p>
-            <p style="margin-top: 1rem;">开学没几天，我们就玩到一起去了，像是天注定的好基友一样。他的家庭是那种富裕高知家庭，他的妈妈很温柔礼貌，对我好到不行，经常在周末带我们出去玩、吃东西。</p>
-            <p style="margin-top: 1rem;">对待我像是她的第二个孩子般，她给到我那段时间父母对我缺失的爱，以至于我在往后的人生中每遇到像她妈妈这种类型的人都会天然产生好感。</p>
-            
-            <h3 style="font-size: 1.3rem; margin: 2rem 0 1.5rem;">女顽童</h3>
-            <p>她很特别，自认为自己是男孩，打扮中性，留着短发，平时也不跟女生玩，只喜欢跟男孩们闹，像是有多动症，比班里最顽皮的男孩还要再疯癫十倍！</p>
-            <p style="margin-top: 1rem;">我跟她几乎没有过交集，只记得她被叫过几次家长了。她妈妈看起来像是夜市街边的摊主，胖胖的背着个挎包，声音粗、嗓门大，不留情面地指责她。但女顽童很叛逆，一点都不在乎。</p>
-            <p style="margin-top: 1rem;">大概过了半个学期，某天早上，老师突然说她已经转学了，一切毫无征兆，甚至她抽屉里的书本都还在。在她走后的那两三天，班里也确实安静了许多，但也感觉缺少了些什么东西。</p>
-            <p style="margin-top: 1rem;">虽然大家都没提，班里的气氛还是变得有点怪怪的，小孩们不会表达复杂情绪，只是不习惯那个平时最吵闹的人已经不在了。</p>
-            
-            <h3 style="font-size: 1.3rem; margin: 2rem 0 1.5rem;">薄嘴唇猴阿志</h3>
-            <p>我习惯叫他阿志，他是那种活泼、调皮、机灵的中二病小孩，长着薄嘴唇，发际线很靠后。因为他爬树很厉害，所以在我印象里他像只薄嘴唇的猴子。</p>
-            <p style="margin-top: 1rem;">平时也是跟他出去玩的最多。周末我们几个小朋友一起约在公园玩，因为公园里有运动的器械，还有舞狮表演的踏台柱子，最喜欢爬跳上去玩，也不用担心安全问题，因为下面有很厚的军绿色沙袋。</p>
-            <p style="margin-top: 1rem;">有一次夏天晚上我们在公园里爬树，看到一对情侣坐在我们树下的石板凳上，做出不雅行为。年轻尚小的我哪里懂这些，当时只是觉得很奇怪。全能的阿志则跟我"科普知识"，虽然现在看来，很多都是他自己脑补出来的，简直是漏洞百出！</p>
-            
-            <h3 style="font-size: 1.3rem; margin: 2rem 0 1.5rem;">彤 · 未送出的礼物</h3>
-            <p>对她的印象，像是青苹果般带着我初次暗恋的悸动。她的全名我已经忘记了，只记得最后一个字叫彤。</p>
-            <p style="margin-top: 1rem;">印象里的她经常穿着酒红色羽绒服，脸长得有点混血小孩，皮肤很白。因为她也有点腼腆孤僻，平时也不太爱说话，在班里朋友并不多，是那种典型的乖乖女。</p>
-            <p style="margin-top: 1rem;">我是因为跟她同桌才开始注意到她的，因为上课老跟基友讲话，所以被调到跟彤坐一起。调位置时她也会主动帮我搬东西，是很善良的一个女孩。</p>
-            <p style="margin-top: 1rem;">夏天最炎热的时候，不记得我犯了些什么蠢事，被罚站在门口。我被热的不行，汗一直止不住地流。到了下课，终于可以回到座位上，彤默默递给我一包纸巾。</p>
-            <p style="margin-top: 1rem;">对于同样腼腆的我，这是会令我尴尬的情景，为了不让气氛进一步尴尬我还是接过了纸巾，然后装作冷漠地说了声谢谢。在余光快速扫过她脸的时候，发现她正同情的看着我脸上流下的汗。</p>
-            <p style="margin-top: 1rem;">到了冬天，学校举办运动会，基友在老师面前怂恿举荐我参加跑步比赛。我其实并不想参加，但还是被他计划得逞了。</p>
-            <p style="margin-top: 1rem;">比赛前，我站在跑道旁的树底下紧张地来回踱步，基友则到处跟别人显摆炫耀他新买的溜溜球。不知道什么时候，彤跟她的朋友突然出现在我旁边，笑着叫我要加油。她笑起来的酒窝很好看。</p>
-            <p style="margin-top: 1rem;">但这突如其来的鼓励，也让我这个很少被认可的内向小孩不知道该说些什么好，只能尴尬地点头答应，内心当然会很开心，但同时也给我带来不小压力。最后我得了第二名。</p>
-            <p style="margin-top: 1rem;">在学期末最后那几天，我答应过她要在散学典礼的时候给她送礼物。到了那天，我却记错了开会时间。等我跟老妈匆匆忙忙赶到的时候，会已经开完了，所有人都已走光。</p>
-            <p style="margin-top: 1rem;">我看着空空的教室，写着告别语的黑板，无比失落。接着去了办公室领奖状，老妈在跟老师谈我的学期表现，而我则站在一旁，心不在焉。</p>
+      } else if (current.type === 'travel') {
+        if (current.index === -1) {
+          // Level 2: Show travel list
+          title.textContent = '旅行见闻';
+          body.innerHTML = `<div class="article-list">${travels.map((t, i) => `
+            <div class="article-item" onclick="openContent('travel', ${i})">
+              <div><div class="title">${t.title}</div><div class="meta">${t.date}</div></div>
+              <div class="arrow">→</div>
+            </div>
+          `).join('')}</div>`;
+        } else {
+          // Level 3: Show travel content
+          const travel = travels[current.index];
+          title.textContent = travel.title;
+          body.innerHTML = `
+            <div class="content-header">
+              <div class="content-meta">${travel.date}</div>
+            </div>
+            <div class="content-body">${travel.body}</div>
+            <div class="content-nav">
+              <button disabled style="opacity:0.3">← 上一篇</button>
+              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">1 / 1</span>
+              <button disabled style="opacity:0.3">下一篇 →</button>
+            </div>
+          `;
+        }
+      } else if (current.type === 'poems') {
+        if (current.index === -1) {
+          // Level 2: Show poem list
+          title.textContent = '诗？';
+          body.innerHTML = `<div class="article-list">${poems.map((p, i) => `
+            <div class="article-item" onclick="openContent('poems', ${i})">
+              <div><div class="title">${p.title}</div><div class="meta">${p.date}</div></div>
+              <div class="arrow">→</div>
+            </div>
+          `).join('')}</div>`;
+        } else {
+          // Level 3: Show poem content
+          const poem = poems[current.index];
+          title.textContent = poem.title;
+          body.innerHTML = `
+            <div class="content-header">
+              <div class="content-meta">${poem.date}</div>
+            </div>
+            <div class="content-body">${poem.body}</div>
+            <div class="content-nav">
+              <button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled style="opacity:0.3"' : ''}>← 上一首</button>
+              <span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span>
+              <button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled style="opacity:0.3"' : ''}>下一首 →</button>
+            </div>
+          `;
+        }
+      } else if (current.type === 'album') {
+        // Level 2: Show photos grid
+        title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
+        body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
+          <div class="album-photo-item" onclick="openLightbox(${i})">
+            <img src="${photo}" alt="照片 ${i + 1}" loading="lazy">
           </div>
-        `;
-      } else if (type === 'travel') {
-        title.textContent = '旅行见闻';
-        body.innerHTML = `
-          <div style="line-height: 2; font-size: 1.05rem;">
-            <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem;">2026.6.22 晴 · 苏州回三水的高铁上</h3>
-            <p>从苏州回三水的路上，高铁隔壁座是一对30岁左右的年轻夫妇，带着一个两岁大的小女孩。</p>
-            <p style="margin-top: 1rem;">妈妈的性格很像你，爸爸也是我幻想中自己的样子。小女孩挺顽皮，脚总踢碰到我，妈妈严肃地制止，大概以为我会介意吧。</p>
-            <p style="margin-top: 1rem;">其实哪会呢，他们肯定不知道我从小就想要一个这样的女儿。</p>
-            <p style="margin-top: 1rem;">后面一路上我都在逗小女孩玩儿，时而说说笑笑。看着他们，真是幸福的一家子，那种平平淡淡的幸福。</p>
-            <p style="margin-top: 1.5rem;">下站的时候女孩爸爸帮我把行李箱拉出来，"帅哥这么快就到站了吗？"（因为我就坐一个站），我说是啊。接过行李箱道谢后，慢慢走向侧门等待。</p>
-            <p style="margin-top: 1rem;">"你是暑假回家还是回学校？"身后传来那女孩爸爸的声音。</p>
-            <p style="margin-top: 1rem;">那一刻忽然有几丝哀伤，才发觉自己已经不是一个学生挺久了，暑假当然也就不属于我。停顿了几秒，我转过头回答道：家。</p>
-          </div>
-        `;
+        `).join('')}</div>`;
       }
-
+      
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
-    function showPoem(index) {
-      const poem = poems[index];
-      const title = document.getElementById('modalTitle');
-      const body = document.getElementById('modalBody');
-
-      title.textContent = poem.title;
-      body.innerHTML = `
-        <div class="poem-meta">${poem.date}</div>
-        <div class="poem-body">${poem.body}</div>
-        <div class="poem-nav">
-          <button onclick="prevPoem()">← 上一首</button>
-          <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">${index + 1} / ${poems.length}</span>
-          <button onclick="nextPoem()">下一首 →</button>
-        </div>
-      `;
+    
+    // Navigation between content items
+    function nextContent(type, currentIndex) {
+      const items = type === 'poems' ? poems : type === 'essays' ? essays : travels;
+      if (currentIndex < items.length - 1) {
+        modalStack[modalStack.length - 1].index = currentIndex + 1;
+        updateModalView();
+      }
     }
-
-    function nextPoem() {
-      currentPoemIndex = (currentPoemIndex + 1) % poems.length;
-      showPoem(currentPoemIndex);
+    
+    function prevContent(type, currentIndex) {
+      if (currentIndex > 0) {
+        modalStack[modalStack.length - 1].index = currentIndex - 1;
+        updateModalView();
+      }
     }
-
-    function prevPoem() {
-      currentPoemIndex = (currentPoemIndex - 1 + poems.length) % poems.length;
-      showPoem(currentPoemIndex);
-    }
-
+    
     function closeModal() {
       const modal = document.getElementById('cardModal');
       modal.classList.remove('active');
       document.body.style.overflow = '';
+      modalStack = [];
     }
-
-    // Close modal on Escape
+    
+    // ==================== LIGHTBOX ====================
+    function openLightbox(index) {
+      currentPhotoIndex = index;
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      const counter = document.getElementById('lightboxCounter');
+      
+      img.src = currentAlbumPhotos[index];
+      counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
+      lb.classList.add('active');
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+    
+    function changePhoto(dir) {
+      currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
+      document.getElementById('lightboxImg').src = currentAlbumPhotos[currentPhotoIndex];
+      document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+    }
+    
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+      // Lightbox keyboard nav
+      if (document.getElementById('lightbox').classList.contains('active')) {
+        if (e.key === 'ArrowLeft') changePhoto(-1);
+        if (e.key === 'ArrowRight') changePhoto(1);
+        if (e.key === 'Escape') closeLightbox();
+      }
+      // Modal keyboard nav
+      if (document.getElementById('cardModal').classList.contains('active')) {
+        if (e.key === 'Escape') closeModal();
+      }
     });
-
-    // FADE UP ANIMATION
+    
+    // ==================== ANIMATIONS ====================
     const fadeElements = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 100);
+          setTimeout(() => { entry.target.classList.add('visible'); }, index * 100);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-
     fadeElements.forEach(el => observer.observe(el));
-
-    // LAZY LOADING
-    if ('IntersectionObserver' in window) {
-      const imgObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.classList.add('loaded');
-            imgObserver.unobserve(img);
-          }
-        });
-      });
-
-      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        imgObserver.observe(img);
-      });
-    }
-
-    // SMOOTH SCROLL
+    
+    // Smooth scroll
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
