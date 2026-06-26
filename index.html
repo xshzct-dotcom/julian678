@@ -950,7 +950,25 @@ tml lang="zh-CN">
     text-rendering: optimizeLegibility;
   }
   
-</style>
+
+    /* Image loading skeleton */
+    .album-photo-item {
+      background: linear-gradient(110deg, #1a1a1a 8%, #2a2a2a 18%, #1a1a1a 33%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    .album-photo-item img {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .album-photo-item img.loaded {
+      opacity: 1;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
 </head>
 <body>
 
@@ -1089,7 +1107,7 @@ tml lang="zh-CN">
       return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
     }
     function getThumb(url) {
-      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=400&output=webp&q=50";
+      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=280&output=webp&q=65";
     }
     function getFull(url) {
       return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=1920&output=webp&q=75";
@@ -1514,7 +1532,7 @@ tml lang="zh-CN">
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'">
+            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'" onload="this.classList.add('loaded')">
           </div>
         `).join('')}</div>`;
       }
