@@ -783,7 +783,7 @@ tml lang="zh-CN">
   <!-- ABOUT -->
   <div class="about-section" id="about">
     <div class="about-inner">
-      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" onload="this.classList.add('loaded')" onload="this.classList.add('loaded')">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" onload="this.classList.add('loaded')" onload="this.classList.add('loaded')" onload="this.classList.add('loaded')">
       <div>
         <h2>向天游</h2>
         
@@ -1637,7 +1637,7 @@ tml lang="zh-CN">
   <!-- ABOUT -->
   <div class="about-section" id="about">
     <div class="about-inner">
-      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" onload="this.classList.add('loaded')">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" onload="this.classList.add('loaded')" onload="this.classList.add('loaded')">
       <div>
         <h2>向天游</h2>
         
@@ -1704,30 +1704,7 @@ tml lang="zh-CN">
   <script>[
 
         ]
-    function toAbs(url) {
-      if (url.startsWith("http")) return url;
-      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
-    }
-    // ==================== DATA ====================
     
-    // MUSIC
-    const MUSIC_PREFIX = 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music/';
-    const playlist = [
-      { name: '爵士吉他独奏', url: MUSIC_PREFIX + encodeURIComponent('3（爵士吉他独奏）.mp3') },
-      { name: '旅行的意义（吉他独奏）', url: MUSIC_PREFIX + encodeURIComponent('1旅行的意义（吉他独奏）.mp3') },
-      { name: '海芋恋（live版）', url: MUSIC_PREFIX + encodeURIComponent('2海芋恋（live版）.mp3') }
-    ];
-    
-    // POEMS (7首)
-    const poems = [
-      { title: '雨未停', date: '2026.6.18', body: `四月十号\n我为青春举办了一场\n迟到了十个月的葬礼\n那天下起的大雨\n直到今天\n仍未停` },
-      { title: '爱', date: '2026.5.23', body: `热恋与厌倦交替\n投入与敷衍交替\n时而上头\n时而嫌弃` },
-      { title: '哭', date: '2026.4.20', body: `你爱我\n你爱哭\n直到有一天\n你发现\n其实我就是哭` },
-      { title: '罪人', date: '2026.4.20', body: `能想象到\n那一个月\n你的奶奶\n帮你骂我\n你的朋友\n帮你骂我\n你不知道的是\n一年后的今天\n就连我的朋友\n也成了你的朋友` },
-      { title: '死亡', date: '2026.4.20', body: `清明节那晚\n青春死了\n独剩下孤独\n为它收尸` },
-      { title: '我爱过你吗', date: '2026.4.13', body: `如果没有\n那为什么\n在你离开以后\n痛苦找上了门` },
-      { title: '风', date: '2026.4.10', body: `今晚 江边的风好大\n大到它会帮我擦干眼泪\n大到手中的烟我抽一半\n它抽一半` }
-    ];
 
     // ALBUMS
     const albums = [
@@ -2127,7 +2104,7 @@ tml lang="zh-CN">
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'">
+            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'" onload="this.classList.add('loaded')">
           </div>
         `).join('')}</div>`;
       }
