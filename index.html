@@ -1001,7 +1001,6 @@
     // ==================== MODAL STATE ====================
     
     
-    let modalStack
     let modalStack = []; // Stack for 3-level navigation
     let currentAlbumPhotos = [];
     let currentPhotoIndex = 0;
@@ -1307,7 +1306,7 @@
       var nextIdx = (index + 1) % currentAlbumPhotos.length;
       var prevIdx = (index - 1 + currentAlbumPhotos.length) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = currentAlbumPhotos[nextIdx]);
+      preloadImg.src = currentAlbumPhotos[nextIdx];
     }
     
     function closeLightbox() {
@@ -1327,7 +1326,7 @@
       // Preload next photo in background
       var nextIdx = (currentPhotoIndex + 1) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = currentAlbumPhotos[nextIdx]);
+      preloadImg.src = currentAlbumPhotos[nextIdx];
     }
     
     // Keyboard navigation
