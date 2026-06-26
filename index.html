@@ -812,11 +812,15 @@ tml lang="zh-CN">
   <audio id="bgMusic" preload="auto"></audio>
 
   <script>
+    function toAbs(url) {
+      if (url.startsWith("http")) return url;
+      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
+    }
     function getThumb(url) {
-      return "https://images.weserv.nl/?url=" + encodeURIComponent(url) + "&w=400&output=webp&q=50";
+      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=400&output=webp&q=50";
     }
     function getFull(url) {
-      return "https://images.weserv.nl/?url=" + encodeURIComponent(url) + "&w=1920&output=webp&q=75";
+      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=1920&output=webp&q=75";
     }
     
     // ==================== DATA ====================
