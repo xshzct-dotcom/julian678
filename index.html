@@ -1,7 +1,7 @@
 tml lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>向天游的随笔</title>
   <meta name="description" content="一个怀旧的人，一个时不时回来看看的角落。">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
@@ -23,7 +23,7 @@ tml lang="zh-CN">
       --transition: 0.3s ease;
     }
     
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overscroll-behavior: none; touch-action: pan-y; }
     
     body {
       font-family: var(--font-serif);
@@ -403,7 +403,9 @@ tml lang="zh-CN">
       gap: 12px;
     }
     
-    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); 
+      .lightbox-nav { width: 50px; height: 50px; font-size: 2rem; }
+    } }
     
     .album-photo-item {
       position: relative;
@@ -425,6 +427,7 @@ tml lang="zh-CN">
     
     /* Lightbox */
     .lightbox {
+      touch-action: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.97);
@@ -438,6 +441,8 @@ tml lang="zh-CN">
     }
     
     .lightbox.active {
+      overscroll-behavior: contain;
+      
       opacity: 1;
       pointer-events: all;
     }
@@ -707,6 +712,9 @@ tml lang="zh-CN">
   <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3835_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
   <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3837_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
   <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3860_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+    <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   </head>
 <body>
 
