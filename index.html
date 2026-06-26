@@ -1663,7 +1663,78 @@ tml lang="zh-CN">
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
-  </script>
+  
+
+// ======= IMAGE PRELOADING OPTIMIZATION =======
+var preloadCache = {};
+
+function preloadImage(url) {
+  if (preloadCache[url]) return Promise.resolve();
+  return new Promise(function(resolve) {
+    var img = new Image();
+    img.onload = function() { preloadCache[url] = img; resolve(); };
+    img.onerror = function() { resolve(); }; // continue even if fail
+    img.src = url;
+  });
+}
+
+function preloadNearby(albumId, currentIndex) {
+  var album = albums.find(function(a) { return a.id === albumId; });
+  if (!album) return;
+  var photos = album.photos;
+  var toPreload = [];
+  // Preload current, prev, next
+  [currentIndex-1, currentIndex, currentIndex+1, currentIndex+2, currentIndex+3].forEach(function(i) {
+    if (i >= 0 && i < photos.length) {
+      toPreload.push(getFull(photos[i]));
+    }
+  });
+  // Preload in background (don't block UI)
+  setTimeout(function() {
+    toPreload.forEach(function(url) { preloadImage(url); });
+  }, 100);
+}
+
+// Override openLightbox to add preloading
+var origOpenLightbox = openLightbox;
+openLightbox = function(index) {
+  origOpenLightbox(index);
+  // Preload nearby images
+  var albumId = document.querySelector('.lightbox').dataset.albumId;
+  if (albumId) preloadNearby(albumId, index);
+};
+
+// Override next/prev to preload more
+var origNext = window.nextPhoto;
+if (origNext) {
+  window.nextPhoto = function() {
+    origNext();
+    var idx = parseInt(document.querySelector('.lightbox img').dataset.index || '0');
+    var albumId = document.querySelector('.lightbox').dataset.albumId;
+    if (albumId) preloadNearby(albumId, idx + 1);
+  };
+}
+
+var origPrev = window.prevPhoto;
+if (origPrev) {
+  window.prevPhoto = function() {
+    origPrev();
+    var idx = parseInt(document.querySelector('.lightbox img').dataset.index || '0');
+    var albumId = document.querySelector('.lightbox').dataset.albumId;
+    if (albumId) preloadNearby(albumId, idx - 1);
+  };
+}
+
+// Preload first 3 photos of each album on page load
+window.addEventListener('load', function() {
+  albums.forEach(function(album) {
+    var photos = album.photos.slice(0, 3);
+    photos.forEach(function(p) { preloadImage(getFull(p)); });
+  });
+});
+// ======= END PRELOADING =======
+
+</script>
 
 <!DOCTYPE html>
 <h
