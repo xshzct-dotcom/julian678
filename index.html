@@ -812,6 +812,13 @@ tml lang="zh-CN">
   <audio id="bgMusic" preload="auto"></audio>
 
   <script>
+    function getThumb(url) {
+      return "https://images.weserv.nl/?url=" + encodeURIComponent(url) + "&w=400&output=webp&q=50";
+    }
+    function getFull(url) {
+      return "https://images.weserv.nl/?url=" + encodeURIComponent(url) + "&w=1920&output=webp&q=75";
+    }
+    
     // ==================== DATA ====================
     
     // MUSIC
@@ -1226,7 +1233,7 @@ tml lang="zh-CN">
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${photo}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'">
+            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'">
           </div>
         `).join('')}</div>`;
       }
@@ -1292,7 +1299,7 @@ tml lang="zh-CN">
       spinner.style.display = 'block';
 
       // Use full-res URL
-      img.src = currentAlbumPhotos[index];
+      img.src = getFull(currentAlbumPhotos[index]);
       counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
       lb.classList.add('active');
 
@@ -1300,7 +1307,7 @@ tml lang="zh-CN">
       var nextIdx = (index + 1) % currentAlbumPhotos.length;
       var prevIdx = (index - 1 + currentAlbumPhotos.length) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = currentAlbumPhotos[nextIdx];
+      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
     }
     
     function closeLightbox() {
@@ -1320,7 +1327,7 @@ tml lang="zh-CN">
       // Preload next photo in background
       var nextIdx = (currentPhotoIndex + 1) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = currentAlbumPhotos[nextIdx];
+      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
     }
     
     // Keyboard navigation
