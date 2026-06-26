@@ -1307,7 +1307,7 @@
       var nextIdx = (index + 1) % currentAlbumPhotos.length;
       var prevIdx = (index - 1 + currentAlbumPhotos.length) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
+      preloadImg.src = currentAlbumPhotos[nextIdx]);
     }
     
     function closeLightbox() {
@@ -1327,7 +1327,7 @@
       // Preload next photo in background
       var nextIdx = (currentPhotoIndex + 1) % currentAlbumPhotos.length;
       var preloadImg = new Image();
-      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
+      preloadImg.src = currentAlbumPhotos[nextIdx]);
     }
     
     // Keyboard navigation
