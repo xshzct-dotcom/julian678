@@ -447,7 +447,20 @@
       max-height: 90vh;
       object-fit: contain;
       border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
+    .lightbox img.loaded { opacity: 1; }
+    .lightbox-loading {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: lbspin 0.8s linear infinite;
+    }
+    @keyframes lbspin { to { transform: rotate(360deg); } }
     
     .lightbox-close {
       position: absolute;
@@ -789,7 +802,8 @@
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
-    <img id="lightboxImg" src="" alt="">
+    <img id="lightboxImg" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';"
+    <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div> alt="">
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
   </div>
@@ -984,6 +998,21 @@
     
     
     // ==================== MODAL STATE ====================
+    
+    // Photo URL helpers for performance
+    function getThumb(url) {
+      // GitHub Raw CDN: append ?w=400 for thumbnail
+      return url.indexOf("raw.githubusercontent") >= 0
+        ? url + (url.indexOf("?") >= 0 ? "&w=400" : "?w=400")
+        : url;
+    }
+    function getFull(url) {
+      // GitHub Raw CDN: append ?w=1920 for full view
+      return url.indexOf("raw.githubusercontent") >= 0
+        ? url + (url.indexOf("?") >= 0 ? "&w=1920" : "?w=1920")
+        : url;
+    }
+
     let modalStack = []; // Stack for 3-level navigation
     let currentAlbumPhotos = [];
     let currentPhotoIndex = 0;
@@ -1215,7 +1244,7 @@
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${photo}" alt="照片 ${i + 1}" onerror="this.style.display='none'">
+            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.src=photo">
           </div>
         `).join('')}</div>`;
       }
@@ -1274,10 +1303,22 @@
       const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
       const counter = document.getElementById('lightboxCounter');
-      
-      img.src = currentAlbumPhotos[index];
+      const spinner = document.getElementById('lightboxSpinner');
+
+      // Reset loading state
+      img.classList.remove('loaded');
+      spinner.style.display = 'block';
+
+      // Use full-res URL
+      img.src = getFull(currentAlbumPhotos[index]);
       counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
       lb.classList.add('active');
+
+      // Preload adjacent photos for instant navigation
+      var nextIdx = (index + 1) % currentAlbumPhotos.length;
+      var prevIdx = (index - 1 + currentAlbumPhotos.length) % currentAlbumPhotos.length;
+      var preloadImg = new Image();
+      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
     }
     
     function closeLightbox() {
@@ -1285,9 +1326,19 @@
     }
     
     function changePhoto(dir) {
+      var img = document.getElementById('lightboxImg');
+      var spinner = document.getElementById('lightboxSpinner');
+      img.classList.remove('loaded');
+      spinner.style.display = 'block';
+
       currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
-      document.getElementById('lightboxImg').src = currentAlbumPhotos[currentPhotoIndex];
+      img.src = getFull(currentAlbumPhotos[currentPhotoIndex]);
       document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+
+      // Preload next photo in background
+      var nextIdx = (currentPhotoIndex + 1) % currentAlbumPhotos.length;
+      var preloadImg = new Image();
+      preloadImg.src = getFull(currentAlbumPhotos[nextIdx]);
     }
     
     // Keyboard navigation
