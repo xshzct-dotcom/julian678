@@ -77,7 +77,7 @@ tml lang="zh-CN">
       justify-content: center;
       text-align: center;
       background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                  url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/hero_bg.jpg') center/cover no-repeat;
+                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) center/cover no-repeat;
       background-attachment: fixed;
       color: white;
     }
@@ -1031,7 +1031,7 @@ tml lang="zh-CN">
   <!-- ABOUT -->
   <div class="about-section" id="about">
     <div class="about-inner">
-      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" loading="lazy">
       <div>
         <h2>向天游</h2>
         
@@ -1086,7 +1086,7 @@ tml lang="zh-CN">
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
-    <img id="lightboxImg" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
+    <img id="lightboxImg" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" / loading="lazy">
     <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div> alt="">
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
