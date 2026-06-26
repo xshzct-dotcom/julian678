@@ -680,7 +680,95 @@ tml lang="zh-CN">
       .music-player { bottom: 1rem; right: 1rem; }
       .lightbox-nav { width: 45px; height: 45px; font-size: 1.8rem; }
     }
-  </style>
+  
+  /* ===== 质感增强：重力与触感 ===== */
+  
+  /* 全局过渡曲线：带重力感的缓出 */
+  a, button, .card, .album-card, .post-card, .music-btn, .nav-link {
+    transition: all 0.3s cubic-bezier(0.34, 1.0, 0.64, 1.0) !important;
+  }
+  
+  /* 轻触反馈（按下变实） */
+  a:active, button:active, .card:active, .album-card:active {
+    transform: scale(0.97) translateY(1px) !important;
+    opacity: 0.92;
+  }
+  
+  /* 卡片悬停：轻微下沉而非上浮（更有重量感） */
+  .card:hover, .album-card:hover, .post-card:hover {
+    transform: translateY(3px) scale(1.01) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25) !important;
+  }
+  
+  /* 照片悬停：微缩而非放大 */
+  .album-photo-item:hover img {
+    transform: scale(1.03) !important;
+    filter: brightness(0.95);
+  }
+  .album-photo-item:active img {
+    transform: scale(0.99) !important;
+  }
+  
+  /* 按钮按下反馈 */
+  .music-btn:active {
+    transform: scale(0.93) !important;
+    background: rgba(255,255,255,0.12) !important;
+  }
+  
+  /* 导航链接：底部划线沉稳进入 */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 50%; right: 50%;
+    height: 1px;
+    background: currentColor;
+    transition: all 0.35s cubic-bezier(0.34, 1.0, 0.64, 1.0) !important;
+  }
+  .nav-link:hover::after {
+    left: 0; right: 0;
+  }
+  
+  /* 模态窗口：带惯性的滑入 */
+  .modal.active {
+    animation: modalIn 0.38s cubic-bezier(0.22, 1.0, 0.36, 1.0) forwards;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1.0); }
+  }
+  
+  /* 灯箱：沉稳进入 */
+  #lightbox.active {
+    animation: lightboxIn 0.3s cubic-bezier(0.22, 1.0, 0.36, 1.0) forwards;
+  }
+  @keyframes lightboxIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  #lightboxImg.active {
+    animation: imgIn 0.3s cubic-bezier(0.22, 1.0, 0.36, 1.0) forwards;
+  }
+  @keyframes imgIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1.0);   }
+  }
+  
+  /* 页面加载：卡片依次浮现（不闪） */
+  .section {
+    animation: fadeUp 0.5s ease-out both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  
+  /* 消除所有瞬时无过渡状态 */
+  * { -webkit-font-smoothing: antialiased; }
+  
+</style>
 </head>
 <body>
 
