@@ -706,13 +706,869 @@ tml lang="zh-CN">
   </style>
 
   <!-- Preload critical photos -->
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3770_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3812_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3814_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3835_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3837_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3860_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
-    <meta name="theme-color" content="#ffffff">
+                <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preload first photos -->
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3770_看图王.jpg" />
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3770_看图王.jpg" />
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3812_看图王.jpg" />
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3814_看图王.jpg" />
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3835_看图王.jpg" />
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/chuanxi/DSC_3837_看图王.jpg" />
+  </head>
+<body>
+
+  <div class="autoplay-hint" id="autoplayHint" onclick="this.classList.remove('show'); document.getElementById('bgMusic').play();">
+    <h3>🎵 点击任意处播放音乐</h3>
+    <p>浏览器限制，需要您的互动</p>
+  </div>
+
+  <header>
+    <a href="#hero" class="logo">向天游的随笔</a>
+    <nav>
+      <a href="#posts">首页</a>
+      <a href="#gallery">摄影</a>
+      <a href="#about">关于</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="hero">
+    <div>
+      <h1>向天游的随笔</h1>
+      <p>一个怀旧的人，一个时不时回来看看的角落</p>
+    </div>
+  </div>
+
+  <!-- POSTS (Level 1) -->
+  <div class="section" id="posts">
+    <div class="posts-grid">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openCardModal('essay')">
+        <div class="card-overlay">
+          <div class="card-title">随笔</div>
+          <div class="card-subtitle"> thoughts &amp; reflections</div>
+        </div>
+      </div>
+
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openCardModal('travel')">
+        <div class="card-overlay">
+          <div class="card-title">旅行见闻</div>
+          <div class="card-subtitle"> on the road</div>
+        </div>
+      </div>
+
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
+        <div class="card-overlay">
+          <div class="card-title">诗</div>
+          <div class="card-subtitle"> poems &amp; verses</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- GALLERY / ALBUMS -->
+  <div class="section" id="gallery">
+    <div class="page-title">
+      <h1>我眼中的世界</h1>
+      <p>MY WORLD</p>
+    </div>
+    <div class="album-grid" id="album-grid"></div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ABOUT -->
+  <div class="about-section" id="about">
+    <div class="about-inner">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'" onload="this.classList.add('loaded')" onload="this.classList.add('loaded')">
+      <div>
+        <h2>向天游</h2>
+        
+        <p>02年 身高170 体重56kg</p>
+        <p>一个爵士乐入门爱好者，会弹一点吉他，摄影也略懂一二。</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <ul>
+        <li><a href="#posts">首页</a></li>
+        <li><a href="#gallery">摄影</a></li>
+        <li><a href="#about">关于</a></li>
+        <li><a href="mailto:hello@example.com">联系</a></li>
+      </ul>
+      <p>© 2026 向天游的随笔 · 记录生活</p>
+    </div>
+  </footer>
+
+  <!-- MUSIC PLAYER -->
+  <div class="music-player" id="musicPlayer" onclick="togglePlayer()">
+    <div class="music-controls">
+      <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
+      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
+      <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
+    </div>
+    <div class="music-info">
+      <div class="music-title" id="musicTitle">旅行的意义（吉他独奏）</div>
+      <div class="music-progress">
+        <div class="music-progress-bar" id="musicProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN MODAL -->
+  <div class="modal" id="cardModal">
+    <div class="modal-header">
+      <button class="modal-back" id="modalBack" onclick="modalGoBack()" style="visibility: hidden;">
+        ← 返回
+      </button>
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
+    <img id="lightboxImg" onload="this.style.opacity='1'" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
+    <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div> alt="">
+    <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <!-- Hidden audio -->
+  <audio id="bgMusic" preload="auto"></audio>
+
+  <script>[
+
+        ]
+    function toAbs(url) {
+      if (url.startsWith("http")) return url;
+      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
+    }
+    function getThumb(url) {
+      return toAbs(url);
+    }
+    
+    function getFull(url) {
+      return toAbs(url);
+    }tml lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>向天游的随笔</title>
+  <meta name="description" content="一个怀旧的人，一个时不时回来看看的角落。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --black: #111111;
+      --white: #faf9f6;
+      --gray: #888888;
+      --light-gray: #e8e4df;
+      --accent: #8b7355;
+      --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+      --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --transition: 0.3s ease;
+    }
+    
+    html { scroll-behavior: smooth; overscroll-behavior: none; touch-action: pan-y; }
+    
+    body {
+      font-family: var(--font-serif);
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 249, 246, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    
+    nav { display: flex; gap: 2rem; }
+    
+    nav a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color var(--transition);
+      font-family: var(--font-sans);
+    }
+    
+    nav a:hover { color: var(--black); }
+    
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                  url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/hero_bg.jpg') center/cover no-repeat;
+      background-attachment: fixed;
+      color: white;
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.08em;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    
+    /* Section */
+    .section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+    
+    .page-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-title p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--light-gray);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    /* Posts grid */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    @media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
+    
+    .post-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+    
+    .post-card .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(0,0,0,0.7));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: background var(--transition);
+    }
+    
+    .post-card:hover .card-overlay {
+      background: linear-gradient(transparent 30%, rgba(0,0,0,0.85));
+    }
+    
+    .post-card .card-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    
+    .post-card .card-subtitle {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      font-family: var(--font-sans);
+    }
+    
+    /* Album grid */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @media (max-width: 900px) { .album-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .album-grid { grid-template-columns: 1fr; } }
+    
+    .album-card {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .album-card:hover { transform: scale(1.02); transition: transform 0.3s; }
+    
+    .album-card .album-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    
+    .album-card:hover .album-overlay { background: rgba(0,0,0,0.5); }
+    
+    .album-card .album-title {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    
+    .album-card .album-count {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      font-family: var(--font-sans);
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      overflow-y: auto;
+    }
+    
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      color: white;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 10;
+    }
+    
+    .modal-back {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition);
+      font-family: var(--font-sans);
+    }
+    
+    .modal-back:hover { color: white; }
+    
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      flex: 1;
+      text-align: center;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: opacity var(--transition);
+      width: 40px;
+    }
+    
+    .modal-close:hover { opacity: 0.6; }
+    
+    .modal-body {
+      padding: 2rem 3rem;
+      color: white;
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    /* Article list (Level 2) */
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .article-item {
+      padding: 1.5rem 2rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .article-item:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    .article-item .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .article-item .meta {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-sans);
+    }
+    
+    .article-item .arrow {
+      color: rgba(255,255,255,0.3);
+      font-size: 1.2rem;
+    }
+    
+    /* Poem/Article content (Level 3) */
+    .content-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .content-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    
+    .content-date {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.3rem;
+    }
+    
+    .content-meta {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+    }
+    
+    .content-body {
+      font-size: 1.1rem;
+      line-height: 2.2;
+      white-space: pre-line;
+      letter-spacing: 0.02em;
+    }
+    
+    .content-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .content-nav button {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+      font-family: var(--font-sans);
+    }
+    
+    .content-nav button:hover {
+      background: white;
+      color: black;
+    }
+    
+    /* Album photos grid (Level 2) */
+    .album-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); 
+      .lightbox-nav { width: 50px; height: 50px; font-size: 2rem; }
+    } }
+    
+    .album-photo-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .album-photo-item { max-width: 220px; max-height: 165px; }
+    .album-photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .album-photo-item:hover img { transform: scale(1.05); }
+    
+    /* Lightbox */
+    .lightbox {
+      touch-action: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    
+    .lightbox.active {
+      overscroll-behavior: contain;
+      
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .lightbox img.loaded { opacity: 1; }
+    .lightbox-loading {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: lbspin 0.8s linear infinite;
+    }
+    @keyframes lbspin { to { transform: rotate(360deg); } }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background var(--transition);
+    }
+    
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background var(--transition);
+    }
+    
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      font-family: var(--font-sans);
+    }
+    
+    /* About */
+    .about-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .about-inner {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    
+    @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; text-align: center; } }
+    
+    .about-inner img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
+    .about-inner h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .about-inner p {
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+      line-height: 1.8;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    
+    .social-links a:hover { border-color: var(--accent); }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--light-gray);
+      margin-top: 4rem;
+    }
+    
+    footer ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    footer a { color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    footer a:hover { color: var(--black); }
+    
+    /* Music player */
+    .music-player {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(17,17,17,0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    
+    .music-player:hover { transform: scale(1.05); }
+    .music-player.expanded { border-radius: 12px; }
+    
+    .music-info { display: none; }
+    .music-player.expanded .music-info { display: block; }
+    
+    .music-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
+    
+    .music-controls { display: flex; align-items: center; gap: 0.8rem; }
+    
+    .music-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      transition: opacity var(--transition);
+    }
+    
+    .music-btn:hover { opacity: 0.6; }
+    
+    .music-progress {
+      width: 150px;
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    
+    .music-progress-bar {
+      height: 100%;
+      background: white;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    /* Autoplay hint */
+    .autoplay-hint {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 2rem 3rem;
+      border-radius: 8px;
+      z-index: 3000;
+      text-align: center;
+      cursor: pointer;
+      display: none;
+    }
+    
+    .autoplay-hint.show { display: block; }
+    .autoplay-hint h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .autoplay-hint p { font-size: 0.9rem; opacity: 0.8; }
+    
+    /* Fade up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .section { padding: 3rem 1.5rem; }
+      .page-title h1 { font-size: 1.8rem; }
+      .modal-header { padding: 1.5rem; }
+      .modal-body { padding: 1.5rem; }
+      .music-player { bottom: 1rem; right: 1rem; }
+      .lightbox-nav { width: 45px; height: 45px; font-size: 1.8rem; }
+    }
+  
+    /* 图片加载骨架屏 */
+    .album-photo-item {
+      background: linear-gradient(110deg, #1a1a1a 8%, #222 18%, #1a1a1a 33%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    .album-photo-item img {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .album-photo-item img.loaded {
+      opacity: 1;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+
+  <!-- Preload critical photos -->
+                <meta name="theme-color" content="#ffffff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   </head>
