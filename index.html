@@ -1233,7 +1233,7 @@
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.src=photo">
+            <img src="${photo}" alt="照片 ${i + 1}" loading="lazy" onerror="this.src=photo">
           </div>
         `).join('')}</div>`;
       }
