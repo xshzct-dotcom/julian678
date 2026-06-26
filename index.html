@@ -414,6 +414,7 @@
       cursor: pointer;
     }
     
+    .album-photo-item { max-width: 220px; max-height: 165px; }
     .album-photo-item img {
       width: 100%;
       height: 100%;
@@ -999,20 +1000,8 @@
     
     // ==================== MODAL STATE ====================
     
-    // Photo URL helpers for performance
-    function getThumb(url) {
-      // GitHub Raw CDN: append ?w=400 for thumbnail
-      return url.indexOf("raw.githubusercontent") >= 0
-        ? url + (url.indexOf("?") >= 0 ? "&w=400" : "?w=400")
-        : url;
-    }
-    function getFull(url) {
-      // GitHub Raw CDN: append ?w=1920 for full view
-      return url.indexOf("raw.githubusercontent") >= 0
-        ? url + (url.indexOf("?") >= 0 ? "&w=1920" : "?w=1920")
-        : url;
-    }
-
+    
+    let modalStack
     let modalStack = []; // Stack for 3-level navigation
     let currentAlbumPhotos = [];
     let currentPhotoIndex = 0;
@@ -1244,7 +1233,7 @@
         title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
         body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `
           <div class="album-photo-item" onclick="openLightbox(${i})">
-            <img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.src=photo">
+            <img src="${photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.src=photo">
           </div>
         `).join('')}</div>`;
       }
@@ -1310,7 +1299,7 @@
       spinner.style.display = 'block';
 
       // Use full-res URL
-      img.src = getFull(currentAlbumPhotos[index]);
+      img.src = currentAlbumPhotos[index];
       counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
       lb.classList.add('active');
 
@@ -1332,7 +1321,7 @@
       spinner.style.display = 'block';
 
       currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
-      img.src = getFull(currentAlbumPhotos[currentPhotoIndex]);
+      img.src = currentAlbumPhotos[currentPhotoIndex];
       document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
 
       // Preload next photo in background
