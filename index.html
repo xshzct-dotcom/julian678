@@ -401,22 +401,25 @@ tml lang="zh-CN">
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      justify-items: center;
-      text-align: center;
+      justify-content: center;
     }
     
-    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .album-photos-grid { grid-template-columns: repeat(2, 1fr); justify-content: center; } }
+    @media (max-width: 480px) { .album-photos-grid { grid-template-columns: 1fr 1fr; justify-content: center; } }
     
     .album-photo-item {
       position: relative;
-      display: inline-block;
       aspect-ratio: 4/3;
       overflow: hidden;
       border-radius: 4px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    .album-photo-item { max-width: 220px; max-height: 165px; }
+    .album-photo-item { max-width: 220px; max-height: 165px; width: 100%; }
+    @media (max-width: 480px) { .album-photo-item { max-width: 160px; max-height: 120px; } }
     .album-photo-item img {
       width: 100%;
       height: 100%;
@@ -969,7 +972,18 @@ tml lang="zh-CN">
       100% { background-position: -200% 0; }
     }
   </style>
-</head>
+
+  <!-- Preload first photos for fast display -->
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3770_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3812_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3814_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3835_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3837_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3860_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3955_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3970_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  <link rel="preload" as="image" href="https://images.weserv.nl/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxshzct-dotcom%2Fjulian678%2Fmain%2Fimages%2Fchuanxi%2FDSC_3992_%E7%9C%8B%E5%9B%BE%E7%8E%8B.jpg&w=280&output=webp&q=65" />
+  </head>
 <body>
 
   <div class="autoplay-hint" id="autoplayHint" onclick="this.classList.remove('show'); document.getElementById('bgMusic').play();">
@@ -1090,7 +1104,7 @@ tml lang="zh-CN">
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
-    <img id="lightboxImg" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
+    <img id="lightboxImg" onload="this.style.opacity='1'" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
     <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div> alt="">
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
