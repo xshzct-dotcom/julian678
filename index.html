@@ -101,8 +101,7 @@
       height: 100%;
       display: block;
       object-fit: cover;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
+      transition: transform 0.3s ease;
     }
     .album-photo-item img.loaded{opacity:1}
     .album-photo-item:hover img{transform:scale(1.02)}
@@ -564,7 +563,7 @@ function updateModalView() {
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
-    body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" onerror="this.style.display='none'" onload="this.classList.add('loaded')"></div>`).join('')}</div>`;
+    body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" decoding="async" onerror="this.style.display='none'"></div>`).join('')}</div>`;
     // 预加载大图
     currentAlbumPhotos.slice(0, 3).forEach(p => preloader.load(getFull(p)));
   }
