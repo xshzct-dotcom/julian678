@@ -416,7 +416,7 @@ tml lang="zh-CN">
       cursor: pointer;
     }
     
-    .album-photo-item { max-width: 220px; max-height: 165px; }
+    .album-photo-item { width: 100%; max-width: 220px; justify-self: center; }
     .album-photo-item img {
       width: 100%;
       height: 100%;
@@ -963,6 +963,28 @@ tml lang="zh-CN">
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Mobile: album photos - 2 columns, smaller */
+    @media (max-width: 600px) {
+      .album-photos-grid { gap: 8px !important; }
+      .album-photo-item { max-width: 160px !important; max-height: 120px !important; }
+      .album-photo-item img { object-position: center; }
+    }
+    @media (max-width: 400px) {
+      .album-photos-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+      .album-photo-item { max-width: 100% !important; max-height: 110px !important; }
+    }
+
+    /* Lightbox: ensure centered on all screens */
+    #lightboxImg {
+      max-width: 90vw !important;
+      max-height: 85vh !important;
+      display: block !important;
+      margin: auto !important;
+    }
+    @media (max-width: 600px) {
+      #lightboxImg { max-width: 96vw !important; max-height: 80vh !important; }
+    }
 </style>
 
   <!-- Preload background images -->
@@ -1620,7 +1642,7 @@ tml lang="zh-CN">
       spinner.style.display = 'block';
 
       currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
-      img.src = currentAlbumPhotos[currentPhotoIndex];
+      img.src = getFull(currentAlbumPhotos[currentPhotoIndex]);
       document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
 
       // Preload next photo in background
