@@ -184,8 +184,8 @@
   <header>
     <a href="#" class="logo">向天游</a>
     <nav>
-      <a href="#albums">我眼中的世界</a>
-      <a href="#writing">随笔</a>
+      <a href="#albums">随笔</a>
+      <a href="#writing">我眼中的世界</a>
       <a href="#about">关于</a>
     </nav>
   </header>
@@ -198,25 +198,25 @@
   </section>
 
   <section class="section" id="albums">
-    <div class="page-title"><h1>我眼中的世界</h1><p>Album</p></div>
+    <div class="page-title"><h1>随笔</h1><p>Writing</p></div>
     <hr class="section-divider">
-    <div class="album-grid" id="album-grid"></div>
+    <div class="posts-grid">
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
+        <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
+      </div>
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
+        <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
+      </div>
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
+        <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="writing">
-  <div class="page-title"><h1>随笔</h1><p>Writing</p></div>
-  <hr class="section-divider">
-  <div class="posts-grid">
-    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
-      <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
-    </div>
-    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
-      <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
-    </div>
-    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
-      <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
-    </div>
-  </div>
+    <div class="page-title"><h1>我眼中的世界</h1><p>Album</p></div>
+    <hr class="section-divider">
+    <div class="album-grid" id="album-grid"></div>
   </section>
 
   <section class="about-section" id="about">
