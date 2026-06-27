@@ -1181,26 +1181,6 @@ tml lang="zh-CN">
     }
     function getFull(url) { return toAbs(url); }
 
-
-
-
-
-
-
-   function getThumb(url) {
-      var parts = url.replace(/\\/g,"/").split("/");
-      var fname = parts[parts.length-1]
-        .replace(/_看图王/g,"")
-        .replace(/\.jpg$/i,".webp")
-        .replace(/\.jpeg$/i,".webp");
-      var folder = parts[1];
-      return toAbs("thumbs/" + folder + "/" + fname);
-    }
-
-
-   function getFull(url) { return toAbs(url); }
-
-    
     // ==================== DATA ====================
     
     // MUSIC
@@ -1482,7 +1462,7 @@ tml lang="zh-CN">
       card.className = 'album-card fade-up';
       card.style.transitionDelay = `${(index % 3) * 0.1}s`;
       if (album.cover) {
-        card.style.backgroundImage = `url('${album.cover}')`;
+        card.style.backgroundImage = `url('${getThumb(album.cover)}')`;
         const subtitleHtml = album.subtitle ? `<div class="album-subtitle">${album.subtitle}</div>` : '';
         card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div>${subtitleHtml}<div class="album-count">${album.photos.length} 张照片</div></div>`;
         card.onclick = () => openAlbumModal(album.id);
