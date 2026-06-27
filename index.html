@@ -192,7 +192,7 @@
   <section class="hero">
     <div>
       <h1>向天游的随笔</h1>
-      <p>一个怀旧的人，一个时不时回来看看的角落</p>
+      <p>一个不切实际的幻想家</p>
     </div>
   </section>
 
@@ -201,7 +201,7 @@
     <hr class="section-divider">
     <div class="posts-grid">
       <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
-        <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
+        <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 所思所想</div></div>
       </div>
       <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
         <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
@@ -222,10 +222,8 @@
     <div class="about-inner">
       <img src="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/avatar.jpg/avatar.webp" alt="头像" loading="lazy">
       <div>
-        <h2>关于</h2>
+        <h2>向天游</h2>
         <p>一个怀旧的人，喜欢记录生活中那些触动心灵的瞬间。</p>
-        <p>会弹吉他，喜欢摄影，偶尔写写东西。</p>
-        <div class="social-links"><a href="#">微博</a><a href="#">小红书</a></div>
       </div>
     </div>
   </section>
@@ -486,11 +484,11 @@ albums.forEach((album, index) => {
   card.style.transitionDelay = `${(index % 3) * 0.1}s`;
   if (album.cover) {
     card.style.backgroundImage = `url('${getThumb(album.cover)}')`;
-    card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">${album.photos.length} 张照片</div></div>`;
+    card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div></div>`;
     card.onclick = () => openAlbumModal(album.id);
   } else {
     card.style.background = '#e0e0e0';
-    card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div><div class="album-count">即将更新</div></div>`;
+    card.innerHTML = `<div class="album-overlay"><div class="album-title">${album.title}</div></div>`;
   }
   albumGrid.appendChild(card);
 });
@@ -547,7 +545,7 @@ function updateModalView() {
   } else if (current.type === 'poems') {
     if (current.index === -1) {
       title.textContent = '诗';
-      body.innerHTML = `<div class="article-list">${poems.map((p, i) => `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div><div class="meta">${p.date}</div></div><div class="arrow">→</div></div>`).join('')}</div>`;
+      body.innerHTML = `<div class="article-list">${poems.map((p, i) => `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div></div><div class="arrow">→</div></div>`).join('')}</div>`;
     } else {
       const poem = poems[current.index];
       title.textContent = poem.title;
