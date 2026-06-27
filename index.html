@@ -78,32 +78,30 @@
     /* 相册照片网格 - 紧凑瀑布流布局 */
     .album-photos-grid{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 6px;
       padding: 0;
       max-width: 100%;
     }
-    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:6px}}
-    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
+    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:4px}}
+    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:3px}}
     .album-photo-item{
       position: relative;
       overflow: hidden;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
-      background-color: #2a2a2a;
-      /* 移除固定宽高比，让图片自然排列 */
+      background-color: #333;
     }
     .album-photo-item img{
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: cover;
       transition: transform 0.3s ease, opacity 0.3s ease;
       opacity: 0;
-      image-orientation: from-image; /* 修复缩略图旋转问题 */
     }
     .album-photo-item img.loaded{opacity:1}
-    .album-photo-item:hover img{transform:scale(1.03)}
+    .album-photo-item:hover img{transform:scale(1.02)}
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
     .lightbox.active{opacity:1;pointer-events:all}
     .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.3s}
@@ -148,12 +146,12 @@
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
     .fade-up.visible{opacity:1;transform:translateY(0)}
     @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
-    a,button,.card,.album-card,.post-card,.music-btn,.nav-link{transition:all 0.4s cubic-bezier(0.34,1.0,0.64,1.0)}
-    a:active,button:active,.card:active,.album-card:active{transform:scale(0.96) translateY(2px);opacity:0.92}
-    .card:hover,.album-card:hover,.post-card:hover{transform:translateY(4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
-    .album-photo-item:hover img{transform:scale(1.03)!important;filter:brightness(0.95)}
-    .album-photo-item:active img{transform:scale(0.99)!important}
-    .music-btn:active{transform:scale(0.93)!important;background:rgba(255,255,255,0.12)!important}
+    /* 通用过渡动画 */
+    a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
+    a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
+    .card:hover,.album-card:hover,.post-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.15)}
+    .album-photo-item:hover img{transform:scale(1.05)}
+    .album-photo-item:active img{transform:scale(0.98)}
     .nav-link{position:relative}
     .nav-link::after{content:'';position:absolute;bottom:-2px;left:50%;right:50%;height:1px;background:currentColor;transition:all 0.35s cubic-bezier(0.34,1.0,0.64,1.0)!important}
     .nav-link:hover::after{left:0;right:0}
@@ -167,11 +165,8 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     *{-webkit-font-smoothing:antialiased}
     :root{--ease-out-expo:cubic-bezier(0.16,1,0.3,1);--ease-out-quad:cubic-bezier(0.25,0.46,0.45,0.94);--duration-fast:0.35s;--duration-std:0.5s;--duration-slow:0.7s}
-    a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform var(--duration-std) var(--ease-out-expo),box-shadow var(--duration-std) var(--ease-out-quad),opacity var(--duration-std) var(--ease-out-quad),background-color 0.4s var(--ease-out-quad),border-color 0.4s var(--ease-out-quad),color 0.35s var(--ease-out-quad)!important}
     .card:hover,.album-card:hover,.post-card:hover{transform:translateY(-6px) scale(1.015)!important;box-shadow:0 4px 12px rgba(0,0,0,0.06),0 12px 40px rgba(0,0,0,0.14),0 24px 60px rgba(0,0,0,0.08)!important;border-color:rgba(0,0,0,0.08)!important}
     a:active,button:active,.card:active,.album-card:active,.post-card:active{transform:scale(0.97) translateY(0px)!important;box-shadow:0 2px 6px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.08)!important;transition-duration:0.15s!important}
-    .album-photo-item:hover img{transform:scale(1.04)!important;filter:brightness(0.9) contrast(1.03)}
-    .album-photo-item:active img{transform:scale(1.0)!important;transition-duration:0.1s!important}
     .nav-link{position:relative;font-weight:400;letter-spacing:0.02em}
     .nav-link::after{content:'';position:absolute;bottom:-3px;left:50%;right:50%;height:1px;background:currentColor;transition:left var(--duration-std) var(--ease-out-expo),right var(--duration-std) var(--ease-out-expo)!important}
     .nav-link:hover::after{left:0;right:0}
