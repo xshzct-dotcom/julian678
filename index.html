@@ -341,21 +341,22 @@ function generatePoetryBackground() {
   const height = window.innerHeight;
   const frag = document.createDocumentFragment();
 
-  // 根据屏幕宽度自适应：手机端用更小的字号和更紧凑的行高
+  // 根据屏幕宽度自适应列数
   const isMobile = width < 600;
-  const isTablet = !isMobile && width < 1000;
-
-  // 手机端用2列，平板3列，电脑3列（每列更宽，诗能完整显示）
   const cols = isMobile ? 2 : 3;
   const rows = Math.ceil(poems.length / cols);
   const cellW = Math.floor(width / cols);
   const cellH = Math.floor(height / rows);
 
-  // 字号策略：手机端整体增大3倍，确保艺术感
-  const titleSizeMin = isMobile ? 42 : (isTablet ? 22 : 28);
-  const titleSizeMax = isMobile ? 54 : (isTablet ? 30 : 42);
-  const lineSizeMin  = isMobile ? 30 : (isTablet ? 14 : 12);
-  const lineSizeMax  = isMobile ? 42 : (isTablet ? 24 : 38);
+  // 字号策略：缩小随机范围，避免某行字号过大撑出格子
+  const titleSizeRange = isMobile ? [16, 22] : [22, 32];
+  const lineSizeRange  = isMobile ? [12, 16] : [16, 24];
+  const titleGap = isMobile ? 8 : 16;  // 标题与首句间距
+  const lineGap  = isMobile ? 1.2 : 1.4;  // 行高倍数
+
+  // 安全留白：诗词不能撑到 cell 边界
+  const safePadX = isMobile ? 12 : 24;
+  const safePadY = isMobile ? 12 : 20;
 
   poems.forEach((poem, idx) => {
     const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
@@ -364,14 +365,24 @@ function generatePoetryBackground() {
     const col = idx % cols;
     const row = Math.floor(idx / cols);
 
-    // 每首诗在区块内随机选一个锚点
-    const padX = isMobile ? 8 : 30;
-    const padY = isMobile ? 6 : 30;
-    const anchorX = col * cellW + padX + Math.floor(Math.random() * Math.max(1, cellW - padX * 2));
-    const anchorY = row * cellH + padY + Math.floor(Math.random() * Math.max(1, cellH - padY * 2));
+    // 先确定字号（提前算，避免后续随机干扰高度估算）
+    const titleSize = titleSizeRange[0] + Math.floor(Math.random() * (titleSizeRange[1] - titleSizeRange[0]));
+    // 估算平均正文字号
+    const avgLineSize = (lineSizeRange[0] + lineSizeRange[1]) / 2;
+    // 预估总高度 = 标题 + 标题间距 + 所有诗句 + 底部留白
+    const estimatedHeight = titleSize + titleGap + lines.length * avgLineSize * lineGap + safePadY;
+
+    // anchorX: 在 cell 内安全范围
+    const minX = col * cellW + safePadX;
+    const maxX = (col + 1) * cellW - safePadX;
+    const anchorX = minX + Math.floor(Math.random() * Math.max(1, maxX - minX));
+
+    // anchorY: 保证诗完整显示在 cell 内
+    const minY = row * cellH + safePadY;
+    const maxY = (row + 1) * cellH - estimatedHeight;
+    const anchorY = minY + Math.floor(Math.random() * Math.max(1, maxY - minY));
 
     // 标题
-    const titleSize = titleSizeMin + Math.floor(Math.random() * (titleSizeMax - titleSizeMin));
     const titleOpacity = isMobile ? (0.22 + Math.random() * 0.10) : (0.28 + Math.random() * 0.12);
     addSpan(frag, poem.title || '诗', anchorX, anchorY, {
       fontSize: titleSize,
@@ -379,13 +390,14 @@ function generatePoetryBackground() {
       isTitle: true
     });
 
-    // 诗句：用游标严格按字号累加，**绝不省略任何一行**
-    let cursorY = anchorY + titleSize + (isMobile ? 8 : 20);
-    const lineGap = isMobile ? 1.05 : 1.4;  // 手机端用略大于1的行间距
+    // 诗句：游标从标题下方开始，按实际行高累加
+    let cursorY = anchorY + titleSize + titleGap;
     lines.forEach((line) => {
-      const lineSize = lineSizeMin + Math.floor(Math.random() * (lineSizeMax - lineSizeMin));
+      const lineSize = lineSizeRange[0] + Math.floor(Math.random() * (lineSizeRange[1] - lineSizeRange[0]));
       const lineOpacity = isMobile ? (0.14 + Math.random() * 0.08) : (0.15 + Math.random() * 0.12);
-      const offsetX = Math.floor((Math.random() - 0.5) * (isMobile ? 30 : 80));
+      // 水平偏移：每行小范围抖动，但保证不超出 cell
+      const maxOffsetX = Math.max(0, Math.min(40, minX + cellW - safePadX - anchorX - 10));
+      const offsetX = Math.floor((Math.random() - 0.5) * maxOffsetX);
       addSpan(frag, line, anchorX + offsetX, cursorY, {
         fontSize: lineSize,
         opacity: lineOpacity
