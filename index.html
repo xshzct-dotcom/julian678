@@ -273,10 +273,19 @@
 // 使用jsDelivr CDN加速GitHub内容，国内访问更快
 const CDN = {
   base: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main',
-  thumbs: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs',
-  music: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music'
+  image: function(path) {
+    // 尝试WebP格式，如果不支持则回退
+    const webpPath = path.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+    const fullPath = this.base + '/' + webpPath;
+    // 检查是否支持WebP
+    if (document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0) {
+      return fullPath;
+    }
+    return this.base + '/' + path;
+  },
+  music: CDN.base + '/music',
+  thumbs: CDN.base + '/thumbs'
 };
-
 // 获取缩略图（相册网格用小图）
 function getThumb(path) {
   if (!path) return '';
@@ -297,7 +306,7 @@ function getThumb(path) {
 function getFull(path) {
   if (!path) return '';
   if (path.startsWith('http')) return path;
-  return `${CDN.base}/${path}`;
+  return CDN.image(path);
 }
 
 // 兼容旧API
@@ -536,6 +545,13 @@ window.addEventListener('load', () => {
   
   // 生成诗词背景
   generatePoetryBackground();
+  
+  // 注册Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('SW registered'))
+      .catch(err => console.log('SW registration failed'));
+  }
 });
 
 // ==================== 渲染 ====================
