@@ -963,6 +963,72 @@ tml lang="zh-CN">
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* === Enhancement === */
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0%;z-index:9999;transition:width .1s}
+    #back-to-top{position:fixed;bottom:6rem;right:2rem;width:48px;height:48px;border-radius:50%;background:rgba(17,17,17,.92);color:white;border:1px solid rgba(255,255,255,.15);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;opacity:0;pointer-events:none;transform:translateY(16px);transition:all .4s cubic-bezier(.16,1,.3,1);z-index:998}
+    #back-to-top.visible{opacity:1;pointer-events:all;transform:translateY(0)}
+    #back-to-top:hover{transform:translateY(-3px)!important}
+    #back-to-top:active{transform:scale(.93) translateY(0)!important}
+    #keyboard-hints{position:fixed;bottom:6rem;left:2rem;background:rgba(17,17,17,.92);color:white;padding:.8rem 1.2rem;border-radius:8px;font-family:var(--font-sans);font-size:.72rem;opacity:0;pointer-events:none;transition:opacity .3s;z-index:998;line-height:2;display:none}
+    #keyboard-hints.visible{display:block;opacity:1}
+    #toggle-hints{position:fixed;bottom:6rem;left:2rem;width:36px;height:36px;border-radius:50%;background:rgba(17,17,17,.7);color:white;border:1px solid rgba(255,255,255,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;z-index:997;opacity:.5;transition:opacity .3s}
+    #toggle-hints:hover{opacity:1!important}
+    .hero-quote{font-style:italic;font-size:1rem;opacity:.75;margin-top:1.5rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;padding:0 2rem}
+    .article-item-meta{display:flex;align-items:center;gap:.8rem;margin-top:.5rem}
+    .article-item-date{color:rgba(255,255,255,.4);font-size:.72rem;font-family:var(--font-sans)}
+    .article-item-time{color:rgba(255,255,255,.35);font-size:.68rem;font-family:var(--font-sans);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:10px}
+    .article-item-excerpt{color:rgba(255,255,255,.45);font-size:.8rem;margin-top:.3rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+    #lightbox-thumb-bar{display:flex;gap:5px;padding:10px 20px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;max-width:100%;flex-shrink:0}
+    #lightbox-thumb-bar::-webkit-scrollbar{height:2px}
+    #lightbox-thumb-bar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15)}
+    .lb-thumb{width:44px;height:33px;object-fit:cover;border-radius:3px;opacity:.45;cursor:pointer;transition:all .25s;flex-shrink:0;border:2px solid transparent}
+    .lb-thumb.active,.lb-thumb:hover{opacity:1;border-color:rgba(255,255,255,.7)}
+    #lightbox-progress{width:100%;height:2px;background:rgba(255,255,255,.08);flex-shrink:0}
+    #lightbox-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .3s}
+    .music-cover{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+    .music-cover.playing{animation:spinCover 20s linear infinite}
+    @keyframes spinCover{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.5);font-size:.7rem;font-family:var(--font-sans);letter-spacing:.15em;text-transform:uppercase;animation:scrollBounce 2.5s ease infinite}
+    .scroll-hint-arrow{width:16px;height:16px;border-right:2px solid rgba(255,255,255,.35);border-bottom:2px solid rgba(255,255,255,.35);transform:rotate(45deg);margin-top:.3rem}
+    @keyframes scrollBounce{0%,100%{opacity:.5;transform:translateX(-50%) translateY(0)}50%{opacity:.25;transform:translateX(-50%) translateY(7px)}}
+    #search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:5000;display:flex;align-items:flex-start;justify-content:center;padding-top:12vh;opacity:0;pointer-events:none;transition:opacity .3s}
+    #search-overlay.active{opacity:1;pointer-events:all}
+    #search-box{width:90%;max-width:580px;background:rgba(25,25,25,.98);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+    #search-input{width:100%;background:none;border:none;color:white;font-size:1.15rem;font-family:var(--font-serif);padding:1.1rem 1.4rem;outline:none}
+    #search-results{max-height:55vh;overflow-y:auto;padding:.3rem 0}
+    .sr-item{padding:.85rem 1.4rem;cursor:pointer;transition:background .2s;border-bottom:1px solid rgba(255,255,255,.04)}
+    .sr-item:hover{background:rgba(255,255,255,.06)}
+    .sr-title{font-size:.95rem;margin-bottom:.25rem}
+    .sr-meta{font-size:.72rem;color:rgba(255,255,255,.38);font-family:var(--font-sans)}
+    .sr-none{padding:2rem;text-align:center;color:rgba(255,255,255,.35);font-size:.9rem}
+    #search-close-btn{position:absolute;top:1.5rem;right:2rem;background:rgba(255,255,255,.1);border:none;color:white;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;line-height:1}
+    .content-info-bar{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--font-sans);font-size:.8rem;color:rgba(255,255,255,.4)}
+    .content-info-bar .dot{opacity:.3}
+    .archive-group{margin-bottom:2.5rem}
+    .archive-year{font-size:1.6rem;font-weight:700;color:var(--accent);margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--light-gray)}
+    .archive-item{display:flex;align-items:baseline;gap:1rem;padding:.55rem 0;border-bottom:1px solid rgba(0,0,0,.04)}
+    .archive-date{font-size:.78rem;color:var(--gray);font-family:var(--font-sans);flex-shrink:0}
+    .archive-title{font-size:.95rem;cursor:pointer;transition:color .3s}
+    .archive-title:hover{color:var(--accent)}
+    .archive-cat{font-size:.7rem;color:var(--gray);font-family:var(--font-sans);margin-left:auto;flex-shrink:0}
+    footer .footer-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem}
+    footer h4{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:.8rem;font-family:var(--font-sans)}
+    footer ul{list-style:none}
+    footer ul li{margin-bottom:.4rem}
+    footer ul li a{color:var(--gray);text-decoration:none;font-size:.88rem;transition:color .3s}
+    footer ul li a:hover{color:var(--black)}
+    footer .footer-bottom{text-align:center;margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid var(--light-gray);color:var(--gray);font-size:.78rem;font-family:var(--font-sans)}
+    @media(max-width:768px){footer .footer-inner{grid-template-columns:1fr}}
+    .about-quote{margin-top:1.2rem;padding:1rem 1.4rem;border-left:3px solid var(--accent);background:rgba(139,115,85,.05);font-style:italic;color:var(--gray);font-size:.92rem;line-height:1.8}
+    .related-section{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07)}
+    .related-label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:var(--font-sans);margin-bottom:.8rem}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem}
+    .related-card{background:rgba(255,255,255,.04);border-radius:6px;padding:.9rem;cursor:pointer;transition:all .35s ease}
+    .related-card:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+    .related-card-title{font-size:.88rem;margin-bottom:.3rem}
+    .related-card-meta{font-size:.68rem;color:rgba(255,255,255,.35);font-family:var(--font-sans)}
+
 </style>
 
   <!-- Preload background images -->
@@ -991,7 +1057,7 @@ tml lang="zh-CN">
       <h1>向天游的随笔</h1>
       <p>一个怀旧的人，一个时不时回来看看的角落</p>
     </div>
-  </div>
+  <div class="hero-quote" id="hero-quote">「写下来，是为了不忘却。」</div></div>
 
   <!-- POSTS (Level 1) -->
   <div class="section" id="posts">
@@ -1093,7 +1159,7 @@ tml lang="zh-CN">
     <img id="lightboxImg" src="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
     <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div> alt="">
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
-    <div class="lightbox-counter" id="lightboxCounter"></div>
+    <div class="lightbox-counter" id="lightboxCounter"><div id="lightbox-thumb-bar"></div><div id="lightbox-progress"><div id="lightbox-progress-bar"></div></div></div>
   </div>
 
   <!-- Hidden audio -->
@@ -1216,58 +1282,86 @@ tml lang="zh-CN">
             title: '围巾',
             date: '2026.5.21',
             body: `上周本来也没啥事了，周末没事干就回三水待了，晚上无聊就又重新看了喜剧之王，看到最后女主帮男主织衣服的情节，突然想起你之前帮我织过的围巾，又给我痛苦反刍一晚上，gpt说这叫摇摆反刍阶段，实在忍不住好奇那围巾还在不在，我记得是放在了一个箱子里跟旧衣服一起，我怕我妈把它扔了，真是服了，行吧，想了想还是临时决定把在三水那袋遗留物都带回去，全部整理放好，不然心里总是乱乱的
+
   隔天回到，翻出了好多东西，以前读书时的旧衣服，还有一只玩具熊，已经忘记是我买给你的，还是你送给我的，打开抽屉，鲨鱼发箍，毕业照，校卡，毕业分别时同学送的礼物，还有我留长头发那时候剃光头留下的一扎头发，你的牙齿石膏模型，你的礼物盒，想打开看吧，我又怕会难过，但还是忍不住，里面是一沓我们刚开始热恋期时的非主流照片，还有你写着固定的小卡片，才发现你怎么这么可爱，当晚又给我干哭了
+
   失恋的人，我是做不到把你的东西都扔了，眼不见心不烦，怀旧的人都是喜欢自虐的，现在也还好吧，至少不会每天早上做噩梦了，自尊心也在恢复中，这次整理好所有东西，心中那块石头终于落了地，能安心继续进入新生活了
+
  初中时候的分手总是要死要活的，有一次也是闹分手，你好久都没回我消息，我是真怕你犯傻逼了，因为我记得你以前也会在手上划痕什么的，接着又打了电话和视频给你，最后你无事发生一样说你刚才去干嘛干嘛去了，我松了一口气，既开心又生气，那时候我们的爱是纯粹的
+
   刚开始的前四年应该是我最爱你的时候，我们都很投入和珍惜，可能这就是热恋期吧，每天都会早安晚安，独属于我们的晚安仪式也是那时候定下的，一起吃十几块的东西就很幸福，到了后面就好像，可能是太过熟悉？厌倦了？争吵越来越频繁，我也不知道该怎么说，心里也一直不甘心只谈过一次恋爱就结婚，总觉得还没玩够，和你的矛盾也越来越大
+
     这些年，一起有过快乐，有过占有欲，有过争吵，有过厌倦疲惫，这些都不会是假的，但也都不成熟，至于最后这个结局，我在几年前就有想过，迟早会有这么一天，但当这一天真正来临时，想不到会让你我都如此受折磨，如果我们不爱对方，为什么我们都在分开后的那些深夜为对方痛哭，我总说我们的痛苦是两条平行的时间线，你从去年6月6号开始，而我在今年4月6号开始，从一开始不理解你最后的决绝和不在乎，到现在也慢慢像你一样，开始遗忘和放下，是有不舍得，也会恐惧照着这样下去再过两年，我可能再想起你，心里都不会起太大波澜，或许就只是一个走神，当想到会变成那样当然会难过，也觉得很残忍，但这不代表我没爱过你，人生不就是这样吗，总要活在当下，也得往前走，也希望你能找到适合自己的伴侣，承认都在不成熟的年纪遇见了对方，但也彼此深爱过，有些人注定不会陪你走完人生，但依然会永远存在于你的人生里
+
      关于初恋，我想，它已经在那个年纪完成了那个阶段该完成的使命，以后回想起，哪怕很多故事最终都遗忘了，但仍会记得，在那个没有钱，没有体验过很多事物的年纪，也曾有一个人陪你真正活过。`
           },
           {
             title: '一些自白',
             date: '2026.5.14',
             body: `我其实也不了解自己，一直害怕面对内心最深处脆弱的部分，因为这是支撑我活着的最后一道防御，可这段时间的打击已经让我彻底破碎掉了，我不得不开始面对自己、剖析自己
+
    可能就像你以前说的，我是自卑的，每次删掉你的联系方式，这种卑鄙的手段，也是怕你先一步离开我，维持我那可卑的自尊心，好像先推开你，我就不是被抛弃那个人，嘴硬和冷漠是我保护自己的铠甲，但最后却给双方都带来了巨大的伤害，这些其实我觉得你应该很早就看出来了，只是你没戳破我 
+
    直到这段时间才开始真正理解你，才发觉你想要的其实很简单，也很容易被满足，你不需要我一直带着那个“特别”的面具，不需要我多么与众不同，你需要的只不过是平日里那些平淡的陪伴，吵架过后的换位思考，对方缺点的相互理解，而且你也一直都没要求过我能有多大成就，能有多富有，可我就是偏偏连这些很小的事情都做不到，一直都让你失望
+
    我会和自己和解，努力变得更好，我不想让这八年白白浪费掉，也不想你这些年为我流的泪到最后是没有意义的，如果你的离开没能够带给我成长，相信你也会对我很失望吧？我不想让你失望，也不想七年前那个cmy失望，正是因为你们都太爱我了，最后才不得不选择这样冷漠决绝地离开我，好让我真正学会长大，在我心里，这是你们留给我最后的温柔。`
           },
           {
             title: '过程',
             date: '2026.5.13',
             body: `p1 正式宣布结束那几天，我感受到了背叛，为什么你可以连分手都不说就开始新关系，曾经那些信誓旦旦的诺言都是骗人的，我完全不能接受你已经不在乎我了，无法接受你以后成为别人的人妻，我们的女儿在这一刻也死亡了，脑袋已经濒临崩溃，我只能试着去仇恨你，丑化你，把你的缺点和对我不好的事全数罗列出来，我长得很普通，你也是，但我总不受控制的美化你，理想化你，好一段时间里，我根本想不出任何有关你的负面记忆，全是你对我的好，但我的理性也清楚知道，世界上没有圣人，只是我疯了
+
     那几个晚上，我也有过以谢罪的念头，因为我接受不了我在你最后的印象里是那样的，我不想当那个坏人，一点都不想，你会原谅我的，因为依我对你的了解，无论你最后那些话多狠，你也不会去憎恨一个已经去的人，你不是冷血动物，你也是有血有肉的人
+
      可是我还有一个安慰我的妹妹，还有一帮叫我振作起来的好朋友，同时，我也不想在他们的人生中突然消失掉，我矛盾，我既改变不了过去，也改变不了现在，因为你已经不给我机会弥补了，我好无奈，我宁愿我从没当过那个坏人，结局是你爱上了别人，把这个罪名留给你，我没有想挽回，只是不希望在感情的最后被定格成一个罪人，仅此而已
+
     大约半个月，我都在辗转在几位好朋友的家里，他们都知道我很崩溃，所以都对我都很好，即使白天要上班，晚上也陪我宿醉倾谈到深夜，陪我出去散心，我开玩笑对说他们说，你们就像神父一样，不厌其烦地听我诉说我的罪孽，是他们陪我度过了最低谷，慢慢的，我开始已经不抱希望复合了，我带着报复心理，接受了他们推过来的女孩微信，也想学着你一样，想通过新关系里的多巴胺来走出痛苦，直至临近约会前，我意识到自己很卑鄙虚伪，知道这样做其实很不公平，她也是无辜的，一个有良知的人做不到那样，同时也发现，现在的我根本支撑不起一段感情，我还有欠你的“债”未偿还，我很差劲，至少现在是
+
     一个多月后的今天，我原本以为还可以通过工作的忙碌来麻痹自己，逃避惩罚，但还是会在生活失意、工作受挫的时候，习惯性地第一时间想到你，还是会有想跟你诉苦的念头，像从前你跟我分享工作的点点滴滴一样，但现在只剩下我自己一个人了，残酷的现实让我不得不强制戒断对你的依赖
+
      我几乎尝试过所有方法，无论怎么洗脑逃避，都没有用，我只能接受，只能面对，每一次痛苦的来临都是实打实的，我无法避免，只能地接受它，或许要真正等到最后一滴泪流干，最后一点爱殆尽，我才能得到真正的解脱。
+
       p2 在开始工作后，我才发觉这近八年的难得可贵，社会上的人们都快节奏的追逐金钱与享乐，没有哪对傻子会相互拉扯八年的，所以我们那些曾经，也只能发生、存在于那个学生时代，虽然到了现在，还是不敢相信我曾拥有过这些，同时，也对“后悔”这个词有了新的理解，我想了好久，觉得它还代表着你对已经无力改变的事情的无奈
+
     我也知道，这些你永远都不会知道，你永远都不会知道有个傻逼曾经为了你三天不睡觉一边哭一边写了七万字回忆录，为你写过诗，为你写过歌，你永远都以为他从来没有爱过你，更不会想到在他的冷漠下，其实也跟你一样脆弱，一样会哭到眼睛肿。`
           },
           {
             title: '嘉禾望岗',
             date: '2026.4.24',
             body: `今天去参加几个面试过后，刚好在嘉禾望岗附近，趁着还有时间，我去了趟机场北，想重回那个见你最后一面的地方，我从机场一路回到人和的出租屋，望着那栋楼和隔壁的菜地有点感慨，这里好像没有什么改变，又好像一切都变得好陌生，感慨在这栋楼里面发生过的一切，有我每天等你下班的兴奋期待，也有我们吵架后我幼稚斗气假装离开，在楼下那间牛肉面吃过的面，有你用破旧红色电动车载着我去买水果零食逛超市，也有那条路上我载着你，你在后面紧紧抱着我看过傍晚的绝美日落，有你去载着我穿街过巷去看病，还有经常去的那条美食街的水果铺，肯德基，买过的榴莲
+
    最后想到，你最后是自己一个人搬家的，我不敢想象那时候的你是一种怎样的心情，或许在刚开始的一个月，你每天以泪洗面，希望我能够成熟懂事一点，而我甚至还跟朋友自驾游去海边玩，还在斗气，傻傻得以为你还会回来，却不知道我在你心里已经慢慢死亡，我心里涌上一股酸楚，是的，我很悔疚，但不是后悔失去你，而是后悔我曾经那样对你，那样混蛋对那个最爱自己的人，最终我输掉了这场由我发起的冷战，付出了沉重的代价，在那个初夏，我永远的失去了你。
+
   接着我又去了嘉禾望岗，记得有一次为了省钱我们没出地铁站就坐在地上等霸王餐送过来，走了那条我们去金铂商场买榴莲的路，商场我没进去，因为我再也不会吃榴莲了
+
    最后我坐二号线回去，在地铁上，我拿起手机写下了上面这些，这种事在我这段时间一直在做，我尽力记下关于我们所有发生过的事，只要每次一想起些什么故事细节感受，当下就记下来，因为我不能接受我这八年是空白的，无论是甜是苦，因为你已经把我们所有痕迹记忆抹除了，现在只剩下我一个人还记得，我怕如果现在不记下，三五年过后，最后连我都忘记了，那时候我真的不知道该问谁了，还是说，如果真的到了那个时候，或许我早已不在意了`
           },
           {
             title: '那些年你所不知道的秘密',
             date: '2026.4.21',
             body: `一直没有勇气告诉你的一件事，初中跟陈ls他们出去玩，碰到那个叫陈友文的同班同学跟着一班混混，在大润发对面体育场，坐在草坪上，那些“黑社会”中的大块头，问我跟你是不是男女朋友，问我说其实是不是真的喜欢你，还抢过我的手机乱翻，我废物的默不作声，我那可卑的自尊心假装轻浮地说，其实是跟你玩玩的，看得出他们之中有人喜欢你
+
    那天晚上，我感觉自己好挫败，怯懦，废物，不是个男人，我对不起你，也配不上你，一直以来都是如此，也就是在那个时候，我开始坚持送你回家，是因为我带有对你的愧疚，我怕失去你，我对不起你的事太多了，记忆里很多时候都是你为我挺身而出，仿佛你才是我男朋友，而我一直是那个站在你身后，唯唯诺诺，沉默不语的角色
+
    在我心里你就像是杨千嬅唱的“勇”，你可能没有太多温柔，独有这点英勇
+
    感谢你这些年对我的保护，我受宠若惊，无以为报，你曾给我留下过太多感动，或许在你身上我学到了勇敢，担当，和责任，让我不再自卑，不再伤害最爱自己的人，这些都是你教会我的，是你把我有缺陷的人格调教完整，但，我再也不能把这份爱全数返还，回报到你的身上了，我想，在你离开以后，我便成为了你。`
           },
           {
             title: '我说我是一个不切实际的幻想家',
             date: '2026.4.19',
             body: `而在我今晚的幻想里，伴随着耳边响起的swing的“1984”，时光倒回了2025.6.6号，回到刚下飞机我发脾气那个时刻，机场里的你还在我身后紧紧跟着我，忽然间我脑中开始疯转，头痛，在那短短几秒钟，我预知到了未来将会发生的这一切
+
    当下我毫不犹豫地扔下了所有行李，我转头看向你，然后奔向你，抱紧你，双手抚着你的脸我们深吻了起来，吻了好久好久我也不愿松开，在那个时刻开始，我再也不在乎周围人的目光，因为cmy你就是我的全世界呀，我们一起乘地铁回到了人和的出租屋，那天的我没有回三水，隔天就开始找工作，你陪着我找了一周，虽然工资不是很高，但你还是鼓励我勇敢踏出第一步
+
     在那个平行时空的现在，我兑现了初中对你的承诺，领了结婚证，但还没有足够钱办婚礼，我在努力工作与你共勉，只想给我们置办一个体面的婚礼，只想把三水的房子装修好家具买好，迎接我们的女儿出生，在那个世界我买了一辆两万的二手车，但你没有嫌弃我，你对我说：你已经很棒了，周末我们就在周边自驾游
+
    某一个周五下班的晚上，场景落在漆黑的停车场里，你坐在我的副驾驶，二手车上那沙哑的旧喇叭播放着杨千嬅的“勇”，我盯着手中的方向盘眼神放空，过了一会儿，我抬头望向车的前方，开口说：我们好久没有坐下来认真谈心了，然后我转过头，严肃地看着你，开口说，谢谢你一直以来对我的包容和偏爱，今后就让我来承担你以前的角色，你累了，余生换我来保护你，照顾你，当我说完，你也惊讶地转过头看向了我，你像是难以置信，眼睛红得像兔子，像从来没见过如此懂事、煽情的ckr，你感动地说不出话
+
     在与我对视持续了数秒后，突然你把头地靠在我肩膀上，你欣慰的泪水打湿了我的白色短袖，伴随着下一首杨千嬅的“稀客”歌声响起，再等我起身想拿后排的纸巾帮你擦泪的那个瞬间，回过头来，发现你早已消失不见，只留下空空的我，还有车里播放着那逐渐扭曲，沙哑的“稀客”歌声
+
    是啊，我们都无法避免对方经过，当下我正听着这首歌，讨厌自己止不住的眼泪，现实中的我终究还是回不去那天，让你在地铁站空等的那天
+
      我也知道我终有一天会有新的女朋友，会释怀，会忘记与你发生过的大部分故事，就像现在的你一样，但至少现在，我还不愿那么快将所有回忆抹去，也许这就是我日夜反复拿起手机用文字记录下的意义吧`
           }
         ]
@@ -1663,9 +1757,242 @@ tml lang="zh-CN">
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
-  </script>
+  
+
+(function(){
+  var quotes=['「写下来，是为了不忘却。」','「有些事，细细悟想才懂。」','「爱过的人，会永远活在你的气质里。」','「怀旧不是躲避，而是与过去的自己和解。」','「最珍贵的，往往最无声。」','「记忆是唯一的行果。'];
+  var todayQ=quotes[new Date().getDate()%quotes.length];
+  var hq=document.getElementById('hero-quote');
+  if(hq)hq.textContent=todayQ;
+
+  var hero=document.querySelector('.hero');
+  if(hero){
+    var sh=document.createElement('div');
+    sh.className='scroll-hint';
+    sh.innerHTML='<div class="scroll-hint-arrow"></div><span>向下</span>';
+    hero.appendChild(sh);
+  }
+
+  window.addEventListener('scroll',function(){
+    var rp=document.getElementById('reading-progress');
+    if(!rp)return;
+    var st=document.documentElement.scrollTop||document.body.scrollTop;
+    var sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    rp.style.width=(sh>0?st/sh*100:0)+'%';
+  });
+
+  window.addEventListener('scroll',function(){
+    var btn=document.getElementById('back-to-top');
+    if(!btn)return;
+    var st=document.documentElement.scrollTop||document.body.scrollTop;
+    if(st>400)btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+    if(e.key==='Escape'){
+      var so=document.getElementById('search-overlay');
+      if(so&&so.classList.contains('active')){so.classList.remove('active');return;}
+      if(modalStack&&modalStack.length>1)modalGoBack();
+      else if(document.getElementById('lightbox')&&document.getElementById('lightbox').classList.contains('active'))closeLightbox();
+    }
+    if(e.key==='/'){e.preventDefault();var s=document.getElementById('search-overlay');s.classList.add('active');document.getElementById('search-input').focus();}
+    if(e.key==='?'){var h=document.getElementById('keyboard-hints');h.classList.toggle('visible');document.getElementById('toggle-hints').style.opacity=h.classList.contains('visible')?'1':'0.5';}
+    if(e.key==='t'||e.key==='T')window.scrollTo({top:0,behavior:'smooth'});
+    if(e.key===' '){e.preventDefault();if(typeof togglePlay==='function')togglePlay();}
+    var lb=document.getElementById('lightbox');
+    if(lb&&lb.classList.contains('active')){
+      if(e.key==='ArrowLeft'||e.key==='j'||e.key==='J')changePhoto(-1);
+      if(e.key==='ArrowRight'||e.key==='k'||e.key==='K')changePhoto(1);
+    }
+  });
+
+  function rt(t){var w=(t||'').replace(/\s/g,'').length;return Math.max(1,Math.round(w/400))+' min';}
+  function ex(t,l){var c=(t||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();return c.length>l?c.slice(0,l)+'...':c;}
+  function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function doSearch(q){
+    var res=document.getElementById('search-results');
+    if(!q||q.length<2){res.innerHTML='';return;}
+    var ql=q.toLowerCase(),results=[];
+    essays.forEach(function(cat,ci){(cat.articles||[]).forEach(function(a,i){
+      if((a.title||'').toLowerCase().indexOf(ql)>-1||(a.body||'').toLowerCase().indexOf(ql)>-1)
+        results.push({t:a.title,d:a.date||'',c:cat.title,ty:'essay',i:i,ci:ci});
+    });});
+    poems.forEach(function(p,i){
+      if((p.title||'').toLowerCase().indexOf(ql)>-1||(p.body||'').toLowerCase().indexOf(ql)>-1)
+        results.push({t:p.title,d:p.date||'',c:'诗',ty:'poem',i:i});
+    });
+    travels.forEach(function(t,i){
+      if((t.title||'').toLowerCase().indexOf(ql)>-1||(t.body||'').toLowerCase().indexOf(ql)>-1)
+        results.push({t:t.title,d:t.date||'',c:'旅行',ty:'travel',i:i});
+    });
+    albums.forEach(function(a){
+      if((a.title||'').toLowerCase().indexOf(ql)>-1)
+        results.push({t:a.title,d:'',c:'相册',ty:'album',id:a.id});
+    });
+    if(!results.length){res.innerHTML='<div class="sr-none">没有找到相关内容</div>';return;}
+    res.innerHTML=results.slice(0,12).map(function(r){
+      var onclick='handleSearchResult("'+esc(r.t)+'","'+r.ty+'",'+r.i+','+(r.ci!==undefined?r.ci:-1)+',"'+(r.id||'')+'");return false;';
+      return'<div class="sr-item" onclick="'+onclick+'"><div class="sr-title">'+esc(r.t)+'</div><div class="sr-meta">'+(r.c||'')+(r.d?' · '+r.d:'')+'</div></div>';
+    }).join('');
+  }
+
+  window.handleSearchResult=function(t,ty,i,ci,id){
+    document.getElementById('search-overlay').classList.remove('active');
+    document.getElementById('search-input').value='';
+    document.getElementById('search-results').innerHTML='';
+    if(ty==='album'){openAlbumModal(id);return;}
+    if(ty==='essay'){modalStack=[{type:'card',cardType:'essays'}];updateModalView();
+      setTimeout(function(){openCategory(ci);setTimeout(function(){openContent('essay',i,ci);},80);},80);return;}
+    if(ty==='poem'){modalStack=[{type:'card',cardType:'poems'}];updateModalView();
+      setTimeout(function(){openContent('poem',i);},80);return;}
+    if(ty==='travel'){modalStack=[{type:'card',cardType:'travel'}];updateModalView();
+      setTimeout(function(){openContent('travel',i);},80);}
+  };
+
+  var si=document.getElementById('search-input');
+  if(si)si.addEventListener('input',function(){doSearch(this.value.trim());});
+
+  window.addEventListener('load',function(){
+    var player=document.getElementById('musicPlayer');
+    if(!player)return;
+    var cover=document.createElement('img');
+    cover.className='music-cover';
+    cover.src='https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg';
+    cover.style.cssText='width:36px;height:36px;border-radius:50%;object-fit:cover;';
+    var titleEl=document.getElementById('musicTitle');
+    if(titleEl&&titleEl.parentNode){
+      titleEl.parentNode.insertBefore(cover,titleEl);
+      audio.addEventListener('play',function(){cover.classList.add('playing');});
+      audio.addEventListener('pause',function(){cover.classList.remove('playing');});
+      audio.addEventListener('ended',function(){cover.classList.remove('playing');});
+    }
+  });
+
+  function renderLbThumbs(){
+    var bar=document.getElementById('lightbox-thumb-bar');
+    var pb=document.getElementById('lightbox-progress-bar');
+    if(!bar)return;
+    bar.innerHTML=currentAlbumPhotos.map(function(p,i){
+      return'<img class="lb-thumb'+(i===currentPhotoIndex?' active':'')+'" src="'+getThumb(p)+'" onclick="openLightbox('+i+');return false;">';
+    }).join('');
+    if(pb)pb.style.width=((currentPhotoIndex+1)/currentAlbumPhotos.length*100)+'%';
+    var at=bar.querySelector('.lb-thumb.active');
+    if(at)at.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  }
+
+  var _olb=openLightbox;openLightbox=function(idx){_olb(idx);currentPhotoIndex=idx;renderLbThumbs();};
+  var _ocp=changePhoto;changePhoto=function(d){_ocp(d);renderLbThumbs();};
+  var _oclb=closeLightbox;closeLightbox=function(){_oclb();var b=document.getElementById('lightbox-thumb-bar');if(b)b.innerHTML='';};
+
+  window.openArchiveModal=function(){
+    var all=[];
+    essays.forEach(function(cat){(cat.articles||[]).forEach(function(a){all.push({t:a.title,d:a.date||'',c:cat.title,ty:'essay'});});});
+    poems.forEach(function(p){all.push({t:p.title,d:p.date||'',c:'诗',ty:'poem'});});
+    travels.forEach(function(t){all.push({t:t.title,d:t.date||'',c:'旅行',ty:'travel'});});
+    all.sort(function(a,b){return(b.d||'').localeCompare(a.d||'');});
+    var byYear={};
+    all.forEach(function(item){var y=(item.d||'').split('.')[0]||'?';if(!byYear[y])byYear[y]=[];byYear[y].push(item);});
+    var n=all.length;
+    var content='<div style="max-width:800px;margin:0 auto;padding:5rem 2rem 3rem"><div class="page-title"><h1>归档</h1><p style="color:var(--gray);font-family:var(--font-sans);font-size:.85rem;letter-spacing:.1em;">'+n+'篇内容</p></div>';
+    Object.keys(byYear).sort().reverse().forEach(function(y){
+      content+='<div class="archive-group"><div class="archive-year">'+y+'</div>';
+      byYear[y].forEach(function(item){
+        content+='<div class="archive-item"><span class="archive-date">'+(item.d||'')+'</span><span class="archive-title" onclick="openArchiveItem(&quot;'+esc(item.t)+'&quot;,&quot;'+item.ty+'&quot;);return false;">'+(item.t||'')+'</span><span class="archive-cat">'+item.c+'</span></div>';
+      });
+      content+='</div>';
+    });
+    content+='</div>';
+    document.getElementById('modalContent').innerHTML=content;
+    document.getElementById('modalTitle').textContent='归档';
+    document.getElementById('modalBack').style.display='none';
+    document.getElementById('modalClose').onclick=closeAllModals;
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+
+  window.openArchiveItem=function(t,ty){
+    if(ty==='essay'){var ci=-1,ai=0;for(var c=0;c<essays.length;c++){var fi=(essays[c].articles||[]).findIndex(function(a){return a.title===t;});if(fi>=0){ci=c;ai=fi;break;}}openContent('essay',ai,ci>=0?ci:0);}
+    else if(ty==='poem'){var pi=poems.findIndex(function(p){return p.title===t;});openContent('poem',pi>=0?pi:0);}
+    else if(ty==='travel'){var ti=travels.findIndex(function(t2){return t2.title===t;});openContent('travel',ti>=0?ti:0);}
+  };
+
+  var _oumv=updateModalView;
+  updateModalView=function(){
+    _oumv();
+    setTimeout(function(){
+      document.querySelectorAll('.article-item').forEach(function(el){
+        if(el.querySelector('.article-item-meta'))return;
+        var onclick=el.getAttribute('onclick')||'';
+        var m=onclick.match(/openContent\(['"]([^'"]+)['"],\s*(\d+)(?:,\s*(\d+))?\)/);
+        if(!m)return;
+        var ty=m[1],idx=parseInt(m[2]),ci=m[3]?parseInt(m[3]):-1;
+        var item=null;
+        if(ty==='essay'&&ci>=0)item=(essays[ci]&&essays[ci].articles||[])[idx];
+        else if(ty==='poem')item=poems[idx];
+        else if(ty==='travel')item=travels[idx];
+        if(!item)return;
+        var rtt=rt(item.body||'');
+        var ext=ex(item.body||'',70);
+        var meta=document.createElement('div');
+        meta.className='article-item-meta';
+        var html='<span class="article-item-time">'+rtt+'阅读</span>';
+        if(item.date)html='<span class="article-item-date">'+item.date+'</span>'+html;
+        meta.innerHTML=html;
+        el.appendChild(meta);
+        if(ext){
+          var exEl=document.createElement('div');
+          exEl.className='article-item-excerpt';
+          exEl.textContent=ext;
+          el.insertBefore(exEl,meta);
+        }
+      });
+    },50);
+  };
+
+  window.addEventListener('load',function(){
+    var oldFooter=document.querySelector('footer');
+    if(!oldFooter)return;
+    var year=new Date().getFullYear();
+    var nf=document.createElement('footer');
+    nf.innerHTML='<div class="footer-inner"><div><h4>导航</h4><ul><li><a href="#" onclick="closeAllModals();window.scrollTo(0,0);return false">首页</a></li><li><a href="#" onclick="openCardModal(\'essays\');return false">随笔</a></li><li><a href="#" onclick="openCardModal(\'poems\');return false">诗</a></li><li><a href="#" onclick="openCardModal(\'travel\');return false">旅行</a></li><li><a href="#" onclick="document.getElementById(\'album-grid\').scrollIntoView();return false">相册</a></li><li><a href="#" onclick="openArchiveModal();return false">归档</a></li><li><a href="#" onclick="document.getElementById(\'about\').scrollIntoView();return false">关于</a></li></ul></div><div><h4>最新</h4><ul id="footer-latest-list"></ul></div><div><h4>关于</h4><p style="color:var(--gray);font-size:.85rem;line-height:1.8;">向天游 02年 广东<br>热爱旅行、摄影与爵士乐<br>怀旧的人，善于用文字留住时光</p><div class="about-quote">「写下来，是为了不忘却。」</div></div></div><div class="footer-bottom">© '+year+' 向天游的随笔 · <a href="https://github.com/xshzct-dotcom" style="color:var(--gray)">GitHub</a> · 用 with ❤️</div>';
+    oldFooter.parentNode.replaceChild(nf,oldFooter);
+
+    var latest=[];
+    essays.forEach(function(c){(c.articles||[]).forEach(function(a){latest.push({t:a.title,d:a.date||'',ty:'essay'});});});
+    poems.forEach(function(p){latest.push({t:p.title,d:p.date||'',ty:'poems'});});
+    latest.sort(function(a,b){return(b.d||'').localeCompare(a.d||'');});
+    var ll=document.getElementById('footer-latest-list');
+    if(ll)ll.innerHTML=latest.slice(0,5).map(function(x){
+      return'<li><a href="#" onclick="openCardModal(\''+x.ty+'\');return false" style="font-size:.85rem;">'+(x.d?x.d+' ':'')+esc(x.t)+'</a></li>';
+    }).join('');
+
+    var nav=document.querySelector('nav');
+    if(nav){
+      var al=document.createElement('a');
+      al.href='#';
+      al.textContent='归档';
+      al.className='nav-link';
+      al.onclick=function(){openArchiveModal();return false;};
+      nav.appendChild(al);
+    }
+  });
+})();
+
+</script>
 
 <!DOCTYPE html>
 <h
-  </body>
+    <div id="reading-progress"></div>
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
+  <button id="toggle-hints" onclick="var h=document.getElementById('keyboard-hints');h.classList.toggle('visible');this.style.opacity=h.classList.contains('visible')?'1':'0.5'" title="Keyboard shortcuts">?</button>
+  <div id="keyboard-hints"><b>J/K</b> prev/next &nbsp; <b>&#8592;&#8594;</b> album &nbsp; <b>Esc</b> close &nbsp; <b>/</b> search &nbsp; <b>T</b> top &nbsp; <b>?</b> help</div>
+  <div id="search-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+    <button id="search-close-btn" onclick="document.getElementById('search-overlay').classList.remove('active')">&#215;</button>
+    <div id="search-box"><input type="text" id="search-input" placeholder="Search articles, poems, albums..." autocomplete="off" /><div id="search-results"></div></div>
+  </div>
+
+</body>
 </html>
