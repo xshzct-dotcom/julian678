@@ -23,7 +23,7 @@
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{--black:#111;--white:#faf9f6;--gray:#888;--light-gray:#e8e4df;--accent:#8b7355;--font-serif:'Cormorant Garamond','Noto Serif SC',serif;--font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;--transition:0.3s ease}
     html{scroll-behavior:smooth}
-    body{font-family:var(--font-serif);background:var(--white);color:var(--black);line-height:1.8;font-size:1.1rem;-webkit-font-smoothing:antialiased}
+    body{font-family:var(--font-serif);background:#1a1a1a;color:var(--white);line-height:1.8;font-size:1.1rem;-webkit-font-smoothing:antialiased}
     header{position:fixed;top:0;left:0;right:0;background:rgba(250,249,246,0.98);backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);z-index:1000;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--light-gray)}
     .logo{font-size:1.3rem;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:0.05em}
     nav{display:flex;gap:2rem}
@@ -178,7 +178,7 @@
     @keyframes imgReveal{from{opacity:0;transform:scale(0.97);filter:blur(4px)}to{opacity:1;transform:scale(1);filter:blur(0px)}}
     .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
     #poetryBg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-    #poetryBg span{position:absolute;color:rgba(0,0,0,0.06);font-family:var(--font-serif);white-space:nowrap;user-select:none}
+    #poetryBg span{position:absolute;color:rgba(255,255,255,0.08);font-family:var(--font-serif);white-space:nowrap;user-select:none}
   </style>
 </head>
 <body>
@@ -340,33 +340,36 @@ function generatePoetryBackground() {
   poems.forEach(poem => {
     const lines = poem.body.split('\n');
     lines.forEach(line => {
-      if (line.trim()) allLines.push(line.trim());
+      const trimmed = line.trim();
+      if (trimmed) allLines.push(trimmed);
     });
   });
   
-  // 如果诗词太少，添加一些重复
-  while (allLines.length < 50) {
+  // 如果诗词太少，添加一些重复以填满
+  while (allLines.length < 100) {
     allLines.push(...allLines);
   }
   
   // 获取页面尺寸
   const width = window.innerWidth;
-  const height = window.innerHeight * 3; // 覆盖整个可滚动区域
+  const height = document.documentElement.scrollHeight;
   
-  // 生成背景文字
-  for (let i = 0; i < 80; i++) {
+  // 生成背景文字 - 高密度覆盖
+  const count = Math.floor((width * height) / 8000); // 根据屏幕大小自动调整密度
+  
+  for (let i = 0; i < count; i++) {
     const line = allLines[Math.floor(Math.random() * allLines.length)];
     const span = document.createElement('span');
     
-    // 随机字体大小 (16-48px)
-    const fontSize = 16 + Math.floor(Math.random() * 32);
+    // 随机字体大小 (12-60px) - 更大的变化范围
+    const fontSize = 12 + Math.floor(Math.random() * 48);
     // 随机位置
-    const left = Math.floor(Math.random() * (width - 200));
-    const top = Math.floor(Math.random() * (height - 100));
-    // 随机旋转 (-30到30度)
-    const rotation = -30 + Math.floor(Math.random() * 60);
-    // 随机透明度 (0.03-0.08)
-    const opacity = 0.03 + Math.random() * 0.05;
+    const left = Math.floor(Math.random() * (width + 200)) - 100;
+    const top = Math.floor(Math.random() * (height + 100)) - 50;
+    // 随机旋转 (-45到45度) - 更大的旋转范围
+    const rotation = -45 + Math.floor(Math.random() * 90);
+    // 随机透明度 (0.04-0.12) - 变化更明显
+    const opacity = 0.04 + Math.random() * 0.08;
     
     span.textContent = line;
     span.style.cssText = `
@@ -374,12 +377,14 @@ function generatePoetryBackground() {
       left: ${left}px;
       top: ${top}px;
       font-size: ${fontSize}px;
+      font-weight: ${Math.random() > 0.7 ? '600' : '400'};
       transform: rotate(${rotation}deg);
-      color: rgba(0,0,0,${opacity});
+      color: rgba(255,255,255,${opacity});
       font-family: var(--font-serif);
       white-space: nowrap;
       user-select: none;
       pointer-events: none;
+      letter-spacing: 0.05em;
     `;
     
     bg.appendChild(span);
