@@ -78,12 +78,12 @@
     /* 相册照片网格 - 紧凑瀑布流布局 */
     .album-photos-grid{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
       padding: 0;
       max-width: 100%;
     }
-    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:4px}}
+    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
     @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:3px}}
     .album-photo-item{
       position: relative;
