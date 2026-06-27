@@ -343,27 +343,34 @@ function generatePoetryBackground() {
   const frag = document.createDocumentFragment();
 
   // 每首诗的句子作为一组，随机放置，组内句子位置相近
-  poems.forEach(poem => {
+  poems.forEach((poem, poemIdx) => {
     const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
     if (lines.length === 0) return;
 
-    // 这组诗词的"锚点"随机位置
-    const anchorLeft = Math.floor(Math.random() * (width - 300)) + 50;
-    const anchorTop  = Math.floor(Math.random() * (height - 200)) + 50;
+    // 每首诗占据一个"区块"，区块之间最少间隔，避免重叠
+    // 把视口分成网格，每首诗随机落入一个格子
+    const cols = Math.max(2, Math.ceil(Math.sqrt(poems.length * 1.5)));
+    const cellW = Math.floor(width / cols);
+    const cellH = Math.floor(height / Math.ceil(poems.length / cols));
 
-    // 先放标题（若没有标题，用"诗"代替）
+    const col = poemIdx % cols;
+    const row = Math.floor(poemIdx / cols);
+    const cellLeft = col * cellW + Math.floor(Math.random() * (cellW * 0.3));
+    const cellTop  = row * cellH + Math.floor(Math.random() * (cellH * 0.3));
+
+    // 先放标题
     const title = poem.title || '诗';
-    addSpan(frag, title, anchorLeft, anchorTop, true);
+    addSpan(frag, title, cellLeft + 10, cellTop + 10, true);
 
-    // 再放句子，位置在锚点附近随机偏移
+    // 再放句子，位置在区块内向下排列，水平小幅偏移
     lines.forEach((line, idx) => {
-      const offsetX = (Math.random() - 0.5) * 200;  // 水平偏移 ±100px
-      const offsetY = (idx + 1) * 28 + (Math.random() - 0.5) * 30; // 垂直向下排列
+      const offsetX = (Math.random() - 0.5) * (cellW * 0.5);
+      const offsetY = (idx + 1) * 36 + (Math.random() - 0.5) * 12;
       addSpan(
         frag,
         line,
-        anchorLeft + offsetX,
-        anchorTop + offsetY,
+        cellLeft + 10 + offsetX,
+        cellTop + 10 + offsetY,
         false
       );
     });
@@ -375,8 +382,8 @@ function generatePoetryBackground() {
 // 辅助函数：创建单个文字 span
 function addSpan(frag, text, left, top, isTitle) {
   const span = document.createElement('span');
-  const fontSize = isTitle ? (16 + Math.floor(Math.random() * 10)) : (13 + Math.floor(Math.random() * 28));
-  const opacity  = 0.07 + Math.random() * 0.09;
+  const fontSize = isTitle ? (17 + Math.floor(Math.random() * 10)) : (13 + Math.floor(Math.random() * 26));
+  const opacity  = 0.12 + Math.random() * 0.10;  // 最低 0.12，最高 0.22，更清晰
 
   span.textContent = text;
   span.style.cssText =
