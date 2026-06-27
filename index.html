@@ -282,10 +282,14 @@ const CDN = {
   music: 'https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/music'
 };
 
-// 获取缩略图（相册网格用webp小图）
+// 获取缩略图（相册网格用小图）
 function getThumb(path) {
   if (!path) return '';
-  // 将 images/chuanxi/DSC_3770_看图王.jpg 转为 thumbs/chuanxi/DSC_3770.webp
+  // 川西相册使用原图确保方向一致，其他相册使用webp缩略图
+  if (path.includes('chuanxi')) {
+    return `${CDN.base}/${path}`;
+  }
+  // 其他相册：将 images/xxx/photo.jpg 转为 thumbs/xxx/photo.webp
   let thumb = path
     .replace(/^images\//, '')
     .replace(/_看图王\.jpg$/i, '.webp')
