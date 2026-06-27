@@ -335,7 +335,7 @@ function formatBody(text) {
 function generatePoetryBackground() {
   const bg = document.getElementById('poetryBg');
   if (!bg) return;
-  
+
   // 收集所有诗词的句子
   const allLines = [];
   poems.forEach(poem => {
@@ -345,51 +345,35 @@ function generatePoetryBackground() {
       if (trimmed) allLines.push(trimmed);
     });
   });
-  
-  // 如果诗词太少，添加一些重复以填满
-  while (allLines.length < 100) {
-    allLines.push(...allLines);
-  }
-  
-  // 获取页面尺寸
+
+  if (allLines.length === 0) return;
+
+  // 基于视口大小（position:fixed 的定位基于视口）
   const width = window.innerWidth;
-  const height = document.documentElement.scrollHeight;
-  
-  // 生成背景文字 - 高密度覆盖
-  const count = Math.floor((width * height) / 8000); // 根据屏幕大小自动调整密度
-  
+  const height = window.innerHeight;
+
+  // 适中的密度 - 避免页面卡顿
+  const count = Math.min(150, Math.floor((width * height) / 25000));
+
+  // 用 DocumentFragment 批量插入，减少重排
+  const frag = document.createDocumentFragment();
+
   for (let i = 0; i < count; i++) {
     const line = allLines[Math.floor(Math.random() * allLines.length)];
     const span = document.createElement('span');
-    
-    // 随机字体大小 (12-60px) - 更大的变化范围
-    const fontSize = 12 + Math.floor(Math.random() * 48);
-    // 随机位置
+
+    const fontSize = 14 + Math.floor(Math.random() * 32);
     const left = Math.floor(Math.random() * (width + 200)) - 100;
     const top = Math.floor(Math.random() * (height + 100)) - 50;
-    // 随机旋转 (-45到45度) - 更大的旋转范围
-    const rotation = -45 + Math.floor(Math.random() * 90);
-    // 随机透明度 (0.04-0.12) - 变化更明显
-    const opacity = 0.04 + Math.random() * 0.08;
-    
+    const rotation = -30 + Math.floor(Math.random() * 60);
+    const opacity = 0.08 + Math.random() * 0.08;
+
     span.textContent = line;
-    span.style.cssText = `
-      position: absolute;
-      left: ${left}px;
-      top: ${top}px;
-      font-size: ${fontSize}px;
-      font-weight: ${Math.random() > 0.7 ? '600' : '400'};
-      transform: rotate(${rotation}deg);
-      color: rgba(255,255,255,${opacity});
-      font-family: var(--font-serif);
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-      letter-spacing: 0.05em;
-    `;
-    
-    bg.appendChild(span);
+    span.style.cssText = `position:absolute;left:${left}px;top:${top}px;font-size:${fontSize}px;font-weight:${Math.random() > 0.7 ? '600' : '400'};transform:rotate(${rotation}deg);color:rgba(0,0,0,${opacity});font-family:var(--font-serif);white-space:nowrap;user-select:none;pointer-events:none;letter-spacing:0.05em;`;
+    frag.appendChild(span);
   }
+
+  bg.appendChild(frag);
 }
 
 // ==================== 智能预加载 ====================
