@@ -72,7 +72,7 @@
     .content-date{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.3rem}
     .content-meta{color:rgba(255,255,255,0.5);font-size:0.9rem;font-family:var(--font-sans)}
     .content-body{font-size:1.1rem;line-height:2.4;letter-spacing:0.02em;padding-top:1rem}
-    .content-body p{margin:0 0 1.5em 0;white-space:pre-wrap;text-indent:2em}
+    .content-body p{margin:0 0 1.5em 0;white-space:pre-wrap}
     @media(min-width:768px){.content-body{font-size:1.5rem;line-height:2.6}}
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
@@ -316,8 +316,8 @@ function toAbs(url) {
 // 格式化文章内容，将换行转为段落
 function formatBody(text) {
   if (!text) return '';
-  // 将段落分隔（双换行）转为<p>标签
-  return text.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  // 将段落分隔（双换行）转为<p>标签，每段开头加全角空格
+  return text.split('\n\n').map(p => `<p>　　${p.replace(/\n/g, '<br>')}</p>`).join('');
 }
 
 // ==================== 智能预加载 ====================
