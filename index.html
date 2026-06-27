@@ -40,7 +40,7 @@
     .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
     @media(max-width:900px){.posts-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.posts-grid{grid-template-columns:1fr}}
-    .post-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background-size:cover;background-position:center;display:flex;align-items:flex-end}
+    .post-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background-size:cover;background-position:center;display:flex;align-items:flex-end;border-radius:12px}
     .post-card .card-overlay{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,0.7));display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;transition:background var(--transition)}
     .post-card:hover .card-overlay{background:linear-gradient(transparent 30%,rgba(0,0,0,0.85))}
     .post-card .card-title{color:white;font-size:1.8rem;font-weight:700;letter-spacing:0.03em}
@@ -177,9 +177,12 @@
     #lightboxImg{animation:imgReveal var(--duration-std) var(--ease-out-expo) forwards}
     @keyframes imgReveal{from{opacity:0;transform:scale(0.97);filter:blur(4px)}to{opacity:1;transform:scale(1);filter:blur(0px)}}
     .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
+    #poetryBg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+    #poetryBg span{position:absolute;color:rgba(0,0,0,0.06);font-family:var(--font-serif);white-space:nowrap;user-select:none}
   </style>
 </head>
 <body>
+  <div id="poetryBg"></div>
   <header>
     <a href="#" class="logo">向天游</a>
     <nav>
@@ -316,6 +319,62 @@ function formatBody(text) {
     if (p) html += '<p>' + p.replace(/\n/g, '<br>') + '</p>';
   }
   return html;
+}
+
+// 生成诗词艺术背景
+function generatePoetryBackground() {
+  const bg = document.getElementById('poetryBg');
+  if (!bg) return;
+  
+  // 收集所有诗词的句子
+  const allLines = [];
+  poems.forEach(poem => {
+    const lines = poem.body.split('\n');
+    lines.forEach(line => {
+      if (line.trim()) allLines.push(line.trim());
+    });
+  });
+  
+  // 如果诗词太少，添加一些重复
+  while (allLines.length < 50) {
+    allLines.push(...allLines);
+  }
+  
+  // 获取页面尺寸
+  const width = window.innerWidth;
+  const height = window.innerHeight * 3; // 覆盖整个可滚动区域
+  
+  // 生成背景文字
+  for (let i = 0; i < 80; i++) {
+    const line = allLines[Math.floor(Math.random() * allLines.length)];
+    const span = document.createElement('span');
+    
+    // 随机字体大小 (16-48px)
+    const fontSize = 16 + Math.floor(Math.random() * 32);
+    // 随机位置
+    const left = Math.floor(Math.random() * (width - 200));
+    const top = Math.floor(Math.random() * (height - 100));
+    // 随机旋转 (-30到30度)
+    const rotation = -30 + Math.floor(Math.random() * 60);
+    // 随机透明度 (0.03-0.08)
+    const opacity = 0.03 + Math.random() * 0.05;
+    
+    span.textContent = line;
+    span.style.cssText = `
+      position: absolute;
+      left: ${left}px;
+      top: ${top}px;
+      font-size: ${fontSize}px;
+      transform: rotate(${rotation}deg);
+      color: rgba(0,0,0,${opacity});
+      font-family: var(--font-serif);
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    `;
+    
+    bg.appendChild(span);
+  }
 }
 
 // ==================== 智能预加载 ====================
@@ -474,6 +533,9 @@ window.addEventListener('load', () => {
     };
     document.addEventListener('click', initMusic, { once: true });
   });
+  
+  // 生成诗词背景
+  generatePoetryBackground();
 });
 
 // ==================== 渲染 ====================
