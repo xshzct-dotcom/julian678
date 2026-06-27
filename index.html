@@ -365,11 +365,10 @@ function generatePoetryBackground() {
     const fontSize = 14 + Math.floor(Math.random() * 32);
     const left = Math.floor(Math.random() * (width + 200)) - 100;
     const top = Math.floor(Math.random() * (height + 100)) - 50;
-    const rotation = -30 + Math.floor(Math.random() * 60);
     const opacity = 0.08 + Math.random() * 0.08;
 
     span.textContent = line;
-    span.style.cssText = `position:absolute;left:${left}px;top:${top}px;font-size:${fontSize}px;font-weight:${Math.random() > 0.7 ? '600' : '400'};transform:rotate(${rotation}deg);color:rgba(0,0,0,${opacity});font-family:var(--font-serif);white-space:nowrap;user-select:none;pointer-events:none;letter-spacing:0.05em;`;
+    span.style.cssText = `position:absolute;left:${left}px;top:${top}px;font-size:${fontSize}px;font-weight:${Math.random() > 0.7 ? '600' : '400'};color:rgba(0,0,0,${opacity});font-family:var(--font-serif);white-space:nowrap;user-select:none;pointer-events:none;letter-spacing:0.05em;`;
     frag.appendChild(span);
   }
 
