@@ -40,8 +40,8 @@
     .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
     @media(max-width:900px){.posts-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.posts-grid{grid-template-columns:1fr}}
-    .post-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background-size:cover;background-position:center;display:flex;align-items:flex-end;border-radius:12px}
-    .post-card .card-overlay{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,0.7));display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;transition:background var(--transition)}
+    .post-card{position:relative;aspect-ratio:3/4;min-height:320px;overflow:hidden;cursor:pointer;background-size:cover;background-position:center;background-color:#1a1a1a;display:flex;align-items:flex-end;border-radius:12px}
+    .post-card .card-overlay{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent 0%,rgba(0,0,0,0.7));padding:2rem;transition:background var(--transition);box-sizing:border-box}
     .post-card:hover .card-overlay{background:linear-gradient(transparent 30%,rgba(0,0,0,0.85))}
     .post-card .card-title{color:white;font-size:1.8rem;font-weight:700;letter-spacing:0.03em}
     .post-card .card-subtitle{color:rgba(255,255,255,0.8);font-size:1rem;margin-top:0.8rem;font-family:var(--font-sans)}
