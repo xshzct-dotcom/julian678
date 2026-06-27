@@ -351,11 +351,11 @@ function generatePoetryBackground() {
   const cellW = Math.floor(width / cols);
   const cellH = Math.floor(height / rows);
 
-  // 字号策略：手机端整体缩小，确保诗完整显示在区块内
-  const titleSizeMin = isMobile ? 14 : (isTablet ? 22 : 28);
-  const titleSizeMax = isMobile ? 18 : (isTablet ? 30 : 42);
-  const lineSizeMin  = isMobile ? 10 : (isTablet ? 14 : 12);
-  const lineSizeMax  = isMobile ? 14 : (isTablet ? 24 : 38);
+  // 字号策略：手机端整体增大3倍，确保艺术感
+  const titleSizeMin = isMobile ? 42 : (isTablet ? 22 : 28);
+  const titleSizeMax = isMobile ? 54 : (isTablet ? 30 : 42);
+  const lineSizeMin  = isMobile ? 30 : (isTablet ? 14 : 12);
+  const lineSizeMax  = isMobile ? 42 : (isTablet ? 24 : 38);
 
   poems.forEach((poem, idx) => {
     const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
@@ -380,8 +380,8 @@ function generatePoetryBackground() {
     });
 
     // 诗句：用游标严格按字号累加，**绝不省略任何一行**
-    let cursorY = anchorY + titleSize + (isMobile ? 4 : 20);
-    const lineGap = isMobile ? 1.0 : 1.4;  // 手机端用更紧凑的行间距
+    let cursorY = anchorY + titleSize + (isMobile ? 8 : 20);
+    const lineGap = isMobile ? 1.05 : 1.4;  // 手机端用略大于1的行间距
     lines.forEach((line) => {
       const lineSize = lineSizeMin + Math.floor(Math.random() * (lineSizeMax - lineSizeMin));
       const lineOpacity = isMobile ? (0.14 + Math.random() * 0.08) : (0.15 + Math.random() * 0.12);
