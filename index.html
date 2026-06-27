@@ -316,9 +316,9 @@ function toAbs(url) {
 // 格式化文章内容，将换行转为段落
 function formatBody(text) {
   if (!text) return '';
-  // 将Windows换行符转为统一格式，再用双换行分割段落
+  // 将Windows换行符转为Unix格式，再用双换行分割段落
   const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  return normalized.split('\n\n').map(p => `<p>　　${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
+  return normalized.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 }
 
 // ==================== 智能预加载 ====================
