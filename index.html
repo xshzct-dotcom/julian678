@@ -132,16 +132,16 @@
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
     .music-player{position:fixed;bottom:2rem;right:2rem;z-index:999}
-    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.8rem 1.2rem;border-radius:50px;display:flex;align-items:center;gap:0.8rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
+    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
     .music-player:hover .music-controls{border-radius:20px}
-    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;padding:0.2rem 0.4rem;transition:opacity var(--transition);line-height:1}
+    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1rem;padding:0.2rem 0.3rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
-    .music-title{font-size:0.85rem;color:rgba(255,255,255,0.5);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none}
-    .music-progress{width:100%;height:3px;background:rgba(0,0,0,0.05);border-radius:3px;overflow:hidden;margin-top:0.4rem;padding:0 1.2rem;box-sizing:border-box}
+    .music-title{font-size:1rem;color:rgba(255,255,255,0.45);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none;font-weight:400}
+    .music-progress{width:100%;height:3px;background:rgba(0,0,0,0.05);border-radius:3px;overflow:hidden;margin-top:0.3rem;padding:0 1rem;box-sizing:border-box}
     .music-progress-bar{height:100%;background:rgba(0,0,0,0.4);width:0;transition:width 0.3s}
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
     .fade-up.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -235,13 +235,13 @@
   </footer>
 
   <div class="music-player" id="musicPlayer">
-    <div class="music-controls" onclick="togglePlayer()">
-      <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
-      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
-      <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
+    <div class="music-controls">
+      <button class="music-btn" onclick="event.stopPropagation(); prevSong();" title="上一首">⏮</button>
+      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();" title="播放/暂停">▶</button>
+      <button class="music-btn" onclick="event.stopPropagation(); nextSong();" title="下一首">⏭</button>
       <div class="music-title" id="musicTitle">海芋恋</div>
     </div>
-    <div class="music-progress" onclick="event.stopPropagation()"><div class="music-progress-bar" id="musicProgress"></div></div>
+    <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
   </div>
 
   <div class="modal" id="cardModal">
