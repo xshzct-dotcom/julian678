@@ -211,7 +211,7 @@
         <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
       </div>
       <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
-        <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
+        <div class="card-overlay"><div class="card-title">诗</div></div>
       </div>
     </div>
   </section>
@@ -355,7 +355,7 @@ function generatePoetryBackground() {
     const row = Math.floor(idx / cols);
 
     // 格子内边距，文字绝不超出格子
-    const padX = 20;
+    const padX = 30;
     const padY = 20;
     const areaLeft = col * cellW + padX;
     const areaTop  = row * cellH + padY;
@@ -363,29 +363,30 @@ function generatePoetryBackground() {
     const areaH    = cellH - padY * 2;
 
     // 标题
-    addSpan(frag, poem.title || '诗',
-      areaLeft + Math.floor(Math.random() * (areaW * 0.3)),
+    const titleSpan = addSpan(frag, poem.title || '诗',
+      areaLeft,
       areaTop,
       true
     );
+    let cursorY = areaTop + titleSpan.fontSize * 1.6;
 
-    // 诗句，在格子内垂直排列，水平小幅随机
-    lines.forEach((line, i) => {
-      const stepY = Math.min(36, Math.floor(areaH / (lines.length + 1)));
-      const x = areaLeft + Math.floor(Math.random() * (areaW * 0.25));
-      const y = areaTop + (i + 1) * stepY;
-      addSpan(frag, line, x, y, false);
+    // 诗句：按实际字号累加 cursorY，绝不重叠
+    lines.forEach((line) => {
+      if (cursorY > row * cellH + cellH - padY) return; // 超出格子就不画
+      const x = areaLeft + Math.floor(Math.random() * 60);
+      const lineSpan = addSpan(frag, line, x, cursorY, false);
+      cursorY += lineSpan.fontSize * 1.6;
     });
   });
 
   bg.appendChild(frag);
 }
 
-// 辅助函数：创建单个文字 span
+// 辅助函数：创建单个文字 span，返回 {span, fontSize}
 function addSpan(frag, text, left, top, isTitle) {
   const span = document.createElement('span');
-  const fontSize = isTitle ? (17 + Math.floor(Math.random() * 10)) : (13 + Math.floor(Math.random() * 26));
-  const opacity  = 0.12 + Math.random() * 0.10;  // 最低 0.12，最高 0.22，更清晰
+  const fontSize = isTitle ? (17 + Math.floor(Math.random() * 10)) : (13 + Math.floor(Math.random() * 22));
+  const opacity  = 0.12 + Math.random() * 0.10;
 
   span.textContent = text;
   span.style.cssText =
@@ -399,6 +400,7 @@ function addSpan(frag, text, left, top, isTitle) {
     `pointer-events:none;` +
     `letter-spacing:0.05em;`;
   frag.appendChild(span);
+  return { span, fontSize };
 }
 
 // ==================== 智能预加载 ====================
