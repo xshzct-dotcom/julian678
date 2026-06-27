@@ -335,44 +335,46 @@ function formatBody(text) {
 function generatePoetryBackground() {
   const bg = document.getElementById('poetryBg');
   if (!bg) return;
-
   if (poems.length === 0) return;
 
   const width = window.innerWidth;
   const height = window.innerHeight;
   const frag = document.createDocumentFragment();
 
-  // 每首诗的句子作为一组，随机放置，组内句子位置相近
-  poems.forEach((poem, poemIdx) => {
+  // 把视口分成网格，每首诗固定一个格子，绝不越界
+  const cols = 3;
+  const rows = Math.ceil(poems.length / cols);
+  const cellW = Math.floor(width / cols);
+  const cellH = Math.floor(height / rows);
+
+  poems.forEach((poem, idx) => {
     const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
     if (lines.length === 0) return;
 
-    // 每首诗占据一个"区块"，区块之间最少间隔，避免重叠
-    // 把视口分成网格，每首诗随机落入一个格子
-    const cols = Math.max(2, Math.ceil(Math.sqrt(poems.length * 1.5)));
-    const cellW = Math.floor(width / cols);
-    const cellH = Math.floor(height / Math.ceil(poems.length / cols));
+    const col = idx % cols;
+    const row = Math.floor(idx / cols);
 
-    const col = poemIdx % cols;
-    const row = Math.floor(poemIdx / cols);
-    const cellLeft = col * cellW + Math.floor(Math.random() * (cellW * 0.3));
-    const cellTop  = row * cellH + Math.floor(Math.random() * (cellH * 0.3));
+    // 格子内边距，文字绝不超出格子
+    const padX = 20;
+    const padY = 20;
+    const areaLeft = col * cellW + padX;
+    const areaTop  = row * cellH + padY;
+    const areaW    = cellW - padX * 2;
+    const areaH    = cellH - padY * 2;
 
-    // 先放标题
-    const title = poem.title || '诗';
-    addSpan(frag, title, cellLeft + 10, cellTop + 10, true);
+    // 标题
+    addSpan(frag, poem.title || '诗',
+      areaLeft + Math.floor(Math.random() * (areaW * 0.3)),
+      areaTop,
+      true
+    );
 
-    // 再放句子，位置在区块内向下排列，水平小幅偏移
-    lines.forEach((line, idx) => {
-      const offsetX = (Math.random() - 0.5) * (cellW * 0.5);
-      const offsetY = (idx + 1) * 36 + (Math.random() - 0.5) * 12;
-      addSpan(
-        frag,
-        line,
-        cellLeft + 10 + offsetX,
-        cellTop + 10 + offsetY,
-        false
-      );
+    // 诗句，在格子内垂直排列，水平小幅随机
+    lines.forEach((line, i) => {
+      const stepY = Math.min(36, Math.floor(areaH / (lines.length + 1)));
+      const x = areaLeft + Math.floor(Math.random() * (areaW * 0.25));
+      const y = areaTop + (i + 1) * stepY;
+      addSpan(frag, line, x, y, false);
     });
   });
 
@@ -629,7 +631,7 @@ function updateModalView() {
   } else if (current.type === 'poems') {
     if (current.index === -1) {
       title.textContent = '诗';
-      body.innerHTML = `<div class="article-list">${poems.map((p, i) => `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div></div><div class="arrow">→</div></div>`).join('')}</div>`;
+      body.innerHTML = `<div class="article-list">${poems.map((p, i) => { const firstLine = p.body.split('\n').map(l=>l.trim()).filter(Boolean)[0] || ''; return `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div><div class="meta">${firstLine}</div></div><div class="arrow">→</div></div>`; }).join('')}</div>`;
     } else {
       const poem = poems[current.index];
       title.textContent = poem.title;
