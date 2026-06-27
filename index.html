@@ -131,17 +131,14 @@
     footer ul{list-style:none;display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem}
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
-    .music-player{position:fixed;bottom:2rem;right:2rem;background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:1rem 1.5rem;border-radius:50px;display:flex;align-items:center;gap:1rem;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,0.3);cursor:pointer;transition:all var(--transition)}
-    .music-player:hover{transform:scale(1.05)}
-    .music-player.expanded{border-radius:12px}
-    .music-info{display:none}
-    .music-player.expanded .music-info{display:block}
-    .music-title{font-size:0.85rem;margin-bottom:0.3rem}
-    .music-controls{display:flex;align-items:center;gap:0.8rem}
-    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1.2rem;padding:0.3rem;transition:opacity var(--transition)}
+    .music-player{position:fixed;bottom:2rem;right:2rem;z-index:999}
+    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.8rem 1.2rem;border-radius:50px;display:flex;align-items:center;gap:0.8rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
+    .music-player:hover .music-controls{border-radius:20px}
+    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;padding:0.2rem 0.4rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
-    .music-progress{width:150px;height:3px;background:rgba(255,255,255,0.2);border-radius:3px;overflow:hidden;margin-top:0.5rem}
-    .music-progress-bar{height:100%;background:white;width:0;transition:width 0.3s}
+    .music-title{font-size:0.85rem;color:rgba(255,255,255,0.5);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none}
+    .music-progress{width:100%;height:3px;background:rgba(0,0,0,0.05);border-radius:3px;overflow:hidden;margin-top:0.4rem;padding:0 1.2rem;box-sizing:border-box}
+    .music-progress-bar{height:100%;background:rgba(0,0,0,0.4);width:0;transition:width 0.3s}
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
     .fade-up.visible{opacity:1;transform:translateY(0)}
     @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
@@ -237,16 +234,14 @@
     <p>&copy; 2026 向天游. All rights reserved.</p>
   </footer>
 
-  <div class="music-player" id="musicPlayer" onclick="togglePlayer()">
-    <div class="music-controls">
+  <div class="music-player" id="musicPlayer">
+    <div class="music-controls" onclick="togglePlayer()">
       <button class="music-btn" onclick="event.stopPropagation(); prevSong();">⏮</button>
       <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();">▶</button>
       <button class="music-btn" onclick="event.stopPropagation(); nextSong();">⏭</button>
-    </div>
-    <div class="music-info">
       <div class="music-title" id="musicTitle">海芋恋</div>
-      <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
     </div>
+    <div class="music-progress" onclick="event.stopPropagation()"><div class="music-progress-bar" id="musicProgress"></div></div>
   </div>
 
   <div class="modal" id="cardModal">
