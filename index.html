@@ -177,8 +177,9 @@
     #lightboxImg{animation:imgReveal var(--duration-std) var(--ease-out-expo) forwards}
     @keyframes imgReveal{from{opacity:0;transform:scale(0.97);filter:blur(4px)}to{opacity:1;transform:scale(1);filter:blur(0px)}}
     .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
-    #poetryBg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-    #poetryBg span{position:absolute;color:rgba(0,0,0,0.07);font-family:var(--font-serif);white-space:nowrap;user-select:none}
+    #poetryBg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+    #poetryBg span{position:absolute;color:rgba(0,0,0,0.1);font-family:var(--font-serif);white-space:nowrap;user-select:none}
+    .section,.about-section,.footer,header,.hero,.album-section,main{position:relative;z-index:1}
   </style>
 </head>
 <body>
