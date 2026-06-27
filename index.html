@@ -409,7 +409,8 @@ tml lang="zh-CN">
     
     .album-photo-item {
       position: relative;
-      display: inline-block;
+      justify-self: center;
+      align-self: center;
       aspect-ratio: 4/3;
       overflow: hidden;
       border-radius: 4px;
@@ -984,6 +985,22 @@ tml lang="zh-CN">
     }
     @media (max-width: 600px) {
       #lightboxImg { max-width: 96vw !important; max-height: 80vh !important; }
+    }
+
+    /* Mobile: album photos - 2 columns, properly centered */
+    @media (max-width: 600px) {
+      .album-photos-grid { gap: 10px !important; }
+      .album-photo-item { max-width: 160px !important; }
+    }
+    @media (max-width: 400px) {
+      .album-photos-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+      .album-photo-item { max-width: 100% !important; }
+    }
+    /* Lightbox: photo centered */
+    #lightboxImg {
+      display: block !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
 </style>
 
