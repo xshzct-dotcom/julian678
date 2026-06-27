@@ -77,7 +77,7 @@ tml lang="zh-CN">
       justify-content: center;
       text-align: center;
       background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                  url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/hero_bg.webp') center/cover no-repeat;
+                  url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/hero_bg.jpg') center/cover no-repeat;
       background-attachment: fixed;
       color: white;
     }
@@ -409,15 +409,15 @@ tml lang="zh-CN">
     
     .album-photo-item {
       position: relative;
+      justify-self: center;
+      align-self: center;
       aspect-ratio: 4/3;
       overflow: hidden;
       border-radius: 4px;
       cursor: pointer;
-      max-width: 220px;
-      justify-self: center;
     }
     
-    
+    .album-photo-item { width: 100%; max-width: 220px; justify-self: center; }
     .album-photo-item img {
       width: 100%;
       height: 100%;
@@ -790,7 +790,15 @@ tml lang="zh-CN">
   }
 
   /* ── 通用元素：统一过渡语言 ── */
-  a, button, .card, .album-card, .post-card, .music-btn, .nav-link, 
+  a, button, .card, .album-card, .post-card, .music-btn, .nav-link, .album-photo-item {
+    transition:
+      transform var(--duration-std) var(--ease-out-expo),
+      box-shadow var(--duration-std) var(--ease-out-quad),
+      opacity var(--duration-std) var(--ease-out-quad),
+      background-color 0.4s var(--ease-out-quad),
+      border-color 0.4s var(--ease-out-quad),
+      color 0.35s var(--ease-out-quad) !important;
+  }
 
   /* ── 悬停：品牌级卡片质感 ──
    * 不上浮也不猛下沉，而是"轻轻压实"
@@ -878,7 +886,6 @@ tml lang="zh-CN">
   #lightboxImg {
     animation: imgReveal var(--duration-std) var(--ease-out-expo) forwards;
   }
-    #lightboxImg { display: block; margin: auto; }
   @keyframes imgReveal {
     from { opacity: 0; transform: scale(0.97); filter: blur(4px); }
     to   { opacity: 1; transform: scale(1);    filter: blur(0px); }
@@ -961,12 +968,12 @@ tml lang="zh-CN">
     /* Mobile: album photos - 2 columns, smaller */
     @media (max-width: 600px) {
       .album-photos-grid { gap: 8px !important; }
-      
+      .album-photo-item { max-width: 160px !important; max-height: 120px !important; }
       .album-photo-item img { object-position: center; }
     }
     @media (max-width: 400px) {
       .album-photos-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
-      
+      .album-photo-item { max-width: 100% !important; max-height: 110px !important; }
     }
 
     /* Lightbox: ensure centered on all screens */
@@ -983,11 +990,11 @@ tml lang="zh-CN">
     /* Mobile: album photos - 2 columns, properly centered */
     @media (max-width: 600px) {
       .album-photos-grid { gap: 10px !important; }
-      
+      .album-photo-item { max-width: 160px !important; }
     }
     @media (max-width: 400px) {
       .album-photos-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
-      
+      .album-photo-item { max-width: 100% !important; }
     }
     /* Lightbox: photo centered */
     #lightboxImg {
@@ -998,9 +1005,9 @@ tml lang="zh-CN">
 </style>
 
   <!-- Preload background images -->
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.webp">
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.webp">
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.webp">
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg">
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg">
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg">
 </head>
 <body>
 
@@ -1028,21 +1035,21 @@ tml lang="zh-CN">
   <!-- POSTS (Level 1) -->
   <div class="section" id="posts">
     <div class="posts-grid">
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.webp')" onclick="openCardModal('essay')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/essay_bg.jpg')" onclick="openCardModal('essay')">
         <div class="card-overlay">
           <div class="card-title">随笔</div>
           <div class="card-subtitle"> thoughts &amp; reflections</div>
         </div>
       </div>
 
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.webp')" onclick="openCardModal('travel')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/travel_bg.jpg')" onclick="openCardModal('travel')">
         <div class="card-overlay">
           <div class="card-title">旅行见闻</div>
           <div class="card-subtitle"> on the road</div>
         </div>
       </div>
 
-      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.webp')" onclick="openCardModal('poems')">
+      <div class="post-card fade-up" style="background-image: url('https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/poetry_bg.jpg')" onclick="openCardModal('poems')">
         <div class="card-overlay">
           <div class="card-title">诗</div>
           <div class="card-subtitle"> poems &amp; verses</div>
@@ -1067,7 +1074,7 @@ tml lang="zh-CN">
   <!-- ABOUT -->
   <div class="about-section" id="about">
     <div class="about-inner">
-      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.webp" alt="向天游" onerror="this.style.display='none'">
+      <img src="https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/images/avatar.jpg" alt="向天游" onerror="this.style.display='none'">
       <div>
         <h2>向天游</h2>
         
@@ -1135,15 +1142,8 @@ tml lang="zh-CN">
 
         ]
     function toAbs(url) {
-      if (url.startsWith("http")) {
-        // Extract path and encode only that part
-        var parts = url.split("/");
-        // First 3 parts: https: , "", raw.githubusercontent.com
-        var base = parts.slice(0, 3).join("/");
-        var path = parts.slice(3).map(function(p) { return encodeURIComponent(p); }).join("/");
-        return base + "/" + path;
-      }
-      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + encodeURIComponent(url);
+      if (url.startsWith("http")) return url;
+      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
     }
     function getThumb(url) { return toAbs(url); }
     function getFull(url) { return toAbs(url); }
