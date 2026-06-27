@@ -1173,11 +1173,15 @@ tml lang="zh-CN">
       return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + url;
     }
     function getThumb(url) {
-      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=400&output=webp&q=50";
+      var parts = url.replace(/\\/g, '/').split('/');
+      var fname = parts[parts.length - 1]
+        .replace(/_看图王/g, '')
+        .replace(/\.jpg$/i, '.webp')
+        .replace(/\.jpeg$/i, '.webp');
+      var folder = parts[1];
+      return toAbs('thumbs/' + folder + '/' + fname);
     }
-    function getFull(url) {
-      return "https://images.weserv.nl/?url=" + encodeURIComponent(toAbs(url)) + "&w=1920&output=webp&q=75";
-    }
+    function getFull(url) { return toAbs(url); }
     
     // ==================== DATA ====================
     
