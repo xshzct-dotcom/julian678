@@ -341,11 +341,21 @@ function generatePoetryBackground() {
   const height = window.innerHeight;
   const frag = document.createDocumentFragment();
 
-  // 把视口分成大区块，每首诗占据一个区域
-  const cols = 3;
+  // 根据屏幕宽度自适应：手机端用更小的字号和更紧凑的行高
+  const isMobile = width < 600;
+  const isTablet = !isMobile && width < 1000;
+
+  // 手机端用2列，平板3列，电脑3列（每列更宽，诗能完整显示）
+  const cols = isMobile ? 2 : 3;
   const rows = Math.ceil(poems.length / cols);
   const cellW = Math.floor(width / cols);
   const cellH = Math.floor(height / rows);
+
+  // 字号策略：手机端整体缩小，确保诗完整显示在区块内
+  const titleSizeMin = isMobile ? 14 : (isTablet ? 22 : 28);
+  const titleSizeMax = isMobile ? 18 : (isTablet ? 30 : 42);
+  const lineSizeMin  = isMobile ? 10 : (isTablet ? 14 : 12);
+  const lineSizeMax  = isMobile ? 14 : (isTablet ? 24 : 38);
 
   poems.forEach((poem, idx) => {
     const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
@@ -355,33 +365,32 @@ function generatePoetryBackground() {
     const row = Math.floor(idx / cols);
 
     // 每首诗在区块内随机选一个锚点
-    const anchorX = col * cellW + 30 + Math.floor(Math.random() * (cellW - 60));
-    const anchorY = row * cellH + 30 + Math.floor(Math.random() * (cellH - 60));
+    const padX = isMobile ? 8 : 30;
+    const padY = isMobile ? 6 : 30;
+    const anchorX = col * cellW + padX + Math.floor(Math.random() * Math.max(1, cellW - padX * 2));
+    const anchorY = row * cellH + padY + Math.floor(Math.random() * Math.max(1, cellH - padY * 2));
 
-    // 标题 - 字号大，更明显
-    const titleSize = 28 + Math.floor(Math.random() * 14);  // 28-42px
-    const titleOpacity = 0.28 + Math.random() * 0.12;  // 0.28-0.4
+    // 标题
+    const titleSize = titleSizeMin + Math.floor(Math.random() * (titleSizeMax - titleSizeMin));
+    const titleOpacity = isMobile ? (0.22 + Math.random() * 0.10) : (0.28 + Math.random() * 0.12);
     addSpan(frag, poem.title || '诗', anchorX, anchorY, {
       fontSize: titleSize,
       opacity: titleOpacity,
       isTitle: true
     });
 
-    // 诗句 - 字号差异大，对比强
-    let cursorY = anchorY + titleSize + 20;
+    // 诗句：用游标严格按字号累加，**绝不省略任何一行**
+    let cursorY = anchorY + titleSize + (isMobile ? 4 : 20);
+    const lineGap = isMobile ? 1.0 : 1.4;  // 手机端用更紧凑的行间距
     lines.forEach((line) => {
-      if (cursorY > row * cellH + cellH - 30) return;
-      // 字号差异大：12-38px
-      const lineSize = 12 + Math.floor(Math.random() * 26);
-      // 不透明度：标题亮，诗句淡
-      const lineOpacity = 0.15 + Math.random() * 0.12;  // 0.15-0.27
-      // 水平位置在锚点附近随机偏移
-      const offsetX = Math.floor((Math.random() - 0.5) * 80);
+      const lineSize = lineSizeMin + Math.floor(Math.random() * (lineSizeMax - lineSizeMin));
+      const lineOpacity = isMobile ? (0.14 + Math.random() * 0.08) : (0.15 + Math.random() * 0.12);
+      const offsetX = Math.floor((Math.random() - 0.5) * (isMobile ? 30 : 80));
       addSpan(frag, line, anchorX + offsetX, cursorY, {
         fontSize: lineSize,
         opacity: lineOpacity
       });
-      cursorY += lineSize * 1.4;
+      cursorY += lineSize * lineGap;
     });
   });
 
