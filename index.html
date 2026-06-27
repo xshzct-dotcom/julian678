@@ -71,7 +71,9 @@
     .content-title{font-size:2rem;font-weight:700;margin-bottom:0.5rem;letter-spacing:0.03em}
     .content-date{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.3rem}
     .content-meta{color:rgba(255,255,255,0.5);font-size:0.9rem;font-family:var(--font-sans)}
-    .content-body{font-size:1.1rem;line-height:2.2;white-space:pre-wrap;letter-spacing:0.02em;text-indent:2em}
+    .content-body{font-size:1.1rem;line-height:2.4;letter-spacing:0.02em;padding-top:1rem}
+    .content-body p{margin:0 0 1.5em 0;white-space:pre-wrap}
+    @media(min-width:768px){.content-body{font-size:1.2rem;line-height:2.6}}
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
     .content-nav button:hover{background:white;color:black}
@@ -311,6 +313,13 @@ function toAbs(url) {
   return getFull(url);
 }
 
+// 格式化文章内容，将换行转为段落
+function formatBody(text) {
+  if (!text) return '';
+  // 将段落分隔（双换行）转为<p>标签
+  return text.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+}
+
 // ==================== 智能预加载 ====================
 class Preloader {
   constructor() { this.cache = new Set(); }
@@ -473,7 +482,7 @@ function updateModalView() {
     const cat = essayCategories[current.catIndex];
     const essay = cat.articles[current.index];
     title.textContent = essay.title;
-    body.innerHTML = `<div class="content-header"><div class="content-title">${essay.title}</div><div class="content-date">${essay.date || ''}</div></div><div class="content-body">${essay.body}</div><div class="content-nav"><button onclick="prevEssayArticle(${current.catIndex}, ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一篇</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${cat.articles.length}</span><button onclick="nextEssayArticle(${current.catIndex}, ${current.index})" ${current.index === cat.articles.length - 1 ? 'disabled' : ''}>下一篇 →</button></div>`;
+    body.innerHTML = `<div class="content-header"><div class="content-title">${essay.title}</div><div class="content-date">${essay.date || ''}</div></div><div class="content-body">${formatBody(essay.body)}</div><div class="content-nav"><button onclick="prevEssayArticle(${current.catIndex}, ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一篇</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${cat.articles.length}</span><button onclick="nextEssayArticle(${current.catIndex}, ${current.index})" ${current.index === cat.articles.length - 1 ? 'disabled' : ''}>下一篇 →</button></div>`;
   } else if (current.type === 'travel') {
     if (current.index === -1) {
       title.textContent = '旅行见闻';
@@ -481,7 +490,7 @@ function updateModalView() {
     } else {
       const travel = travels[current.index];
       title.textContent = travel.title;
-      body.innerHTML = `<div class="content-header"><div class="content-meta">${travel.date}</div></div><div class="content-body">${travel.body}</div><div class="content-nav"><button disabled>← 上一篇</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">1 / 1</span><button disabled>下一篇 →</button></div>`;
+      body.innerHTML = `<div class="content-header"><div class="content-meta">${travel.date}</div></div><div class="content-body">${formatBody(travel.body)}</div><div class="content-nav"><button disabled>← 上一篇</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">1 / 1</span><button disabled>下一篇 →</button></div>`;
     }
   } else if (current.type === 'poems') {
     if (current.index === -1) {
@@ -490,7 +499,7 @@ function updateModalView() {
     } else {
       const poem = poems[current.index];
       title.textContent = poem.title;
-      body.innerHTML = `<div class="content-header"><div class="content-meta">${poem.date}</div></div><div class="content-body">${poem.body}</div><div class="content-nav"><button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一首</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span><button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled' : ''}>下一首 →</button></div>`;
+      body.innerHTML = `<div class="content-header"><div class="content-meta">${poem.date}</div></div><div class="content-body">${formatBody(poem.body)}</div><div class="content-nav"><button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一首</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span><button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled' : ''}>下一首 →</button></div>`;
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
