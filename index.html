@@ -1135,8 +1135,15 @@ tml lang="zh-CN">
 
         ]
     function toAbs(url) {
-      if (url.startsWith("http")) return encodeURI(url);
-      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + encodeURI(url);
+      if (url.startsWith("http")) {
+        // Extract path and encode only that part
+        var parts = url.split("/");
+        // First 3 parts: https: , "", raw.githubusercontent.com
+        var base = parts.slice(0, 3).join("/");
+        var path = parts.slice(3).map(function(p) { return encodeURIComponent(p); }).join("/");
+        return base + "/" + path;
+      }
+      return "https://raw.githubusercontent.com/xshzct-dotcom/julian678/main/" + encodeURIComponent(url);
     }
     function getThumb(url) { return toAbs(url); }
     function getFull(url) { return toAbs(url); }
