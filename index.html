@@ -1174,7 +1174,7 @@ tml lang="zh-CN">
     }
     function getThumb(url) {
       var parts = url.replace(/\\/g, "/").split("/");
-      var fname = parts[parts.length-1].replace(/_看\u56fe\u738b/g,"").replace(/\.jpg$/i,".webp").replace(/\.jpeg$/i,".webp");
+      var fname = parts[parts.length-1].replace(/_看图王/g,"").replace(/\.jpg$/i,".webp").replace(/\.jpeg$/i,".webp");
       var folder = parts[1];
       return toAbs("thumbs/" + folder + "/" + fname);
     }   function getThumb(url) {
@@ -1187,6 +1187,7 @@ tml lang="zh-CN">
       return toAbs("thumbs/" + folder + "/" + fname);
     }
     function getFull(url) { return toAbs(url); }
+
    function getFull(url) { return toAbs(url); }
 
     
