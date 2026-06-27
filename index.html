@@ -500,7 +500,7 @@ function updateModalView() {
     } else {
       const poem = poems[current.index];
       title.textContent = poem.title;
-      body.innerHTML = `<div class="content-header"><div class="content-meta">${poem.date}</div></div><div class="content-body">${formatBody(poem.body)}</div><div class="content-nav"><button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一首</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span><button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled' : ''}>下一首 →</button></div>`;
+      body.innerHTML = `<div class="content-header"><div class="content-meta">${poem.date}</div></div><div class="content-body">${poem.body.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>')}</div><div class="content-nav"><button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一首</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span><button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled' : ''}>下一首 →</button></div>`;
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
