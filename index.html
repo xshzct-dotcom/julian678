@@ -12,6 +12,8 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   
   <!-- 字体异步加载 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -85,8 +87,8 @@
       padding: 0;
       max-width: 100%;
     }
-    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
-    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:3px}}
+    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:4px}}
+    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:3px}}
     .album-photo-item{
       position: relative;
       overflow: hidden;
