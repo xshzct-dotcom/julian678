@@ -206,11 +206,11 @@
       <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
         <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
       </div>
-      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
-        <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
-      </div>
       <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
         <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
+      </div>
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
+        <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
       </div>
     </div>
   </section>
@@ -313,12 +313,18 @@ function toAbs(url) {
   return getFull(url);
 }
 
-// 格式化文章内容，将换行转为段落
+// 格式化文章内容，将换行转为段落，每段开头固定空一格
 function formatBody(text) {
   if (!text) return '';
-  // 将Windows换行符转为Unix格式，再用双换行分割段落
-  const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  return normalized.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  const normalized = text.replace(/
+\n/g, '\n').replace(/
+/g, '\n');
+  return normalized.split('\n\n').map(p => {
+    const trimmed = p.trim();
+    if (!trimmed) return '';
+    // 移除前导空格，固定空一格
+    return `<p> ${trimmed.replace(/\n/g, '<br>')}</p>`;
+  }).join('');
 }
 
 // ==================== 智能预加载 ====================
