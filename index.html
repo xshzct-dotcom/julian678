@@ -316,14 +316,13 @@ function toAbs(url) {
 // 格式化文章内容，将换行转为段落，每段开头固定空一格
 function formatBody(text) {
   if (!text) return '';
-  const normalized = text.replace(/
+  var normalized = text.replace(/
 \n/g, '\n').replace(/
 /g, '\n');
-  return normalized.split('\n\n').map(p => {
-    const trimmed = p.trim();
+  return normalized.split('\n\n').map(function(p) {
+    var trimmed = p.trim();
     if (!trimmed) return '';
-    // 移除前导空格，固定空一格
-    return `<p> ${trimmed.replace(/\n/g, '<br>')}</p>`;
+    return '<p> ' + trimmed.replace(/\n/g, '<br>') + '</p>';
   }).join('');
 }
 
