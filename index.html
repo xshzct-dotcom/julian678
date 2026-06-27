@@ -633,7 +633,7 @@ function updateModalView() {
   } else if (current.type === 'poems') {
     if (current.index === -1) {
       title.textContent = '诗';
-      body.innerHTML = `<div class="article-list">${poems.map((p, i) => { const firstLine = p.body.split('\n').map(l=>l.trim()).filter(Boolean)[0] || ''; return `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div><div class="meta">${firstLine}</div></div><div class="arrow">→</div></div>`; }).join('')}</div>`;
+      body.innerHTML = `<div class="article-list">${poems.map((p, i) => `<div class="article-item" onclick="openContent('poems', ${i})"><div><div class="title">${p.title}</div></div><div class="arrow">→</div></div>`).join('')}</div>`;
     } else {
       const poem = poems[current.index];
       title.textContent = poem.title;
