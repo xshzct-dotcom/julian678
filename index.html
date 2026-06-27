@@ -75,13 +75,35 @@
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
     .content-nav button:hover{background:white;color:black}
-    .content-nav button:disabled{opacity:0.3;cursor:not-allowed}
-    .album-photos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;justify-items:center;text-align:center}
-    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(2,1fr)}}
-    .album-photo-item{position:relative;justify-self:center;align-self:center;aspect-ratio:4/3;overflow:hidden;border-radius:4px;cursor:pointer;width:100%;max-width:220px;background-color:#333}
-    .album-photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s,opacity 0.3s;opacity:0}
+    /* 相册照片网格 - 紧凑瀑布流布局 */
+    .album-photos-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+      padding: 0;
+      max-width: 100%;
+    }
+    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:6px}}
+    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
+    .album-photo-item{
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #2a2a2a;
+      /* 移除固定宽高比，让图片自然排列 */
+    }
+    .album-photo-item img{
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      image-orientation: from-image; /* 修复缩略图旋转问题 */
+    }
     .album-photo-item img.loaded{opacity:1}
-    .album-photo-item:hover img{transform:scale(1.05)}
+    .album-photo-item:hover img{transform:scale(1.03)}
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
     .lightbox.active{opacity:1;pointer-events:all}
     .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.3s}
@@ -187,19 +209,19 @@
   </section>
 
   <section class="section" id="writing">
-    <div class="page-title"><h1>随笔</h1><p>Writing</p></div>
-    <hr class="section-divider">
-    <div class="posts-grid">
-      <div class="post-card fade-up" onclick="openCardModal('essay')">
-        <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
-      </div>
-      <div class="post-card fade-up" onclick="openCardModal('poems')">
-        <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
-      </div>
-      <div class="post-card fade-up" onclick="openCardModal('travel')">
-        <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
-      </div>
+  <div class="page-title"><h1>随笔</h1><p>Writing</p></div>
+  <hr class="section-divider">
+  <div class="posts-grid">
+    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
+      <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 杂感</div></div>
     </div>
+    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
+      <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">分行与不分行</div></div>
+    </div>
+    <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
+      <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
+    </div>
+  </div>
   </section>
 
   <section class="about-section" id="about">
