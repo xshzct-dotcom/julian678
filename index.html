@@ -256,7 +256,7 @@
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
-    <img id="lightboxImg" src="" alt="" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" />
+    <img id="lightboxImg" src="" alt="" />
     <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div>
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
@@ -707,23 +707,95 @@ function openLightbox(index) {
   const img = document.getElementById('lightboxImg');
   const counter = document.getElementById('lightboxCounter');
   const spinner = document.getElementById('lightboxSpinner');
+  
   img.classList.remove('loaded');
   spinner.style.display = 'block';
-  img.src = getFull(currentAlbumPhotos[index]);
+  
+  // 设置图片加载事件
+  img.onload = function() {
+    this.classList.add('loaded');
+    spinner.style.display = 'none';
+  };
+  
+  img.onerror = function() {
+    // 如果当前是 webp 格式，尝试加载原始格式
+    const currentSrc = this.src;
+    const originalPath = currentAlbumPhotos[index];
+    const originalSrc = CDN.base + '/' + originalPath;
+    
+    if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
+      // 回退到原始格式
+      console.log('WebP加载失败，尝试原始格式:', originalPath);
+      this.src = originalSrc;
+    } else {
+      // 已经尝试过原始格式，还是失败
+      spinner.style.display = 'none';
+      console.error('图片加载失败:', originalPath);
+      this.alt = '图片加载失败';
+      this.classList.add('loaded');
+    }
+  };
+  
+  // 尝试加载图片（优先 webp）
+  const fullPath = getFull(currentAlbumPhotos[index]);
+  console.log('加载图片:', fullPath);
+  img.src = fullPath;
+  
   counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
   lb.classList.add('active');
-  preloader.preloadAdjacent(index, currentAlbumPhotos, 2);
+  
+  // 预加载相邻图片
+  if (preloader && typeof preloader.preloadAdjacent === 'function') {
+    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 2);
+  }
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
 function changePhoto(dir) {
   const img = document.getElementById('lightboxImg');
   const spinner = document.getElementById('lightboxSpinner');
+  const counter = document.getElementById('lightboxCounter');
+  
   img.classList.remove('loaded');
   spinner.style.display = 'block';
+  
   currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
-  img.src = getFull(currentAlbumPhotos[currentPhotoIndex]);
-  document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
-  preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 1);
+  
+  // 设置图片加载事件
+  img.onload = function() {
+    this.classList.add('loaded');
+    spinner.style.display = 'none';
+  };
+  
+  img.onerror = function() {
+    // 如果当前是 webp 格式，尝试加载原始格式
+    const currentSrc = this.src;
+    const originalPath = currentAlbumPhotos[currentPhotoIndex];
+    const originalSrc = CDN.base + '/' + originalPath;
+    
+    if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
+      // 回退到原始格式
+      console.log('WebP加载失败，尝试原始格式:', originalPath);
+      this.src = originalSrc;
+    } else {
+      // 已经尝试过原始格式，还是失败
+      spinner.style.display = 'none';
+      console.error('图片加载失败:', originalPath);
+      this.alt = '图片加载失败';
+      this.classList.add('loaded');
+    }
+  };
+  
+  // 尝试加载图片（优先 webp）
+  const fullPath = getFull(currentAlbumPhotos[currentPhotoIndex]);
+  console.log('加载图片:', fullPath);
+  img.src = fullPath;
+  
+  counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+  
+  // 预加载相邻图片
+  if (preloader && typeof preloader.preloadAdjacent === 'function') {
+    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 1);
+  }
 }
 
 document.addEventListener('keydown', (e) => {
