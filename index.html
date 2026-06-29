@@ -42,12 +42,7 @@
     .hero .hero-content{animation:heroFade 1.8s ease forwards}
     @keyframes heroFade{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:translateY(0)}}
     .hero h1{font-size:4.5rem;font-weight:400;letter-spacing:0.15em;margin-bottom:0;text-shadow:0 4px 40px rgba(0,0,0,0.25)}
-    .hero .hero-divider{width:50px;height:1.5px;margin:1.8rem auto;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);border:none;animation:heroFade 1.8s ease 0.3s both}
-    .hero p{font-size:1.2rem;font-style:italic;opacity:0.8;letter-spacing:0.06em;text-shadow:0 2px 24px rgba(0,0,0,0.2);animation:heroFade 1.8s ease 0.5s both}
-    .hero .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.3rem;animation:heroFade 1.8s ease 1.5s both}
-    .hero .scroll-hint i{font-size:0.7rem;color:rgba(255,255,255,0.3);font-style:normal;font-family:var(--font-sans);letter-spacing:0.15em}
-    .hero .scroll-hint span{display:block;width:1px;height:28px;background:linear-gradient(transparent,rgba(255,255,255,0.4));animation:scrollPulse 2.2s ease-in-out infinite}
-    @keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:0.8;transform:scaleY(1.4)}}
+    .hero p{font-size:1.2rem;font-style:italic;opacity:0.8;letter-spacing:0.06em;text-shadow:0 2px 24px rgba(0,0,0,0.2);animation:heroFade 1.8s ease 0.3s both}
     .section{max-width:1100px;margin:0 auto;padding:6rem 3rem}
     .page-title{text-align:center;margin-bottom:4rem}
     .page-title h1{font-size:3rem;font-weight:700;letter-spacing:0.05em;margin-bottom:0.8rem;color:var(--black)}
@@ -148,11 +143,7 @@
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
     .music-player{position:fixed;bottom:2rem;right:2rem;z-index:999}
-    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition);position:relative}
-    .music-loading{position:absolute;inset:0;border-radius:50px;background:rgba(255,255,255,0.05);pointer-events:none;transition:opacity 0.3s;opacity:0}
-    .music-loading.active{opacity:1}
-    .music-loading::after{content:'';position:absolute;inset:3px;border-radius:50px;border:2px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.5);animation:musicSpin 0.8s linear infinite}
-    @keyframes musicSpin{to{transform:rotate(360deg)}}
+    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
     .music-player:hover .music-controls{border-radius:20px}
     .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1rem;padding:0.2rem 0.3rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
@@ -161,7 +152,7 @@
     .music-progress-bar{height:100%;background:rgba(0,0,0,0.4);width:0;transition:width 0.3s}
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
     .fade-up.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.hero .hero-divider{margin:1.2rem auto}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -213,12 +204,7 @@
   <section class="hero">
     <div class="hero-content">
       <h1>向天游的随笔</h1>
-      <hr class="hero-divider">
       <p>一个时不时回来看看的角落</p>
-    </div>
-    <div class="scroll-hint">
-      <i>scroll</i>
-      <span></span>
     </div>
   </section>
 
@@ -267,7 +253,6 @@
       <div class="music-title" id="musicTitle">海芋恋</div>
     </div>
     <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
-    <div class="music-loading" id="musicLoading"></div>
   </div>
 
   <div class="modal" id="cardModal">
@@ -611,16 +596,13 @@ const playBtn = document.getElementById('playBtn');
 const musicTitle = document.getElementById('musicTitle');
 const musicProgress = document.getElementById('musicProgress');
 const musicPlayer = document.getElementById('musicPlayer');
-const musicLoading = document.getElementById('musicLoading');
 
 function loadSong(index) {
-  musicLoading.classList.add('active');
   currentSong = (index + playlist.length) % playlist.length;
   audio.src = playlist[currentSong].url;
   musicTitle.textContent = playlist[currentSong].name;
 }
 function onSongReady() {
-  musicLoading.classList.remove('active');
   if (isPlaying) audio.play().catch(() => {});
 }
 function togglePlay() {
@@ -637,8 +619,6 @@ function preloadNext() { const next = (currentSong + 1) % playlist.length; const
 
 loadSong(0);
 audio.addEventListener('canplay', onSongReady);
-audio.addEventListener('loadeddata', () => { musicLoading.classList.remove('active'); });
-audio.addEventListener('error', () => { musicLoading.classList.remove('active'); });
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
 audio.addEventListener('timeupdate', () => { if (audio.duration) musicProgress.style.width = (audio.currentTime / audio.duration) * 100 + '%'; });
 audio.addEventListener('play', () => { preloadNext(); });
