@@ -16,14 +16,6 @@
   <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   
   <!-- 预加载首屏关键资源 -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/hero_bg.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/essay_bg.jpg" as="image">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/travel_bg.jpg" as="image">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/poetry_bg.jpg" as="image">
-  <!-- 预加载相册封面 -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/covers/chuanxi.webp" as="image">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/covers/xinjiang.webp" as="image">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/covers/semporna.webp" as="image">
   
   <!-- 字体异步加载 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -285,13 +277,6 @@
 const CDN = {
   base: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main',
   image: function(path) {
-    // 尝试WebP格式，如果不支持则回退
-    const webpPath = path.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-    const fullPath = this.base + '/' + webpPath;
-    // 检查是否支持WebP
-    if (document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0) {
-      return fullPath;
-    }
     return this.base + '/' + path;
   },
   music: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/music',
@@ -749,25 +734,11 @@ function openLightbox(index) {
   };
   
   img.onerror = function() {
-    // 如果当前是 webp 格式，尝试加载原始格式
-    const currentSrc = this.src;
-    const originalPath = currentAlbumPhotos[index];
-    const originalSrc = CDN.base + '/' + originalPath;
-    
-    if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
-      // 回退到原始格式
-      
-      this.src = originalSrc;
-    } else {
-      // 已经尝试过原始格式，还是失败
-      spinner.style.display = 'none';
-      
-      this.alt = '图片加载失败';
-      this.classList.add('loaded');
-    }
+    spinner.style.display = 'none';
+    this.alt = '图片加载失败';
+    this.classList.add('loaded');
   };
   
-  // 尝试加载图片（优先 webp）
   const fullPath = getFull(currentAlbumPhotos[index]);
   
   img.src = fullPath;
@@ -798,25 +769,11 @@ function changePhoto(dir) {
   };
   
   img.onerror = function() {
-    // 如果当前是 webp 格式，尝试加载原始格式
-    const currentSrc = this.src;
-    const originalPath = currentAlbumPhotos[currentPhotoIndex];
-    const originalSrc = CDN.base + '/' + originalPath;
-    
-    if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
-      // 回退到原始格式
-      
-      this.src = originalSrc;
-    } else {
-      // 已经尝试过原始格式，还是失败
-      spinner.style.display = 'none';
-      
-      this.alt = '图片加载失败';
-      this.classList.add('loaded');
-    }
+    spinner.style.display = 'none';
+    this.alt = '图片加载失败';
+    this.classList.add('loaded');
   };
   
-  // 尝试加载图片（优先 webp）
   const fullPath = getFull(currentAlbumPhotos[currentPhotoIndex]);
   
   img.src = fullPath;
