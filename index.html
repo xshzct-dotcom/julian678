@@ -15,10 +15,14 @@
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   
+  <!-- 预加载首屏关键资源 -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/hero_bg.jpg" as="image" fetchpriority="high">
+  
   <!-- 字体异步加载 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"></noscript>
   
+  <!-- 移动端关闭 background-attachment:fixed（性能优化） -->
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{--black:#111;--white:#faf9f6;--gray:#888;--light-gray:#e8e4df;--accent:#8b7355;--font-serif:'Cormorant Garamond','Noto Serif SC',serif;--font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;--transition:0.3s ease}
@@ -49,7 +53,7 @@
     @media(max-width:900px){.album-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.album-grid{grid-template-columns:1fr}}
     .album-card{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:pointer;border-radius:12px;background-color:#e8e4df;background-size:cover;background-position:center}
-    .album-card:hover{transform:scale(1.02);transition:transform 0.3s}
+    
     .album-card .album-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background 0.3s}
     .album-card:hover .album-overlay{background:rgba(0,0,0,0.5)}
     .album-card .album-title{color:white;font-size:1.2rem;font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
@@ -141,7 +145,7 @@
     .music-progress-bar{height:100%;background:rgba(0,0,0,0.4);width:0;transition:width 0.3s}
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
     .fade-up.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem}.hero h1{font-size:2.5rem}.hero{background-attachment:scroll}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -159,7 +163,7 @@
     @keyframes imgIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
     .section{animation:fadeUp 0.5s ease-out both}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-    *{-webkit-font-smoothing:antialiased}
+    
     :root{--ease-out-expo:cubic-bezier(0.16,1,0.3,1);--ease-out-quad:cubic-bezier(0.25,0.46,0.45,0.94);--duration-fast:0.35s;--duration-std:0.5s;--duration-slow:0.7s}
     .card:hover,.album-card:hover,.post-card:hover{transform:translateY(-6px) scale(1.015)!important;box-shadow:0 4px 12px rgba(0,0,0,0.06),0 12px 40px rgba(0,0,0,0.14),0 24px 60px rgba(0,0,0,0.08)!important;border-color:rgba(0,0,0,0.08)!important}
     a:active,button:active,.card:active,.album-card:active,.post-card:active{transform:scale(0.97) translateY(0px)!important;box-shadow:0 2px 6px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.08)!important;transition-duration:0.15s!important}
@@ -201,13 +205,13 @@
     <div class="page-title"><h1>随笔</h1><p>Writing</p></div>
     <hr class="section-divider">
     <div class="posts-grid">
-      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg/essay_bg.webp')" onclick="openCardModal('essay')">
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/essay_bg.jpg')" onclick="openCardModal('essay')">
         <div class="card-overlay"><div class="card-title">随笔</div><div class="card-subtitle">童年 · 初恋 · 所思所想</div></div>
       </div>
-      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg/travel_bg.webp')" onclick="openCardModal('travel')">
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/travel_bg.jpg')" onclick="openCardModal('travel')">
         <div class="card-overlay"><div class="card-title">旅行见闻</div><div class="card-subtitle">在路上</div></div>
       </div>
-      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg/poetry_bg.webp')" onclick="openCardModal('poems')">
+      <div class="post-card fade-up" style="background-image: url('https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/poetry_bg.jpg')" onclick="openCardModal('poems')">
         <div class="card-overlay"><div class="card-title">诗</div><div class="card-subtitle">四月阴雨天</div></div>
       </div>
     </div>
@@ -221,7 +225,7 @@
 
   <section class="about-section" id="about">
     <div class="about-inner">
-      <img src="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/avatar.jpg/avatar.webp" alt="头像" loading="lazy">
+      <img src="https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs/avatar.jpg" alt="头像" loading="lazy">
       <div>
         <h2>向天游</h2>
         <p>一个不切实际的幻想家</p>
@@ -262,7 +266,7 @@
     <div class="lightbox-counter" id="lightboxCounter"></div>
   </div>
 
-  <audio id="bgMusic" preload="auto"></audio>
+  <audio id="bgMusic" preload="metadata"></audio>
 
 <script>
 // ==================== CDN图片优化配置 ====================
@@ -610,8 +614,8 @@ window.addEventListener('load', () => {
     document.addEventListener('click', initMusic, { once: true });
   });
   
-  // 生成诗词背景
-  generatePoetryBackground();
+  // 生成诗词背景（延迟执行，不阻塞交互）
+  setTimeout(generatePoetryBackground, 800);
 });
 
 // ==================== 渲染 ====================
@@ -691,7 +695,7 @@ function updateModalView() {
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
-    body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" decoding="async" onerror="this.style.display='none'"></div>`).join('')}</div>`;
+    body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>`).join('')}</div>`;
     // 预加载大图
     currentAlbumPhotos.slice(0, 3).forEach(p => preloader.load(getFull(p)));
   }
@@ -731,12 +735,12 @@ function openLightbox(index) {
     
     if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
       // 回退到原始格式
-      console.log('WebP加载失败，尝试原始格式:', originalPath);
+      
       this.src = originalSrc;
     } else {
       // 已经尝试过原始格式，还是失败
       spinner.style.display = 'none';
-      console.error('图片加载失败:', originalPath);
+      
       this.alt = '图片加载失败';
       this.classList.add('loaded');
     }
@@ -744,7 +748,7 @@ function openLightbox(index) {
   
   // 尝试加载图片（优先 webp）
   const fullPath = getFull(currentAlbumPhotos[index]);
-  console.log('加载图片:', fullPath);
+  
   img.src = fullPath;
   
   counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
@@ -780,12 +784,12 @@ function changePhoto(dir) {
     
     if (currentSrc.includes('.webp') && currentSrc !== originalSrc) {
       // 回退到原始格式
-      console.log('WebP加载失败，尝试原始格式:', originalPath);
+      
       this.src = originalSrc;
     } else {
       // 已经尝试过原始格式，还是失败
       spinner.style.display = 'none';
-      console.error('图片加载失败:', originalPath);
+      
       this.alt = '图片加载失败';
       this.classList.add('loaded');
     }
@@ -793,7 +797,7 @@ function changePhoto(dir) {
   
   // 尝试加载图片（优先 webp）
   const fullPath = getFull(currentAlbumPhotos[currentPhotoIndex]);
-  console.log('加载图片:', fullPath);
+  
   img.src = fullPath;
   
   counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
@@ -820,7 +824,7 @@ const fadeElements = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
-      setTimeout(() => { entry.target.classList.add('visible'); }, index * 100);
+      setTimeout(() => { entry.target.classList.add('visible'); }, Math.min(index * 60, 300));
       observer.unobserve(entry.target);
     }
   });
