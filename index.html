@@ -148,7 +148,11 @@
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
     .music-player{position:fixed;bottom:2rem;right:2rem;z-index:999}
-    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
+    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition);position:relative}
+    .music-loading{position:absolute;inset:0;border-radius:50px;background:rgba(255,255,255,0.05);pointer-events:none;transition:opacity 0.3s;opacity:0}
+    .music-loading.active{opacity:1}
+    .music-loading::after{content:'';position:absolute;inset:3px;border-radius:50px;border:2px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.5);animation:musicSpin 0.8s linear infinite}
+    @keyframes musicSpin{to{transform:rotate(360deg)}}
     .music-player:hover .music-controls{border-radius:20px}
     .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1rem;padding:0.2rem 0.3rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
@@ -263,6 +267,7 @@
       <div class="music-title" id="musicTitle">海芋恋</div>
     </div>
     <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
+    <div class="music-loading" id="musicLoading"></div>
   </div>
 
   <div class="modal" id="cardModal">
@@ -606,26 +611,44 @@ const playBtn = document.getElementById('playBtn');
 const musicTitle = document.getElementById('musicTitle');
 const musicProgress = document.getElementById('musicProgress');
 const musicPlayer = document.getElementById('musicPlayer');
+const musicLoading = document.getElementById('musicLoading');
 
-audio.src = playlist[currentSong].url;
-musicTitle.textContent = playlist[currentSong].name;
-
-// ==================== 音乐 ====================
-function togglePlay() {
-  if (isPlaying) { audio.pause(); playBtn.textContent = '▶'; }
-  else { audio.play().then(() => { playBtn.textContent = '⏸'; }).catch(() => {}); playBtn.textContent = '⏸'; }
-  isPlaying = !isPlaying;
+function loadSong(index) {
+  musicLoading.classList.add('active');
+  currentSong = (index + playlist.length) % playlist.length;
+  audio.src = playlist[currentSong].url;
+  musicTitle.textContent = playlist[currentSong].name;
 }
-function nextSong() { currentSong = (currentSong + 1) % playlist.length; audio.src = playlist[currentSong].url; musicTitle.textContent = playlist[currentSong].name; if (isPlaying) audio.play(); }
-function prevSong() { currentSong = (currentSong - 1 + playlist.length) % playlist.length; audio.src = playlist[currentSong].url; musicTitle.textContent = playlist[currentSong].name; if (isPlaying) audio.play(); }
+function onSongReady() {
+  musicLoading.classList.remove('active');
+  if (isPlaying) audio.play().catch(() => {});
+}
+function togglePlay() {
+  if (isPlaying) { audio.pause(); playBtn.textContent = '▶'; isPlaying = false; }
+  else {
+    isPlaying = true; playBtn.textContent = '⏸';
+    if (audio.paused) audio.play().catch(() => {});
+  }
+}
+function nextSong() { loadSong(currentSong + 1); onSongReady(); }
+function prevSong() { loadSong(currentSong - 1); onSongReady(); }
 function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
-audio.addEventListener('ended', nextSong);
+function preloadNext() { const next = (currentSong + 1) % playlist.length; const link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = playlist[next].url; document.head.appendChild(link); }
+
+loadSong(0);
+audio.addEventListener('canplay', onSongReady);
+audio.addEventListener('loadeddata', () => { musicLoading.classList.remove('active'); });
+audio.addEventListener('error', () => { musicLoading.classList.remove('active'); });
+audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
 audio.addEventListener('timeupdate', () => { if (audio.duration) musicProgress.style.width = (audio.currentTime / audio.duration) * 100 + '%'; });
+audio.addEventListener('play', () => { preloadNext(); });
 window.addEventListener('load', () => {
-  audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; }).catch(() => {
-    // 自动播放失败，添加一次性点击监听
+  isPlaying = true; playBtn.textContent = '⏸';
+  audio.play().catch(() => {
+    isPlaying = false; playBtn.textContent = '▶';
     const initMusic = () => {
-      audio.play().then(() => { isPlaying = true; playBtn.textContent = '⏸'; }).catch(() => {});
+      isPlaying = true; playBtn.textContent = '⏸';
+      audio.play().catch(() => {});
       document.removeEventListener('click', initMusic);
     };
     document.addEventListener('click', initMusic, { once: true });
