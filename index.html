@@ -65,6 +65,7 @@
     .album-card .album-count{color:rgba(255,255,255,0.8);font-size:0.8rem;margin-top:0.5rem;font-family:var(--font-sans)}
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s ease;overflow:hidden}
     .modal.active{opacity:1;pointer-events:all}
+    .modal.lb-hidden{opacity:0!important;pointer-events:none!important;content-visibility:hidden!important}
     .modal-header{flex:none;display:flex;justify-content:space-between;align-items:center;padding:0.9rem 1rem;color:white;background:rgba(0,0,0,0.95);z-index:10}
     .modal-back{background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:0.95rem;display:flex;align-items:center;gap:0.5rem;transition:color var(--transition);font-family:var(--font-sans)}
     .modal-back:hover{color:white}
@@ -1199,9 +1200,9 @@ function openLightbox(index) {
 
   counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
 
-  // 灯箱全屏覆盖，隐藏背后的大 DOM（旧世界 1778 张图）以释放 GPU/内存
+  // 灯箱全屏覆盖，隐藏背后的大 DOM（旧世界 1778 张图）释放 GPU/内存
   const modal = document.getElementById('cardModal');
-  if (modal) modal.style.display = 'none';
+  if (modal) modal.classList.add('lb-hidden');
 
   lb.classList.add('active');
   lightboxIsLoading = true;
@@ -1228,9 +1229,9 @@ function closeLightbox() {
     showLightboxLoader(false);
     lightboxIsLoading = false;
     resetLightboxZoom();
-    // 恢复相册模态框显示
+    // 恢复相册模态框
     const modal = document.getElementById('cardModal');
-    if (modal) modal.style.display = '';
+    if (modal) modal.classList.remove('lb-hidden');
   }, 300);
 }
 
