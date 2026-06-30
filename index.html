@@ -135,23 +135,59 @@
     .album-photo-item img.loaded{opacity:1}
     .album-photo-item:hover img{transform:scale(1.05)}
     .album-zoom-hint{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:2001;font-family:var(--font-sans)}
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    /* ===== 灯箱：大图查看体验 ===== */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;user-select:none;-webkit-user-select:none;touch-action:none}
     .lightbox.active{opacity:1;pointer-events:all}
-    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.4s ease}
-    .lightbox img.loaded{opacity:1}
-    .lightbox-loading{position:absolute;width:48px;height:48px;border:3px solid rgba(255,255,255,0.15);border-top-color:white;border-radius:50%;animation:lbspin 0.7s linear infinite;z-index:10;pointer-events:none}
-    .lightbox-loading.hidden{display:none}
-    @keyframes lbspin{to{transform:rotate(360deg)}}
-    .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);border:none;color:white;font-size:2rem;width:50px;height:50px;cursor:pointer;border-radius:50%;transition:background var(--transition)}
-    .lightbox-close:hover{background:rgba(255,255,255,0.2)}
-    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:white;font-size:2.5rem;width:60px;height:60px;cursor:pointer;border-radius:50%;transition:all 0.25s ease;display:flex;align-items:center;justify-content:center}
-    .lightbox-nav:hover{background:rgba(255,255,255,0.25);transform:translateY(-50%) scale(1.08)}
-    .lightbox-nav:active{transform:translateY(-50%) scale(0.92);opacity:0.7}
-    .lightbox-prev{left:20px}
-    .lightbox-next{right:20px}
-    .lightbox-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.5);font-size:0.85rem;font-family:var(--font-sans);letter-spacing:0.05em}
-    /* 移动端大图按钮优化 */
-    @media(max-width:480px){.lightbox-nav{width:44px;height:44px;font-size:1.8rem}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:12px;right:12px;width:40px;height:40px;font-size:1.5rem}}
+    .lightbox-stage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .lightbox-thumb{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;filter:blur(24px) brightness(0.4);opacity:0;transform:scale(1.08);transition:opacity 0.4s ease,transform 6s ease;z-index:1;pointer-events:none}
+    .lightbox-thumb.visible{opacity:1}
+    .lightbox img{position:relative;z-index:2;max-width:92%;max-height:92vh;object-fit:contain;border-radius:4px;opacity:0;transform:scale(0.96);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1);pointer-events:none}
+    .lightbox img.loaded{opacity:1;transform:scale(1)}
+    .lightbox img.zoomed{transform:scale(1.6);transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);cursor:grab}
+    .lightbox img.zoomed.grabbing{cursor:grabbing}
+    .lightbox img.is-exit{opacity:0;transform:scale(1.02)}
+    .lightbox-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;z-index:10;pointer-events:none;opacity:0;transition:opacity 0.2s ease}
+    .lightbox-loader.visible{opacity:1}
+    .progress-ring{width:100%;height:100%;transform:rotate(-90deg)}
+    .progress-ring-bg,.progress-ring-bar{fill:none;stroke-width:3}
+    .progress-ring-bg{stroke:rgba(255,255,255,0.12)}
+    .progress-ring-bar{stroke:white;stroke-linecap:round;stroke-dasharray:125.6;stroke-dashoffset:125.6;transition:stroke-dashoffset 0.15s linear}
+    .lightbox-progress-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-family:var(--font-sans);letter-spacing:0.02em}
+    .lightbox-loading-text{position:absolute;top:calc(50% + 46px);left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.55);font-size:0.8rem;font-family:var(--font-sans);opacity:0;transition:opacity 0.2s;z-index:10;pointer-events:none}
+    .lightbox-loading-text.visible{opacity:1}
+    .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:none;color:white;font-size:1.7rem;width:48px;height:48px;cursor:pointer;border-radius:50%;transition:all 0.25s ease;z-index:20;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+    .lightbox-close:hover{background:rgba(255,255,255,0.2);transform:scale(1.05)}
+    .lightbox-close:active{transform:scale(0.92)}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.06);border:none;color:white;font-size:2.2rem;width:56px;height:56px;cursor:pointer;border-radius:50%;transition:all 0.25s cubic-bezier(0.22,1,0.36,1);display:flex;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(4px)}
+    .lightbox-nav:hover{background:rgba(255,255,255,0.18);transform:translateY(-50%) scale(1.08)}
+    .lightbox-nav:active{transform:translateY(-50%) scale(0.9);opacity:0.7}
+    .lightbox-nav.clicked{animation:navClick 0.35s cubic-bezier(0.22,1,0.36,1)}
+    @keyframes navClick{0%{transform:translateY(-50%) scale(1)}40%{transform:translateY(-50%) scale(0.85);background:rgba(255,255,255,0.3)}100%{transform:translateY(-50%) scale(1)}}
+    .lightbox-prev{left:22px}
+    .lightbox-next{right:22px}
+    .lightbox-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.55);font-size:0.8rem;font-family:var(--font-sans);letter-spacing:0.05em;z-index:10;background:rgba(0,0,0,0.35);padding:0.35rem 0.9rem;border-radius:20px;opacity:0;transition:opacity 0.3s}
+    .lightbox.active .lightbox-counter{opacity:1}
+    .lightbox-hint{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.35);font-size:0.7rem;font-family:var(--font-sans);letter-spacing:0.05em;opacity:0;transition:opacity 0.4s;z-index:10;pointer-events:none}
+    .lightbox.active .lightbox-hint{opacity:1;transition-delay:0.6s}
+    .lightbox-hint.fade-out{opacity:0}
+    /* 点击屏幕左右边缘切换（仅移动端） */
+    .lightbox-touch-zone{position:absolute;top:0;bottom:0;width:18%;z-index:5}
+    .lightbox-touch-zone.left{left:0}
+    .lightbox-touch-zone.right{right:0}
+    /* 移动端大图优化 */
+    @media(max-width:600px){
+      .lightbox img{max-width:100%;max-height:88vh;border-radius:0}
+      .lightbox-nav{width:44px;height:44px;font-size:1.7rem;background:transparent}
+      .lightbox-prev{left:4px}
+      .lightbox-next{right:4px}
+      .lightbox-close{top:10px;right:10px;width:40px;height:40px;font-size:1.4rem;background:rgba(0,0,0,0.35)}
+      .lightbox-counter{bottom:14px;font-size:0.75rem}
+      .lightbox-hint{bottom:46px;font-size:0.65rem}
+      .lightbox-touch-zone{width:22%}
+    }
+    @media(hover:none){
+      .lightbox-nav:hover{background:rgba(255,255,255,0.06)}
+    }
     .about-section{max-width:900px;margin:0 auto;padding:5rem 2rem}
     .about-inner{display:grid;grid-template-columns:200px 1fr;gap:3rem;align-items:start}
     @media(max-width:768px){.about-inner{grid-template-columns:1fr;text-align:center}}
@@ -187,10 +223,6 @@
     .nav-link:hover::after{left:0;right:0}
     .modal.active{animation:modalIn 0.38s cubic-bezier(0.22,1.0,0.36,1.0) forwards}
     @keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-    #lightbox.active{animation:lightboxIn 0.3s cubic-bezier(0.22,1.0,0.36,1.0) forwards}
-    @keyframes lightboxIn{from{opacity:0}to{opacity:1}}
-    #lightboxImg.active{animation:imgIn 0.3s cubic-bezier(0.22,1.0,0.36,1.0) forwards}
-    @keyframes imgIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
     .section{animation:fadeUp 0.5s ease-out both}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     
@@ -202,11 +234,7 @@
     .nav-link:hover::after{left:0;right:0}
     .modal.active{animation:modalReveal var(--duration-slow) var(--ease-out-expo) forwards;backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2)}
     @keyframes modalReveal{from{opacity:0;transform:translateY(28px) scale(0.985);backdrop-filter:blur(0px)}to{opacity:1;transform:translateY(0) scale(1);backdrop-filter:blur(12px) saturate(1.2)}}
-    #lightbox{backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);transition:opacity var(--duration-std) var(--ease-out-quad)!important}
-    #lightbox.active{animation:lbFadeIn var(--duration-std) var(--ease-out-quad) forwards}
-    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
-    #lightboxImg{animation:imgReveal var(--duration-std) var(--ease-out-expo) forwards}
-    @keyframes imgReveal{from{opacity:0;transform:scale(0.97);filter:blur(4px)}to{opacity:1;transform:scale(1);filter:blur(0px)}}
+    #lightbox{backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
     .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
     #poetryBg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
     #poetryBg span{position:absolute;color:rgba(0,0,0,0.1);font-family:var(--font-serif);white-space:nowrap;user-select:none}
@@ -330,11 +358,22 @@
 
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
-    <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
-    <img id="lightboxImg" src="" alt="" />
-    <div class="lightbox-loading" id="lightboxSpinner"></div>
-    <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)" aria-label="上一张">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)" aria-label="下一张">›</button>
+    <div class="lightbox-stage" id="lightboxStage">
+      <div class="lightbox-thumb" id="lightboxThumb"></div>
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <div class="lightbox-loader" id="lightboxLoader">
+      <svg class="progress-ring" viewBox="0 0 52 52">
+        <circle class="progress-ring-bg" cx="26" cy="26" r="20"/>
+        <circle class="progress-ring-bar" id="progressRingBar" cx="26" cy="26" r="20"/>
+      </svg>
+      <div class="lightbox-progress-text" id="lightboxProgressText">0%</div>
+    </div>
+    <div class="lightbox-loading-text" id="lightboxLoadingText">加载中</div>
     <div class="lightbox-counter" id="lightboxCounter"></div>
+    <div class="lightbox-hint" id="lightboxHint">滑动切换 · 双击缩放</div>
   </div>
 
   <div class="album-zoom-hint" id="zoomHint">按住 Ctrl + 滚动鼠标滚轮缩放缩略图</div>
@@ -911,89 +950,367 @@ function initAlbumScrollbar(body) {
   };
 }
 
-// ==================== 灯箱 ====================
-function openLightbox(index) {
-  currentPhotoIndex = index;
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightboxImg');
-  const counter = document.getElementById('lightboxCounter');
-  const spinner = document.getElementById('lightboxSpinner');
-  
-  img.classList.remove('loaded');
-  spinner.classList.remove('hidden');
-  
-  // 先清除当前图片，黑底过渡
-  img.style.opacity = '';
-  
-  img.onload = function() {
-    this.classList.add('loaded');
-    spinner.classList.add('hidden');
-  };
-  
-  img.onerror = function() {
-    spinner.classList.add('hidden');
-    this.alt = '图片加载失败';
-    this.classList.add('loaded');
-  };
-  
-  const fullPath = getFull(currentAlbumPhotos[index]);
-  img.src = fullPath;
-  
-  counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
-  lb.classList.add('active');
-  
-  // 预加载相邻图片
-  if (preloader && typeof preloader.preloadAdjacent === 'function') {
-    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 3);
-  }
+// ==================== 灯箱（大图查看）====================
+let lightboxCurrentBlobUrl = null;
+let lightboxAbortController = null;
+let lightboxIsLoading = false;
+let lightboxChangeTimer = null;
+let lightboxTouchStartX = 0;
+let lightboxTouchStartY = 0;
+let lightboxTouchStartTime = 0;
+let lightboxLastTapTime = 0;
+let lightboxZoomed = false;
+let lightboxKeyboardCooldown = false;
+
+function setLightboxProgress(percent) {
+  const bar = document.getElementById('progressRingBar');
+  const text = document.getElementById('lightboxProgressText');
+  if (!bar || !text) return;
+  const circumference = 125.6; // 2 * PI * 20
+  const offset = circumference - (Math.max(0, Math.min(100, percent)) / 100) * circumference;
+  bar.style.strokeDashoffset = offset;
+  text.textContent = percent + '%';
 }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
-function changePhoto(dir) {
-  const img = document.getElementById('lightboxImg');
-  const spinner = document.getElementById('lightboxSpinner');
-  const counter = document.getElementById('lightboxCounter');
-  
-  img.classList.remove('loaded');
-  spinner.classList.remove('hidden');
-  
-  // 先清除当前显示
-  img.style.opacity = '';
-  
-  currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
-  
-  // 立即更新计数器（反馈用户操作已响应）
-  counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
-  
-  img.onload = function() {
-    this.classList.add('loaded');
-    spinner.classList.add('hidden');
-  };
-  
-  img.onerror = function() {
-    spinner.classList.add('hidden');
-    this.alt = '图片加载失败';
-    this.classList.add('loaded');
-  };
-  
-  const fullPath = getFull(currentAlbumPhotos[currentPhotoIndex]);
-  img.src = fullPath;
-  
-  // 预加载相邻图片（前后各3张）
-  if (preloader && typeof preloader.preloadAdjacent === 'function') {
-    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 3);
+
+function showLightboxLoader(show) {
+  const loader = document.getElementById('lightboxLoader');
+  const text = document.getElementById('lightboxLoadingText');
+  if (!loader || !text) return;
+  loader.classList.toggle('visible', show);
+  text.classList.toggle('visible', show);
+}
+
+function showLightboxThumb(photoPath) {
+  const thumb = document.getElementById('lightboxThumb');
+  if (!thumb) return;
+  const thumbUrl = getThumb(photoPath);
+  if (thumbUrl) thumb.style.backgroundImage = `url('${thumbUrl}')`;
+  thumb.classList.add('visible');
+}
+
+function hideLightboxThumb() {
+  const thumb = document.getElementById('lightboxThumb');
+  if (!thumb) return;
+  thumb.classList.remove('visible');
+}
+
+function revokeCurrentBlob() {
+  if (lightboxCurrentBlobUrl) {
+    URL.revokeObjectURL(lightboxCurrentBlobUrl);
+    lightboxCurrentBlobUrl = null;
   }
 }
 
+function abortLightboxLoad() {
+  if (lightboxAbortController) {
+    try { lightboxAbortController.abort(); } catch(e) {}
+    lightboxAbortController = null;
+  }
+}
+
+// 带进度追踪的图片加载（使用 fetch + ReadableStream）
+function loadImageWithProgress(url, onProgress, onComplete, onError) {
+  const controller = new AbortController();
+  lightboxAbortController = controller;
+
+  fetch(url, { signal: controller.signal })
+    .then(response => {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      if (!response.body) throw new Error('No body');
+      const total = parseInt(response.headers.get('content-length')) || 0;
+      const reader = response.body.getReader();
+      let loaded = 0;
+      const chunks = [];
+
+      function pump() {
+        return reader.read().then(({ done, value }) => {
+          if (controller.signal.aborted) return;
+          if (done) {
+            onProgress(100);
+            const blob = new Blob(chunks);
+            const blobUrl = URL.createObjectURL(blob);
+            onComplete(blobUrl);
+            return;
+          }
+          if (value) {
+            chunks.push(value);
+            loaded += value.length;
+            if (total > 0) {
+              onProgress(Math.min(99, Math.round((loaded / total) * 100)));
+            } else {
+              // 未知大小：按每 512KB 增加 15% 模拟进度
+              const simulated = Math.min(90, Math.round((loaded / (512 * 1024)) * 15));
+              onProgress(simulated);
+            }
+          }
+          return pump();
+        });
+      }
+      return pump();
+    })
+    .catch(err => {
+      if (err.name === 'AbortError') return;
+      onError();
+    });
+}
+
+function fallbackLoadImage(img, url, onDone) {
+  img.onload = function() {
+    this.classList.add('loaded');
+    showLightboxLoader(false);
+    hideLightboxThumb();
+    if (onDone) onDone();
+  };
+  img.onerror = function() {
+    showLightboxLoader(false);
+    this.alt = '图片加载失败';
+    this.classList.add('loaded');
+    if (onDone) onDone();
+  };
+  img.src = url;
+}
+
+function loadCurrentPhoto(animateExit) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  if (!lb.classList.contains('active') || !currentAlbumPhotos.length) return;
+
+  abortLightboxLoad();
+  revokeCurrentBlob();
+
+  const doLoad = () => {
+    img.classList.remove('loaded', 'zoomed', 'is-exit');
+    lightboxZoomed = false;
+    setLightboxProgress(0);
+    showLightboxLoader(true);
+    showLightboxThumb(currentAlbumPhotos[currentPhotoIndex]);
+
+    const photoPath = currentAlbumPhotos[currentPhotoIndex];
+    const fullUrl = getFull(photoPath);
+
+    img.onload = function() {
+      this.classList.add('loaded');
+      showLightboxLoader(false);
+      hideLightboxThumb();
+      setLightboxProgress(100);
+      lightboxIsLoading = false;
+    };
+    img.onerror = function() {
+      showLightboxLoader(false);
+      this.alt = '图片加载失败';
+      this.classList.add('loaded');
+      lightboxIsLoading = false;
+    };
+
+    loadImageWithProgress(fullUrl,
+      (percent) => setLightboxProgress(percent),
+      (blobUrl) => {
+        lightboxCurrentBlobUrl = blobUrl;
+        if (!lb.classList.contains('active')) {
+          revokeCurrentBlob();
+          return;
+        }
+        img.src = blobUrl;
+      },
+      () => {
+        fallbackLoadImage(img, fullUrl, () => { lightboxIsLoading = false; });
+      }
+    );
+
+    // 预加载相邻图片
+    if (preloader && typeof preloader.preloadAdjacent === 'function') {
+      preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 3);
+    }
+  };
+
+  if (animateExit) {
+    img.classList.add('is-exit');
+    setTimeout(doLoad, 180);
+  } else {
+    doLoad();
+  }
+}
+
+function openLightbox(index) {
+  if (!currentAlbumPhotos || !currentAlbumPhotos.length) return;
+  currentPhotoIndex = Math.max(0, Math.min(index, currentAlbumPhotos.length - 1));
+
+  const lb = document.getElementById('lightbox');
+  const counter = document.getElementById('lightboxCounter');
+  const hint = document.getElementById('lightboxHint');
+
+  counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+  if (hint) hint.classList.remove('fade-out');
+
+  lb.classList.add('active');
+  lightboxIsLoading = true;
+  loadCurrentPhoto(false);
+
+  // 3秒后淡出操作提示
+  setTimeout(() => {
+    if (hint) hint.classList.add('fade-out');
+  }, 2800);
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  if (lightboxChangeTimer) {
+    clearTimeout(lightboxChangeTimer);
+    lightboxChangeTimer = null;
+  }
+  setTimeout(() => {
+    const img = document.getElementById('lightboxImg');
+    if (img) {
+      img.classList.remove('loaded', 'zoomed', 'is-exit');
+      img.src = '';
+      img.alt = '';
+    }
+    abortLightboxLoad();
+    revokeCurrentBlob();
+    hideLightboxThumb();
+    showLightboxLoader(false);
+    lightboxIsLoading = false;
+    lightboxZoomed = false;
+    const hint = document.getElementById('lightboxHint');
+    if (hint) hint.classList.remove('fade-out');
+  }, 300);
+}
+
+function changePhoto(dir) {
+  if (!currentAlbumPhotos || !currentAlbumPhotos.length) return;
+
+  // 立即更新索引并给出视觉反馈
+  const newIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
+  currentPhotoIndex = newIndex;
+
+  const counter = document.getElementById('lightboxCounter');
+  if (counter) counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+
+  const btnClass = dir > 0 ? 'lightbox-next' : 'lightbox-prev';
+  const btn = document.querySelector('.' + btnClass);
+  if (btn) {
+    btn.classList.remove('clicked');
+    void btn.offsetWidth; // 强制重绘以重启动画
+    btn.classList.add('clicked');
+    setTimeout(() => btn.classList.remove('clicked'), 350);
+  }
+
+  // 防抖：连续点击只加载最后停下的那张
+  lightboxIsLoading = true;
+  if (lightboxChangeTimer) clearTimeout(lightboxChangeTimer);
+  lightboxChangeTimer = setTimeout(() => {
+    loadCurrentPhoto(true);
+  }, 100);
+}
+
+// 灯箱手势与交互
 document.addEventListener('keydown', (e) => {
   if (document.getElementById('lightbox').classList.contains('active')) {
-    if (e.key === 'ArrowLeft') changePhoto(-1);
-    if (e.key === 'ArrowRight') changePhoto(1);
+    if (lightboxKeyboardCooldown) return;
+    if (e.key === 'ArrowLeft') { changePhoto(-1); lightboxKeyboardCooldown = true; }
+    if (e.key === 'ArrowRight') { changePhoto(1); lightboxKeyboardCooldown = true; }
     if (e.key === 'Escape') closeLightbox();
+    if (lightboxKeyboardCooldown) {
+      setTimeout(() => lightboxKeyboardCooldown = false, 250);
+    }
   }
   if (document.getElementById('cardModal').classList.contains('active')) {
     if (e.key === 'Escape') closeModal();
   }
 });
+
+function handleLightboxDoubleTap(e) {
+  e.preventDefault();
+  const img = document.getElementById('lightboxImg');
+  if (!img) return;
+  lightboxZoomed = !lightboxZoomed;
+  img.classList.toggle('zoomed', lightboxZoomed);
+}
+
+function handleSwipeEnd(x, y) {
+  const dx = x - lightboxTouchStartX;
+  const dy = y - lightboxTouchStartY;
+  const dt = Date.now() - lightboxTouchStartTime;
+
+  const stage = document.getElementById('lightboxStage');
+  const rect = stage ? stage.getBoundingClientRect() : { left: 0, width: window.innerWidth };
+  const relX = x - rect.left;
+  const edgeWidth = rect.width * 0.22;
+
+  // 点击屏幕左右边缘切换
+  if (Math.abs(dx) < 12 && Math.abs(dy) < 12 && dt < 280) {
+    if (relX < edgeWidth) {
+      changePhoto(-1);
+      return;
+    } else if (relX > rect.width - edgeWidth) {
+      changePhoto(1);
+      return;
+    }
+    return;
+  }
+
+  // 滑动切换
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    if (dx > 0) changePhoto(-1);
+    else changePhoto(1);
+  }
+}
+
+function initLightboxGestures() {
+  const stage = document.getElementById('lightboxStage');
+  if (!stage) return;
+
+  // 触摸
+  stage.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1 || lightboxZoomed) return;
+    lightboxTouchStartX = e.touches[0].clientX;
+    lightboxTouchStartY = e.touches[0].clientY;
+    lightboxTouchStartTime = Date.now();
+  }, { passive: true });
+
+  stage.addEventListener('touchmove', (e) => {
+    if (!lightboxTouchStartX || lightboxZoomed) return;
+    const dx = e.touches[0].clientX - lightboxTouchStartX;
+    if (Math.abs(dx) > 10) e.preventDefault();
+  }, { passive: false });
+
+  stage.addEventListener('touchend', (e) => {
+    if (!lightboxTouchStartX || lightboxZoomed) return;
+    const touch = e.changedTouches[0];
+
+    // 双击检测
+    const now = Date.now();
+    if (now - lightboxLastTapTime < 300) {
+      handleLightboxDoubleTap(e);
+      lightboxLastTapTime = 0;
+    } else {
+      lightboxLastTapTime = now;
+      handleSwipeEnd(touch.clientX, touch.clientY);
+    }
+    lightboxTouchStartX = 0;
+  }, { passive: true });
+
+  // 鼠标双击缩放
+  stage.addEventListener('dblclick', handleLightboxDoubleTap);
+
+  // 鼠标拖拽切换（桌面端轻扫体验）
+  let mouseDown = false;
+  stage.addEventListener('mousedown', (e) => {
+    if (lightboxZoomed || e.button !== 0) return;
+    mouseDown = true;
+    lightboxTouchStartX = e.clientX;
+    lightboxTouchStartY = e.clientY;
+    lightboxTouchStartTime = Date.now();
+  });
+  window.addEventListener('mouseup', (e) => {
+    if (!mouseDown) return;
+    mouseDown = false;
+    handleSwipeEnd(e.clientX, e.clientY);
+  });
+}
+
+initLightboxGestures();
 
 // ==================== 相册缩略图 Ctrl+滚轮缩放 ====================
 function applyAlbumZoom() {
