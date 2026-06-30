@@ -1170,7 +1170,7 @@ function loadCurrentPhoto(animateExit) {
 
   if (animateExit) {
     img.classList.add('is-exit');
-    setTimeout(doLoad, 180);
+    setTimeout(doLoad, 40);
   } else {
     doLoad();
   }
@@ -1215,29 +1215,26 @@ function closeLightbox() {
 
 function changePhoto(dir) {
   if (!currentAlbumPhotos || !currentAlbumPhotos.length) return;
-
-  // 立即更新索引并给出视觉反馈
+  // 立即更新索引，零延迟
   const newIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
   currentPhotoIndex = newIndex;
 
   const counter = document.getElementById('lightboxCounter');
   if (counter) counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
 
+  // 按钮动画，即时可见
   const btnClass = dir > 0 ? 'lightbox-next' : 'lightbox-prev';
   const btn = document.querySelector('.' + btnClass);
   if (btn) {
     btn.classList.remove('clicked');
-    void btn.offsetWidth; // 强制重绘以重启动画
+    void btn.offsetWidth;
     btn.classList.add('clicked');
     setTimeout(() => btn.classList.remove('clicked'), 350);
   }
 
-  // 防抖：连续点击只加载最后停下的那张
-  lightboxIsLoading = true;
-  if (lightboxChangeTimer) clearTimeout(lightboxChangeTimer);
-  lightboxChangeTimer = setTimeout(() => {
-    loadCurrentPhoto(true);
-  }, 100);
+  // 清除队列中的加载（如果有），然后立即加载，不做防抖
+  if (lightboxChangeTimer) { clearTimeout(lightboxChangeTimer); lightboxChangeTimer = null; }
+  loadCurrentPhoto(true);
 }
 
 // 灯箱手势与交互
