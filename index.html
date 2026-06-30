@@ -64,15 +64,15 @@
     .album-card:hover .album-overlay{background:rgba(0,0,0,0.5)}
     .album-card .album-title{color:white;font-size:1.8rem;font-weight:700;letter-spacing:0.03em;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
     .album-card .album-count{color:rgba(255,255,255,0.8);font-size:0.8rem;margin-top:0.5rem;font-family:var(--font-sans)}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s ease;overflow-y:auto}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s ease;overflow:hidden}
     .modal.active{opacity:1;pointer-events:all}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:2rem 3rem;color:white;position:sticky;top:0;background:rgba(0,0,0,0.95);z-index:10}
+    .modal-header{flex:none;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;color:white;background:rgba(0,0,0,0.95);z-index:10}
     .modal-back{background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:1rem;display:flex;align-items:center;gap:0.5rem;transition:color var(--transition);font-family:var(--font-sans)}
     .modal-back:hover{color:white}
-    .modal-title{font-size:1.8rem;font-weight:700;letter-spacing:0.05em;flex:1;text-align:center}
+    .modal-title{font-size:1.5rem;font-weight:700;letter-spacing:0.05em;flex:1;text-align:center}
     .modal-close{background:none;border:none;color:white;font-size:2rem;cursor:pointer;padding:0.5rem;line-height:1;transition:opacity var(--transition);width:40px}
     .modal-close:hover{opacity:0.6}
-    .modal-body{padding:2rem 3rem;color:white;max-width:700px;margin:0 auto;width:100%}
+    .modal-body{flex:1;padding:1.5rem;color:white;max-width:1400px;margin:0 auto;width:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
     .article-list{display:flex;flex-direction:column;gap:1rem}
     .article-item{padding:1.5rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;transition:all var(--transition);display:flex;justify-content:space-between;align-items:center}
     .article-item:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3)}
@@ -89,36 +89,50 @@
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
     .content-nav button:hover{background:white;color:black}
-    /* 相册照片网格 - 自适应布局 */
+    /* 相册照片网格 - 瀑布流布局，支持 Ctrl+滚轮缩放 */
     .album-photos-grid{
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
+      column-count: 4;
+      column-gap: 6px;
       padding: 0;
       max-width: 100%;
     }
-    @media(max-width:1200px){.album-photos-grid{grid-template-columns:repeat(4,1fr)}}
-    @media(max-width:900px){.album-photos-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:600px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
-    @media(max-width:400px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:3px}}
+    .album-photos-grid.zoom-1{column-count:2}
+    .album-photos-grid.zoom-2{column-count:3}
+    .album-photos-grid.zoom-3{column-count:4}
+    .album-photos-grid.zoom-4{column-count:5}
+    .album-photos-grid.zoom-5{column-count:6}
+    @media(max-width:900px){
+      .album-photos-grid,.album-photos-grid.zoom-3,.album-photos-grid.zoom-4,.album-photos-grid.zoom-5{column-count:3}
+      .album-photos-grid.zoom-1{column-count:2}
+      .album-photos-grid.zoom-2{column-count:3}
+    }
+    @media(max-width:600px){
+      .album-photos-grid,.album-photos-grid.zoom-2,.album-photos-grid.zoom-3,.album-photos-grid.zoom-4,.album-photos-grid.zoom-5{column-count:2}
+      .album-photos-grid.zoom-1{column-count:1}
+    }
+    .album-date-group{break-inside:avoid;margin-bottom:1.5rem}
+    .album-date-header{color:rgba(255,255,255,0.7);font-size:1.1rem;font-weight:600;margin:0 0 0.8rem 0;padding-bottom:0.4rem;border-bottom:1px solid rgba(255,255,255,0.1);font-family:var(--font-sans);letter-spacing:0.02em}
     .album-photo-item{
       position: relative;
-      content-visibility: auto;
+      break-inside: avoid;
       overflow: hidden;
       border-radius: 4px;
       cursor: pointer;
       background-color: #333;
+      margin-bottom: 6px;
+      line-height: 0;
     }
     .album-photo-item img{
       width: 100%;
-      height: 100%;
+      height: auto;
       display: block;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
     }
     .album-photo-item img.loaded{opacity:1}
     .album-photo-item:hover img{transform:scale(1.02)}
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    .album-zoom-hint{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:2001;font-family:var(--font-sans)}    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
     .lightbox.active{opacity:1;pointer-events:all}
     .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.4s ease}
     .lightbox img.loaded{opacity:1}
@@ -286,6 +300,8 @@
     <div class="lightbox-counter" id="lightboxCounter"></div>
   </div>
 
+  <div class="album-zoom-hint" id="zoomHint">按住 Ctrl + 滚动鼠标滚轮缩放缩略图</div>
+
   <audio id="bgMusic" preload="metadata"></audio>
 
 <script>
@@ -323,6 +339,60 @@ function getFull(path) {
 function toAbs(url) {
   if (url.startsWith('http')) return url;
   return getFull(url);
+}
+
+// 从照片文件名中提取日期
+function extractDateFromFilename(path) {
+  if (!path) return null;
+  const filename = path.split('/').pop().split('?')[0];
+  // 匹配 IMG_YYYYMMDD_HHMMSS.jpg / VID_YYYYMMDD_HHMMSS.mp4
+  let m = filename.match(/(?:IMG|VID)_(\d{4})(\d{2})(\d{2})_\d{6}/);
+  if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+  // 匹配微信相机文件名 wx_camera_1234567890123.jpg
+  m = filename.match(/wx_camera_(\d{13})/);
+  if (m) {
+    const d = new Date(parseInt(m[1]));
+    if (!isNaN(d)) return d.toISOString().slice(0, 10);
+  }
+  return null;
+}
+
+// 格式化日期分组标题
+function formatDateGroup(dateStr) {
+  if (!dateStr) return '其他';
+  const today = new Date().toISOString().slice(0, 10);
+  if (dateStr === today) return '今天';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+}
+
+// 按日期对照片分组，返回按日期排序的 {date, photos:[{path, index}], title} 数组
+function groupPhotosByDate(photos) {
+  const groups = {};
+  photos.forEach((path, index) => {
+    const date = extractDateFromFilename(path) || '其他';
+    if (!groups[date]) groups[date] = [];
+    groups[date].push({ path, index });
+  });
+  // 按日期倒序（新日期在前），"其他"放最后
+  const sortedDates = Object.keys(groups).filter(d => d !== '其他').sort().reverse();
+  if (groups['其他']) sortedDates.push('其他');
+  return sortedDates.map(date => ({
+    date,
+    title: formatDateGroup(date),
+    photos: groups[date]
+  }));
+}
+
+// 按日期倒序排列照片（最新的在前面）
+function sortPhotosByDate(photos) {
+  return photos.slice().sort((a, b) => {
+    const da = extractDateFromFilename(a) || '9999-99-99';
+    const db = extractDateFromFilename(b) || '9999-99-99';
+    // 同日期内按文件名排序，保持相对稳定顺序
+    return db.localeCompare(da) || a.localeCompare(b);
+  });
 }
 
 // 格式化文章内容，将换行转为段落，段落开头用CSS统一空两格
@@ -602,6 +672,7 @@ let currentAlbumPhotos = [];
 let currentPhotoIndex = 0;
 let currentSong = 0;
 let isPlaying = false;
+let albumZoomLevel = 3; // 1-5，对应 2/3/4/5/6 列
 const audio = document.getElementById('bgMusic');
 const playBtn = document.getElementById('playBtn');
 const musicTitle = document.getElementById('musicTitle');
@@ -671,12 +742,12 @@ function openCardModal(type) { modalStack = [{ type, index: -1 }]; updateModalVi
 function openAlbumModal(albumId) {
   const album = albums.find(a => a.id === albumId);
   if (!album || album.photos.length === 0) return;
-  currentAlbumPhotos = album.photos;
+  currentAlbumPhotos = sortPhotosByDate(album.photos);
   modalStack = [{ type: 'album', albumId, index: -1 }];
   updateModalView();
   // 预加载缩略图和首张大图
-  album.photos.slice(0, 30).forEach(p => preloader.load(getThumb(p)));
-  album.photos.slice(0, 6).forEach(p => preloader.load(getFull(p)));
+  currentAlbumPhotos.slice(0, 30).forEach(p => preloader.load(getThumb(p)));
+  currentAlbumPhotos.slice(0, 6).forEach(p => preloader.load(getFull(p)));
 }
 function openCategory(catIndex) { modalStack.push({ type: 'essayCategory', catIndex, index: -1 }); updateModalView(); }
 function openContent(type, index) { modalStack.push({ type, index }); updateModalView(); }
@@ -727,9 +798,15 @@ function updateModalView() {
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
-    body.innerHTML = `<div class="album-photos-grid">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>`).join('')}</div>`;
-    // 预加载大图
-    currentAlbumPhotos.slice(0, 3).forEach(p => preloader.load(getFull(p)));
+    const groups = groupPhotosByDate(currentAlbumPhotos);
+    body.innerHTML = groups.map(group => `
+      <div class="album-date-group">
+        <div class="album-date-header">${group.title}</div>
+        <div class="album-photos-grid zoom-${albumZoomLevel}">
+          ${group.photos.map(({path, index}) => `<div class="album-photo-item" onclick="openLightbox(${index})"><img src="${getThumb(path)}" alt="照片 ${index + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`).join('')}
+        </div>
+      </div>
+    `).join('');
   }
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -825,6 +902,37 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   }
 });
+
+// ==================== 相册缩略图 Ctrl+滚轮缩放 ====================
+function applyAlbumZoom() {
+  document.querySelectorAll('.album-photos-grid').forEach(grid => {
+    grid.className = grid.className.replace(/zoom-\d/g, '').trim() + ' zoom-' + albumZoomLevel;
+  });
+}
+
+function showZoomHint(text) {
+  const hint = document.getElementById('zoomHint');
+  if (!hint) return;
+  hint.textContent = text;
+  hint.style.opacity = '1';
+  if (hint._timer) clearTimeout(hint._timer);
+  hint._timer = setTimeout(() => { hint.style.opacity = '0'; }, 1200);
+}
+
+document.addEventListener('wheel', (e) => {
+  if (!e.ctrlKey) return;
+  const modal = document.getElementById('cardModal');
+  if (!modal.classList.contains('active')) return;
+  e.preventDefault();
+  if (e.deltaY < 0 && albumZoomLevel < 5) {
+    albumZoomLevel++;
+  } else if (e.deltaY > 0 && albumZoomLevel > 1) {
+    albumZoomLevel--;
+  }
+  applyAlbumZoom();
+  const labels = {1: '放大', 2: '较大', 3: '适中', 4: '较小', 5: '最小'};
+  showZoomHint(`缩略图：${labels[albumZoomLevel]} (${2 + albumZoomLevel}列)`);
+}, { passive: false });
 
 // ==================== 动画 ====================
 const fadeElements = document.querySelectorAll('.fade-up');
