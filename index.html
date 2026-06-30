@@ -148,7 +148,7 @@
     .lightbox-stage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .lightbox-thumb{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;filter:blur(24px) brightness(0.4);opacity:0;transform:scale(1.08);transition:opacity 0.4s ease,transform 6s ease;z-index:1;pointer-events:none}
     .lightbox-thumb.visible{opacity:1}
-    .lightbox img{position:relative;z-index:2;max-width:92%;max-height:92vh;object-fit:contain;border-radius:4px;opacity:0;transform:scale(0.96);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1);pointer-events:none}
+    .lightbox img{position:relative;z-index:2;max-width:92%;max-height:92vh;object-fit:contain;border-radius:4px;opacity:0;transform:scale(0.96);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1);pointer-events:none;will-change:transform}
     .lightbox img.loaded{opacity:1;transform:scale(1)}
     .lightbox img.zoomed{transition:transform 0.05s linear;cursor:grab}
     .lightbox img.zoomed.grabbing{cursor:grabbing}
@@ -505,23 +505,23 @@ function generatePoetryBackground() {
 
   // 根据屏幕宽度自适应列数
   const isMobile = width < 600;
-  const cols = isMobile ? 2 : 3;
+  const cols = isMobile ? 1 : 3;  // 手机端单列，避免水平文字重叠
   const rows = Math.ceil(poems.length / cols);
   const cellW = Math.floor(width / cols);
   const cellH = Math.floor(height / rows);
 
-  // 字号策略：缩小随机范围，避免某行字号过大撑出格子
-  const titleSizeRange = isMobile ? [16, 22] : [22, 32];
-  const lineSizeRange  = isMobile ? [12, 16] : [16, 24];
-  const titleGap = isMobile ? 8 : 16;  // 标题与首句间距
+  // 字号策略：手机端更保守，避免撑出格子
+  const titleSizeRange = isMobile ? [14, 18] : [22, 32];
+  const lineSizeRange  = isMobile ? [11, 14] : [16, 24];
+  const titleGap = isMobile ? 6 : 16;  // 标题与首句间距
   const lineGap  = isMobile ? 1.2 : 1.4;  // 行高倍数
 
-  // 安全留白：诗词不能撑到 cell 边界
-  const safePadX = isMobile ? 12 : 24;
-  const safePadY = isMobile ? 12 : 20;
+  // 安全留白：手机端更宽松，避免相邻格子重叠
+  const safePadX = isMobile ? 20 : 24;
+  const safePadY = isMobile ? 30 : 20;
 
   poems.forEach((poem, idx) => {
-    const lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
+    let lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
     if (lines.length === 0) return;
 
     const col = idx % cols;
@@ -532,7 +532,14 @@ function generatePoetryBackground() {
     // 估算平均正文字号
     const avgLineSize = (lineSizeRange[0] + lineSizeRange[1]) / 2;
     // 预估总高度 = 标题 + 标题间距 + 所有诗句 + 底部留白
-    const estimatedHeight = titleSize + titleGap + lines.length * avgLineSize * lineGap + safePadY;
+    let estimatedHeight = titleSize + titleGap + lines.length * avgLineSize * lineGap + safePadY;
+
+    // 手机端：如果文字超出 cell，只保留标题 + 前几句，防止溢出重叠
+    if (isMobile && estimatedHeight > cellH - 2 * safePadY) {
+      const maxLines = Math.max(1, Math.floor((cellH - 2 * safePadY - titleSize - titleGap) / (avgLineSize * lineGap)));
+      lines = lines.slice(0, maxLines);
+      estimatedHeight = titleSize + titleGap + lines.length * avgLineSize * lineGap + safePadY;
+    }
 
     // anchorX: 在 cell 内安全范围
     const minX = col * cellW + safePadX;
@@ -557,8 +564,8 @@ function generatePoetryBackground() {
     lines.forEach((line) => {
       const lineSize = lineSizeRange[0] + Math.floor(Math.random() * (lineSizeRange[1] - lineSizeRange[0]));
       const lineOpacity = isMobile ? (0.14 + Math.random() * 0.08) : (0.15 + Math.random() * 0.12);
-      // 水平偏移：每行小范围抖动，但保证不超出 cell
-      const maxOffsetX = Math.max(0, Math.min(40, minX + cellW - safePadX - anchorX - 10));
+      // 水平偏移：手机端取消随机偏移，防止溢出；桌面端小幅抖动
+      const maxOffsetX = isMobile ? 0 : Math.max(0, Math.min(40, minX + cellW - safePadX - anchorX - 10));
       const offsetX = Math.floor((Math.random() - 0.5) * maxOffsetX);
       addSpan(frag, line, anchorX + offsetX, cursorY, {
         fontSize: lineSize,
@@ -994,16 +1001,14 @@ function updateImageTransform(smooth) {
   const img = document.getElementById('lightboxImg');
   if (!img) return;
   img.classList.toggle('zoomed', lightboxScale > 1);
-  // 缩放 > 1 时使用变换，否则恢复默认
   if (lightboxScale > 1) {
     img.style.transition = smooth ? 'transform 0.35s cubic-bezier(0.22,1,0.36,1)' : 'none';
-    img.style.transform = 'translate(' + lightboxPanX + 'px, ' + lightboxPanY + 'px) scale(' + lightboxScale + ')';
+    img.style.transform = 'translate3d(' + lightboxPanX + 'px, ' + lightboxPanY + 'px, 0) scale3d(' + lightboxScale + ', ' + lightboxScale + ', 1)';
+    img.style.willChange = 'transform';
   } else {
     img.style.transition = smooth ? 'transform 0.3s ease' : 'none';
     img.style.transform = '';
-    lightboxScale = 1;
-    lightboxPanX = 0;
-    lightboxPanY = 0;
+    img.style.willChange = '';
   }
 }
 
@@ -1384,14 +1389,17 @@ function initLightboxGestures() {
     if (!lightboxTouchStartX) return;
     const touch = e.changedTouches[0];
 
-    // 双击检测（仅未缩放时有效）
+    // 双击检测：放大/缩小
     const now = Date.now();
-    if (lightboxScale <= 1 && now - lightboxLastTapTime < 300 && Math.abs(touch.clientX - lightboxTouchStartX) < 20) {
+    if (now - lightboxLastTapTime < 300 && Math.abs(touch.clientX - lightboxTouchStartX) < 20) {
       handleLightboxDoubleTap(e);
       lightboxLastTapTime = 0;
     } else {
       lightboxLastTapTime = now;
-      handleSwipeEnd(touch.clientX, touch.clientY);
+      // 仅在未缩放时处理滑动/边缘点击切换照片
+      if (lightboxScale <= 1) {
+        handleSwipeEnd(touch.clientX, touch.clientY);
+      }
     }
     lightboxTouchStartX = 0;
   }, { passive: true });
