@@ -148,7 +148,7 @@
     /* ===== 灯箱：大图查看体验 ===== */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;user-select:none;-webkit-user-select:none;touch-action:manipulation}
     .lightbox.active{opacity:1;pointer-events:all}
-    .lightbox-stage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .lightbox-stage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;contain:layout style paint}
     .lightbox-thumb{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;filter:blur(24px) brightness(0.4);opacity:0;transform:scale(1.08);transition:opacity 0.4s ease,transform 6s ease;z-index:1;pointer-events:none}
     .lightbox-thumb.visible{opacity:1}
     .lightbox img{position:relative;z-index:2;max-width:92%;max-height:92vh;object-fit:contain;border-radius:4px;opacity:0;transform:scale(0.96);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1);pointer-events:none;will-change:transform}
@@ -1199,6 +1199,10 @@ function openLightbox(index) {
 
   counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
 
+  // 灯箱全屏覆盖，隐藏背后的大 DOM（旧世界 1778 张图）以释放 GPU/内存
+  const modal = document.getElementById('cardModal');
+  if (modal) modal.style.display = 'none';
+
   lb.classList.add('active');
   lightboxIsLoading = true;
   loadCurrentPhoto(false);
@@ -1224,6 +1228,9 @@ function closeLightbox() {
     showLightboxLoader(false);
     lightboxIsLoading = false;
     resetLightboxZoom();
+    // 恢复相册模态框显示
+    const modal = document.getElementById('cardModal');
+    if (modal) modal.style.display = '';
   }, 300);
 }
 
