@@ -89,50 +89,40 @@
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
     .content-nav button:hover{background:white;color:black}
-    /* 相册照片网格 - 瀑布流布局，支持 Ctrl+滚轮缩放 */
+    /* 相册照片网格 - 统一正方形缩略图，支持 Ctrl+滚轮缩放 */
     .album-photos-grid{
-      column-count: 4;
-      column-gap: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 6px;
       padding: 0;
       max-width: 100%;
     }
-    .album-photos-grid.zoom-1{column-count:2}
-    .album-photos-grid.zoom-2{column-count:3}
-    .album-photos-grid.zoom-3{column-count:4}
-    .album-photos-grid.zoom-4{column-count:5}
-    .album-photos-grid.zoom-5{column-count:6}
-    @media(max-width:900px){
-      .album-photos-grid,.album-photos-grid.zoom-3,.album-photos-grid.zoom-4,.album-photos-grid.zoom-5{column-count:3}
-      .album-photos-grid.zoom-1{column-count:2}
-      .album-photos-grid.zoom-2{column-count:3}
-    }
-    @media(max-width:600px){
-      .album-photos-grid,.album-photos-grid.zoom-2,.album-photos-grid.zoom-3,.album-photos-grid.zoom-4,.album-photos-grid.zoom-5{column-count:2}
-      .album-photos-grid.zoom-1{column-count:1}
-    }
-    .album-date-group{break-inside:avoid;margin-bottom:1.5rem}
-    .album-date-header{color:rgba(255,255,255,0.7);font-size:1.1rem;font-weight:600;margin:0 0 0.8rem 0;padding-bottom:0.4rem;border-bottom:1px solid rgba(255,255,255,0.1);font-family:var(--font-sans);letter-spacing:0.02em}
+    .album-photos-grid.zoom-1{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+    .album-photos-grid.zoom-2{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+    .album-photos-grid.zoom-3{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+    .album-photos-grid.zoom-4{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+    .album-photos-grid.zoom-5{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
     .album-photo-item{
       position: relative;
-      break-inside: avoid;
       overflow: hidden;
       border-radius: 4px;
       cursor: pointer;
       background-color: #333;
-      margin-bottom: 6px;
+      aspect-ratio: 1 / 1;
       line-height: 0;
     }
     .album-photo-item img{
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: cover;
       transition: transform 0.3s ease, opacity 0.3s ease;
       opacity: 0;
     }
     .album-photo-item img.loaded{opacity:1}
-    .album-photo-item:hover img{transform:scale(1.02)}
-    .album-zoom-hint{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:2001;font-family:var(--font-sans)}    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    .album-photo-item:hover img{transform:scale(1.05)}
+    .album-zoom-hint{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:2001;font-family:var(--font-sans)}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
     .lightbox.active{opacity:1;pointer-events:all}
     .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.4s ease}
     .lightbox img.loaded{opacity:1}
@@ -148,12 +138,11 @@
     .lightbox-next{right:20px}
     .lightbox-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.5);font-size:0.85rem;font-family:var(--font-sans);letter-spacing:0.05em}
     /* 自定义滚动条 */
-    .modal-body::-webkit-scrollbar{width:6px}
-    .modal-body::-webkit-scrollbar-track{background:transparent}
-    .modal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:3px}
-    .modal-body::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.3)}
-    /* 提示当前照片位置 */
-    .lightbox-loading-bar{position:absolute;top:0;left:0;height:3px;background:rgba(255,255,255,0.3);z-index:10;transition:width 0.15s linear}
+    .modal-body::-webkit-scrollbar{width:10px}
+    .modal-body::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:5px}
+    .modal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.25);border-radius:5px}
+    .modal-body::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.45)}
+    .modal-body::-webkit-scrollbar-corner{background:transparent}
     /* 移动端大图按钮优化 */
     @media(max-width:480px){.lightbox-nav{width:44px;height:44px;font-size:1.8rem}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:12px;right:12px;width:40px;height:40px;font-size:1.5rem}}
     .about-section{max-width:900px;margin:0 auto;padding:5rem 2rem}
@@ -742,7 +731,7 @@ function openCardModal(type) { modalStack = [{ type, index: -1 }]; updateModalVi
 function openAlbumModal(albumId) {
   const album = albums.find(a => a.id === albumId);
   if (!album || album.photos.length === 0) return;
-  currentAlbumPhotos = sortPhotosByDate(album.photos);
+  currentAlbumPhotos = album.photos;
   modalStack = [{ type: 'album', albumId, index: -1 }];
   updateModalView();
   // 预加载缩略图和首张大图
@@ -797,23 +786,8 @@ function updateModalView() {
       body.innerHTML = `<div class="content-header"><div class="content-meta">${poem.date}</div></div><div class="content-body">${poem.body.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>')}</div><div class="content-nav"><button onclick="prevContent('poems', ${current.index})" ${current.index === 0 ? 'disabled' : ''}>← 上一首</button><span style="color:rgba(255,255,255,0.5);font-size:0.85rem;">${current.index + 1} / ${poems.length}</span><button onclick="nextContent('poems', ${current.index})" ${current.index === poems.length - 1 ? 'disabled' : ''}>下一首 →</button></div>`;
     }
   } else if (current.type === 'album') {
-    const album = albums.find(a => a.id === current.albumId);
-    title.textContent = album?.title || '相册';
-    if (album && album.noGroup) {
-      // 旅游相册：简单瀑布流网格，不带日期分组
-      body.innerHTML = `<div class="album-photos-grid zoom-${albumZoomLevel}">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`).join('')}</div>`;
-    } else {
-      // 旧世界等大相册：按日期分组
-      const groups = groupPhotosByDate(currentAlbumPhotos);
-      body.innerHTML = groups.map(group => `
-        <div class="album-date-group">
-          <div class="album-date-header">${group.title}</div>
-          <div class="album-photos-grid zoom-${albumZoomLevel}">
-            ${group.photos.map(({path, index}) => `<div class="album-photo-item" onclick="openLightbox(${index})"><img src="${getThumb(path)}" alt="照片 ${index + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
+    title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
+    body.innerHTML = `<div class="album-photos-grid zoom-${albumZoomLevel}">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`).join('')}</div>`;
   }
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
