@@ -1211,6 +1211,11 @@ function openLightbox(index) {
 
 function closeLightbox() {
   const lb = document.getElementById('lightbox');
+  const modal = document.getElementById('cardModal');
+
+  // 立即恢复相册模态框（在 lightbox 淡出期间就已准备好，z-index 保证 lightbox 在上层）
+  if (modal) modal.classList.remove('lb-hidden');
+
   lb.classList.remove('active');
   if (lightboxChangeTimer) {
     clearTimeout(lightboxChangeTimer);
@@ -1229,9 +1234,6 @@ function closeLightbox() {
     showLightboxLoader(false);
     lightboxIsLoading = false;
     resetLightboxZoom();
-    // 恢复相册模态框
-    const modal = document.getElementById('cardModal');
-    if (modal) modal.classList.remove('lb-hidden');
   }, 300);
 }
 
