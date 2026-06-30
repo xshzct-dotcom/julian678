@@ -73,12 +73,18 @@
     .modal-close{background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;padding:0.4rem;line-height:1;transition:opacity var(--transition);width:36px}
     .modal-close:hover{opacity:0.6}
     .modal-body{flex:1;padding:2rem 1.5rem;color:white;max-width:720px;margin:0 auto;width:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:16px;scrollbar-color:rgba(255,255,255,0.4) transparent}
-    .modal-body.album-view{max-width:100%;padding:4px 4px 4px 0;margin:0}
+    .modal-body.album-view{max-width:100%;padding:4px 0 4px 0;margin:0;position:relative}
     .modal-body::-webkit-scrollbar{width:16px;background:transparent}
     .modal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.45);border-radius:8px;min-height:40px;border:3px solid transparent;background-clip:padding-box}
     .modal-body:hover::-webkit-scrollbar-thumb,.modal-body.scrolling::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.75)}
     .modal-body::-webkit-scrollbar-track{background:transparent}
-    @media(max-width:600px){.modal-header{padding:0.6rem 0.6rem}.modal-title{font-size:1rem}.modal-body{padding:1.2rem 1rem;max-width:100%}.modal-body.album-view{padding:3px 3px 3px 0;scrollbar-width:18px}.modal-body::-webkit-scrollbar{width:18px}.modal-body::-webkit-scrollbar-thumb{border:2px solid transparent}}
+    /* 触摸滚动条：右侧覆盖层，方便手机拖拽 */
+    .album-scrollbar{position:absolute;right:0;top:0;bottom:0;width:20px;z-index:5;cursor:pointer;background:transparent}
+    .album-scrollbar:active{background:rgba(255,255,255,0.08)}
+    .album-scrollbar-track{position:absolute;right:4px;top:4px;bottom:4px;width:12px;background:rgba(255,255,255,0.08);border-radius:6px;pointer-events:none}
+    .album-scrollbar-thumb{position:absolute;left:0;width:12px;background:rgba(255,255,255,0.5);border-radius:6px;pointer-events:none;transition:background 0.2s}
+    .album-scrollbar:hover .album-scrollbar-thumb{background:rgba(255,255,255,0.7)}
+    @media(max-width:600px){.modal-header{padding:0.6rem 0.6rem}.modal-title{font-size:1rem}.modal-body{padding:1.2rem 1rem;max-width:100%}.modal-body.album-view{padding:3px 0 3px 0;scrollbar-width:auto}.modal-body::-webkit-scrollbar{width:16px}.modal-body::-webkit-scrollbar-thumb{border:2px solid transparent}}
     .article-list{display:flex;flex-direction:column;gap:1rem}
     .article-item{padding:1.5rem 2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;transition:all var(--transition);display:flex;justify-content:space-between;align-items:center}
     .article-item:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3)}
@@ -799,7 +805,16 @@ function updateModalView() {
     }
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
-    body.innerHTML = `<div class="album-photos-grid zoom-${albumZoomLevel}">${currentAlbumPhotos.map((photo, i) => `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`).join('')}</div>`;
+    body.innerHTML = `
+      <div class="album-photos-grid zoom-${albumZoomLevel}">${currentAlbumPhotos.map((photo, i) =>
+        `<div class="album-photo-item" onclick="openLightbox(${i})"><img src="${getThumb(photo)}" alt="照片 ${i + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.style.display='none'"></div>`
+      ).join('')}</div>
+      <div class="album-scrollbar" id="albumScrollbar">
+        <div class="album-scrollbar-track"></div>
+        <div class="album-scrollbar-thumb" id="albumScrollbarThumb"></div>
+      </div>`;
+    // 初始化触摸滚动条
+    initAlbumScrollbar(body);
   }
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -811,6 +826,61 @@ function openEssayArticle(catIndex, artIndex) { modalStack.push({ type: 'essayAr
 function nextEssayArticle(catIndex, currentIndex) { const cat = essayCategories[catIndex]; if (currentIndex < cat.articles.length - 1) { modalStack[modalStack.length - 1].index = currentIndex + 1; updateModalView(); } }
 function prevEssayArticle(catIndex, currentIndex) { if (currentIndex > 0) { modalStack[modalStack.length - 1].index = currentIndex - 1; updateModalView(); } }
 function closeModal() { document.getElementById('cardModal').classList.remove('active'); document.body.style.overflow = ''; modalStack = []; }
+
+// 相册触摸滚动条：点在右侧边任意位置都能拖拽
+var albumScrollCleanup = null;
+function initAlbumScrollbar(body) {
+  // 清理上次绑定
+  if (albumScrollCleanup) { albumScrollCleanup(); albumScrollCleanup = null; }
+  var bar = document.getElementById('albumScrollbar');
+  var thumb = document.getElementById('albumScrollbarThumb');
+  if (!bar || !thumb) return;
+  function updateThumb() {
+    requestAnimationFrame(function() {
+      var ratio = body.scrollTop / (body.scrollHeight - body.clientHeight);
+      if (isNaN(ratio)) ratio = 0;
+      var trackH = body.clientHeight - 8;
+      var thumbH = Math.max(40, trackH * (body.clientHeight / body.scrollHeight));
+      thumb.style.height = thumbH + 'px';
+      thumb.style.top = (ratio * (trackH - thumbH)) + 'px';
+    });
+  }
+  var dragging = false;
+  function onStart(e) {
+    var y = e.touches ? e.touches[0].clientY : e.clientY;
+    var rect = bar.getBoundingClientRect();
+    var trackH = body.clientHeight - 8;
+    var r = (y - rect.top - 4) / trackH;
+    body.scrollTop = r * (body.scrollHeight - body.clientHeight);
+    dragging = true;
+    e.preventDefault();
+  }
+  function onMove(e) {
+    if (!dragging) return;
+    var y = e.touches ? e.touches[0].clientY : e.clientY;
+    var rect = bar.getBoundingClientRect();
+    var trackH = body.clientHeight - 8;
+    var r = (y - rect.top - 4) / trackH;
+    body.scrollTop = r * (body.scrollHeight - body.clientHeight);
+    e.preventDefault();
+  }
+  function onEnd() { dragging = false; }
+  bar.addEventListener('mousedown', onStart);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onEnd);
+  bar.addEventListener('touchstart', onStart, { passive: false });
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd);
+  body.addEventListener('scroll', updateThumb, { passive: true });
+  updateThumb();
+  // 清理函数
+  albumScrollCleanup = function() {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onEnd);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onEnd);
+  };
+}
 
 // ==================== 灯箱 ====================
 function openLightbox(index) {
