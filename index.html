@@ -89,16 +89,18 @@
     .content-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
     .content-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:white;padding:0.6rem 1.5rem;cursor:pointer;font-size:0.85rem;transition:all var(--transition);font-family:var(--font-sans)}
     .content-nav button:hover{background:white;color:black}
-    /* 相册照片网格 - 紧凑瀑布流布局 */
+    /* 相册照片网格 - 自适应布局 */
     .album-photos-grid{
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 6px;
       padding: 0;
       max-width: 100%;
     }
-    @media(max-width:768px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:4px}}
-    @media(max-width:480px){.album-photos-grid{grid-template-columns:repeat(3,1fr);gap:3px}}
+    @media(max-width:1200px){.album-photos-grid{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:900px){.album-photos-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:4px}}
+    @media(max-width:400px){.album-photos-grid{grid-template-columns:repeat(2,1fr);gap:3px}}
     .album-photo-item{
       position: relative;
       content-visibility: auto;
@@ -118,17 +120,28 @@
     .album-photo-item:hover img{transform:scale(1.02)}
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
     .lightbox.active{opacity:1;pointer-events:all}
-    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.3s}
+    .lightbox img{max-width:90%;max-height:90vh;object-fit:contain;border-radius:4px;opacity:0;transition:opacity 0.4s ease}
     .lightbox img.loaded{opacity:1}
-    .lightbox-loading{position:absolute;width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);border-top-color:white;border-radius:50%;animation:lbspin 0.8s linear infinite}
+    .lightbox-loading{position:absolute;width:48px;height:48px;border:3px solid rgba(255,255,255,0.15);border-top-color:white;border-radius:50%;animation:lbspin 0.7s linear infinite;z-index:10;pointer-events:none}
+    .lightbox-loading.hidden{display:none}
     @keyframes lbspin{to{transform:rotate(360deg)}}
     .lightbox-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);border:none;color:white;font-size:2rem;width:50px;height:50px;cursor:pointer;border-radius:50%;transition:background var(--transition)}
     .lightbox-close:hover{background:rgba(255,255,255,0.2)}
-    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:white;font-size:2.5rem;width:60px;height:60px;cursor:pointer;border-radius:50%;transition:background var(--transition)}
-    .lightbox-nav:hover{background:rgba(255,255,255,0.2)}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:white;font-size:2.5rem;width:60px;height:60px;cursor:pointer;border-radius:50%;transition:all 0.25s ease;display:flex;align-items:center;justify-content:center}
+    .lightbox-nav:hover{background:rgba(255,255,255,0.25);transform:translateY(-50%) scale(1.08)}
+    .lightbox-nav:active{transform:translateY(-50%) scale(0.92);opacity:0.7}
     .lightbox-prev{left:20px}
     .lightbox-next{right:20px}
-    .lightbox-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.7);font-size:0.95rem;font-family:var(--font-sans)}
+    .lightbox-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.5);font-size:0.85rem;font-family:var(--font-sans);letter-spacing:0.05em}
+    /* 自定义滚动条 */
+    .modal-body::-webkit-scrollbar{width:6px}
+    .modal-body::-webkit-scrollbar-track{background:transparent}
+    .modal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:3px}
+    .modal-body::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.3)}
+    /* 提示当前照片位置 */
+    .lightbox-loading-bar{position:absolute;top:0;left:0;height:3px;background:rgba(255,255,255,0.3);z-index:10;transition:width 0.15s linear}
+    /* 移动端大图按钮优化 */
+    @media(max-width:480px){.lightbox-nav{width:44px;height:44px;font-size:1.8rem}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:12px;right:12px;width:40px;height:40px;font-size:1.5rem}}
     .about-section{max-width:900px;margin:0 auto;padding:5rem 2rem}
     .about-inner{display:grid;grid-template-columns:200px 1fr;gap:3rem;align-items:start}
     @media(max-width:768px){.about-inner{grid-template-columns:1fr;text-align:center}}
@@ -268,7 +281,7 @@
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</button>
     <img id="lightboxImg" src="" alt="" />
-    <div class="lightbox-loading" id="lightboxSpinner" style="display:block;"></div>
+    <div class="lightbox-loading" id="lightboxSpinner"></div>
     <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
   </div>
@@ -462,6 +475,12 @@ class Preloader {
       const next = photos[(current + i) % photos.length];
       const prev = photos[(current - i + photos.length) % photos.length];
       this.load(getFull(next));
+      this.load(getFull(prev));
+    }
+  }
+  preloadBatch(photos, start, count) {
+    for (let i = 0; i < count && (start + i) < photos.length; i++) {
+      this.load(getThumb(photos[start + i]));
     }
   }
 }
@@ -655,8 +674,9 @@ function openAlbumModal(albumId) {
   currentAlbumPhotos = album.photos;
   modalStack = [{ type: 'album', albumId, index: -1 }];
   updateModalView();
-  // 预加载前几张
-  album.photos.slice(0, 6).forEach(p => preloader.load(getThumb(p)));
+  // 预加载缩略图和首张大图
+  album.photos.slice(0, 30).forEach(p => preloader.load(getThumb(p)));
+  album.photos.slice(0, 6).forEach(p => preloader.load(getFull(p)));
 }
 function openCategory(catIndex) { modalStack.push({ type: 'essayCategory', catIndex, index: -1 }); updateModalView(); }
 function openContent(type, index) { modalStack.push({ type, index }); updateModalView(); }
@@ -731,22 +751,23 @@ function openLightbox(index) {
   const spinner = document.getElementById('lightboxSpinner');
   
   img.classList.remove('loaded');
-  spinner.style.display = 'block';
+  spinner.classList.remove('hidden');
   
-  // 设置图片加载事件
+  // 先清除当前图片，黑底过渡
+  img.style.opacity = '';
+  
   img.onload = function() {
     this.classList.add('loaded');
-    spinner.style.display = 'none';
+    spinner.classList.add('hidden');
   };
   
   img.onerror = function() {
-    spinner.style.display = 'none';
+    spinner.classList.add('hidden');
     this.alt = '图片加载失败';
     this.classList.add('loaded');
   };
   
   const fullPath = getFull(currentAlbumPhotos[index]);
-  
   img.src = fullPath;
   
   counter.textContent = `${index + 1} / ${currentAlbumPhotos.length}`;
@@ -754,7 +775,7 @@ function openLightbox(index) {
   
   // 预加载相邻图片
   if (preloader && typeof preloader.preloadAdjacent === 'function') {
-    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 2);
+    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 3);
   }
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
@@ -764,31 +785,33 @@ function changePhoto(dir) {
   const counter = document.getElementById('lightboxCounter');
   
   img.classList.remove('loaded');
-  spinner.style.display = 'block';
+  spinner.classList.remove('hidden');
+  
+  // 先清除当前显示
+  img.style.opacity = '';
   
   currentPhotoIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
   
-  // 设置图片加载事件
+  // 立即更新计数器（反馈用户操作已响应）
+  counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
+  
   img.onload = function() {
     this.classList.add('loaded');
-    spinner.style.display = 'none';
+    spinner.classList.add('hidden');
   };
   
   img.onerror = function() {
-    spinner.style.display = 'none';
+    spinner.classList.add('hidden');
     this.alt = '图片加载失败';
     this.classList.add('loaded');
   };
   
   const fullPath = getFull(currentAlbumPhotos[currentPhotoIndex]);
-  
   img.src = fullPath;
   
-  counter.textContent = `${currentPhotoIndex + 1} / ${currentAlbumPhotos.length}`;
-  
-  // 预加载相邻图片
+  // 预加载相邻图片（前后各3张）
   if (preloader && typeof preloader.preloadAdjacent === 'function') {
-    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 1);
+    preloader.preloadAdjacent(currentPhotoIndex, currentAlbumPhotos, 3);
   }
 }
 
