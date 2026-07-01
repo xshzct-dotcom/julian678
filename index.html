@@ -2386,26 +2386,27 @@ const NEED_REMEMBER = { id: 'oldphone', title: '旧世界', photos: {/* 见 oldw
 // 世界分类：我眼中的世界 → 新世界 / 旧世界
 const worlds = [
   { id: 'newworld', title: '新世界', type: 'placeholder', message: '新世界暂时空白 作者正在努力加载中……' },
-  { id: 'oldworld', title: '旧世界', type: 'group', children: ['firstlove', 'friends'] }
+  { id: 'oldworld', title: '旧世界', type: 'group', children: ['friends', 'firstlove'] }
 ];
 
 // 旧世界分层结构
 const oldworldGroups = [
   {
-    id: 'firstlove',
-    title: '初恋宇宙',
-    children: [
-      { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
-      { type: 'album', ref: 'chuanxi', title: '川西' },
-      { type: 'album', ref: 'xinjiang', title: '新疆' },
-      { type: 'album', ref: 'malaysia', title: '仙本那' }
-    ]
-  },
-  {
     id: 'friends',
     title: '朋友宇宙&自己',
     children: [
       { type: 'album', ref: 'friends-2017-2026', title: '2017.9.2——2026.5.3' }
+    ]
+  },
+  {
+    id: 'firstlove',
+    title: '初恋宇宙',
+    cover: 'images/covers/firstlove_cover.jpg',
+    children: [
+      { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
+      { type: 'album', ref: 'chuanxi', title: '川西' },
+      { type: 'album', ref: 'malaysia', title: '仙本那' },
+      { type: 'album', ref: 'xinjiang', title: '新疆' }
     ]
   }
 ];
@@ -2693,12 +2694,16 @@ function updateModalView() {
     body.innerHTML = `<div class="sub-album-wrap"><div class="album-grid">${(w ? w.children : []).map((gid, i) => {
       const g = oldworldGroups.find(x => x.id === gid);
       if (!g) return '';
-      // Use the first child album's cover as the group cover
+      // Use group's own cover if specified, otherwise use first child album's cover
       let cover = 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/covers/chuanxi.png';
-      const firstChild = g.children && g.children.length > 0 ? g.children[0] : null;
-      if (firstChild && firstChild.type === 'album') {
-        const a = albums.find(x => x.id === firstChild.ref);
-        if (a && a.cover) cover = getFull(a.cover);
+      if (g.cover) {
+        cover = getFull(g.cover);
+      } else {
+        const firstChild = g.children && g.children.length > 0 ? g.children[0] : null;
+        if (firstChild && firstChild.type === 'album') {
+          const a = albums.find(x => x.id === firstChild.ref);
+          if (a && a.cover) cover = getFull(a.cover);
+        }
       }
       return '<div class="album-card" onclick="openOldworldGroup(\'' + g.id + '\')" style="background-image:url(\'' + cover + '\');background-size:cover;background-position:center;transition-delay:' + (i * 0.1) + 's"><div class="album-overlay"><div class="album-title">' + g.title + '</div></div></div>';
     }).join('')}</div></div>`;
