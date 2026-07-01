@@ -59,10 +59,10 @@
     @media(max-width:600px){.album-grid{grid-template-columns:1fr}}
     .album-card{position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer;border-radius:12px;background-color:#e8e4df;background-size:cover;background-position:center}
     
-    .album-card .album-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background 0.3s}
-    .album-card:hover .album-overlay{background:rgba(0,0,0,0.5)}
-    .album-card .album-title{color:white;font-size:1.8rem;font-weight:700;letter-spacing:0.03em;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
-    .album-card .album-count{color:rgba(255,255,255,0.8);font-size:0.8rem;margin-top:0.5rem;font-family:var(--font-sans)}
+    .album-card .album-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.12) 45%,rgba(0,0,0,0.35) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background 0.3s}
+    .album-card:hover .album-overlay{background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.2) 45%,rgba(0,0,0,0.45) 100%)}
+    .album-card .album-title{color:white;font-size:1.8rem;font-weight:900;letter-spacing:0.06em;text-shadow:0 2px 12px rgba(0,0,0,0.8);padding:0.5rem 1.2rem;border-radius:8px;background:rgba(0,0,0,0.35);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .album-card .album-count{color:rgba(255,255,255,0.85);font-size:0.85rem;margin-top:0.6rem;font-family:var(--font-sans);text-shadow:0 1px 6px rgba(0,0,0,0.7)}
 
     /* ===== 世界卡片（新世界/旧世界）美化 ===== */
     .world-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:900px;margin:0 auto;padding:0 1rem}
@@ -299,7 +299,7 @@
       .page-title{margin-bottom:2.5rem}
       .post-card{min-height:240px;aspect-ratio:2/3;border-radius:10px}
       .album-card{min-height:180px;border-radius:10px}
-      .album-card .album-title{font-size:1.4rem}
+      .album-card .album-title{font-size:1.4rem;font-weight:900;padding:0.4rem 0.9rem;letter-spacing:0.05em}
       .post-card .card-title{font-size:1.4rem}
       .about-inner img{width:140px;height:140px}
       .about-section{padding:3rem 1.5rem}
@@ -2396,7 +2396,9 @@ const oldworldGroups = [
     title: '初恋宇宙',
     children: [
       { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
-      { type: 'subGroup', title: '旅行', children: ['chuanxi', 'xinjiang', 'malaysia'] }
+      { type: 'album', ref: 'chuanxi', title: '川西' },
+      { type: 'album', ref: 'xinjiang', title: '新疆' },
+      { type: 'album', ref: 'malaysia', title: '仙本那' }
     ]
   },
   {
@@ -2672,7 +2674,7 @@ function updateModalView() {
       return '<div class="album-card" onclick="openAlbumModal(\'' + a.id + '\')" style="background-image:url(\'' + cover + '\');background-size:cover;background-position:center;transition-delay:' + (i * 0.1) + 's"><div class="album-overlay"><div class="album-title">' + a.title + '</div><div class="album-count">' + (a.photos.length || '') + ' 张</div></div></div>';
     }).join('')}</div></div>`;
     body.classList.add('album-view');
-} else if (current.type === 'subGroup') {
+      } else if (current.type === 'subGroup') {
     const group = oldworldGroups.find(g => g.id === current.groupId);
     title.textContent = group ? group.title : '';
     body.innerHTML = `<div class="sub-album-wrap"><div class="album-grid">${(group ? group.children : []).map((child, i) => {
@@ -2681,9 +2683,6 @@ function updateModalView() {
         if (!a) return '';
         const cover = a.cover ? getFull(a.cover) : '';
         return '<div class="album-card" onclick="openAlbumModal(\'' + child.ref + '\')" style="background-image:url(\'' + cover + '\');background-size:cover;background-position:center;transition-delay:' + (i * 0.1) + 's"><div class="album-overlay"><div class="album-title">' + child.title + '</div><div class="album-count">' + (a.photos ? a.photos.length + ' 张' : '') + '</div></div></div>';
-      } else if (child.type === 'subGroup') {
-        const cover = 'images/covers/travel.png';
-        return '<div class="album-card" onclick="openOldworldSubGroup(\'' + (group.id) + '\', ' + i + ')" style="background-image:url(\'' + getThumb(cover) + '\');background-size:cover;background-position:center;transition-delay:' + (i * 0.1) + 's"><div class="album-overlay"><div class="album-title">' + child.title + '</div></div></div>';
       }
       return '';
     }).join('')}</div></div>`;
@@ -2729,16 +2728,6 @@ function prevContent(type, currentIndex) { if (currentIndex > 0) { modalStack[mo
 function openEssayArticle(catIndex, artIndex) { modalStack.push({ type: 'essayArticle', catIndex, index: artIndex }); updateModalView(); }
 function nextEssayArticle(catIndex, currentIndex) { const cat = essayCategories[catIndex]; if (currentIndex < cat.articles.length - 1) { modalStack[modalStack.length - 1].index = currentIndex + 1; updateModalView(); } }
 function prevEssayArticle(catIndex, currentIndex) { if (currentIndex > 0) { modalStack[modalStack.length - 1].index = currentIndex - 1; updateModalView(); } }
-
-function openOldworldSubGroup(groupId, childIdx) {
-  const group = oldworldGroups.find(g => g.id === groupId);
-  if (!group || !group.children[childIdx]) return;
-  const child = group.children[childIdx];
-  if (child.type === 'subGroup') {
-    modalStack.push({ type: 'albumGroup', children: child.children, title: child.title });
-    updateModalView();
-  }
-}
 function closeModal() { 
   if (modalStack.length > 1) { modalGoBack(); return; }
   if (modalSwipeCleanup) { modalSwipeCleanup(); modalSwipeCleanup = null; }
