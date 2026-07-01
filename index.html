@@ -2402,6 +2402,53 @@ if (musicTrack) {
   document.addEventListener('mouseup', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
   document.addEventListener('touchend', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
 }
+// 音乐播放器拖拽移动（避免遮挡内容）
+(function(){
+  var player = document.getElementById('musicPlayer');
+  if (!player) return;
+  var startX, startY, origLeft, origRight, origBottom, dragging = false;
+  var isTouchDevice = 'ontouchstart' in window;
+  var startEvt = isTouchDevice ? 'touchstart' : 'mousedown';
+  var moveEvt = isTouchDevice ? 'touchmove' : 'mousemove';
+  var endEvt = isTouchDevice ? 'touchend' : 'mouseup';
+  player.addEventListener(startEvt, function(e) {
+    // 如果点击/触摸在进度条或按钮上，不触发拖拽
+    var t = e.target;
+    if (t.closest('.music-track') || t.closest('.music-btn')) return;
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    startX = p.clientX; startY = p.clientY;
+    var cs = getComputedStyle(player);
+    origRight = parseFloat(cs.right) || 32; origBottom = parseFloat(cs.bottom) || 32;
+    origLeft = player.style.left ? parseFloat(player.style.left) : null;
+    player.style.transition = 'none';
+    player.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener(moveEvt, function(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    var dx = p.clientX - startX, dy = p.clientY - startY;
+    if (origLeft !== null) {
+      player.style.left = (origLeft + dx) + 'px';
+      player.style.right = 'auto';
+    } else {
+      player.style.right = Math.max(0, origRight - dx) + 'px';
+      player.style.left = 'auto';
+    }
+    player.style.bottom = Math.max(0, origBottom - dy) + 'px';
+  }, { passive: true });
+  document.addEventListener(endEvt, function() {
+    if (!dragging) return;
+    dragging = false;
+    player.classList.remove('dragging');
+    player.style.transition = '';
+    var cs = getComputedStyle(player);
+    origRight = parseFloat(cs.right);
+    origBottom = parseFloat(cs.bottom);
+    if (cs.left !== 'auto') origLeft = parseFloat(cs.left);
+  });
+})();
 window.addEventListener('load', () => {
   isPlaying = true; playBtn.textContent = '⏸';
   audio.play().catch(() => {
