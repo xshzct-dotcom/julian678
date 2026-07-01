@@ -985,6 +985,8 @@ function updateModalView() {
     // 初始化触摸滚动条
     initAlbumScrollbar(body);
   }
+  // 手机端：边缘右滑返回上一级
+  initModalSwipeBack(body);
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -996,9 +998,72 @@ function nextEssayArticle(catIndex, currentIndex) { const cat = essayCategories[
 function prevEssayArticle(catIndex, currentIndex) { if (currentIndex > 0) { modalStack[modalStack.length - 1].index = currentIndex - 1; updateModalView(); } }
 function closeModal() { 
   if (modalStack.length > 1) { modalGoBack(); return; }
+  if (modalSwipeCleanup) { modalSwipeCleanup(); modalSwipeCleanup = null; }
   document.getElementById('cardModal').classList.remove('active'); 
   document.body.style.overflow = ''; 
   modalStack = []; 
+}
+
+// ===== 手机端：边缘右滑返回上一级（兼容全屏手势导航） =====
+var modalSwipeCleanup = null;
+function initModalSwipeBack(body) {
+  if (modalSwipeCleanup) { modalSwipeCleanup(); modalSwipeCleanup = null; }
+  var startX = 0, startY = 0, startTime = 0;
+  var overlay = null;
+
+  function onTouchStart(e) {
+    if (modalStack.length <= 1) return;
+    var x = e.touches[0].clientX;
+    if (x > 35) return; // 仅限左侧边缘 35px 内触发
+    startX = x;
+    startY = e.touches[0].clientY;
+    startTime = Date.now();
+  }
+
+  function onTouchMove(e) {
+    if (!startX || modalStack.length <= 1) return;
+    var dx = e.touches[0].clientX - startX;
+    if (dx <= 0) return; // 向左滑忽略
+
+    // 阻止页面横向滑动，避免干扰
+    if (dx > 10) e.preventDefault();
+
+    // 视觉反馈：左侧阴影条随手指移动
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;left:0;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.15);border-radius:2px;z-index:9999;pointer-events:none';
+      document.body.appendChild(overlay);
+    }
+    var progress = Math.min(dx / 80, 1);
+    overlay.style.left = Math.min(dx, 80) + 'px';
+    overlay.style.opacity = 0.15 + progress * 0.7;
+  }
+
+  function onTouchEnd(e) {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    overlay = null;
+    if (!startX || modalStack.length <= 1) { startX = 0; return; }
+
+    var dx = e.changedTouches[0].clientX - startX;
+    var dt = Date.now() - startTime;
+
+    if (dx > 60 || (dx > 30 && dt < 300)) {
+      modalGoBack();
+    }
+    startX = 0;
+  }
+
+  body.addEventListener('touchstart', onTouchStart, { passive: true });
+  body.addEventListener('touchmove', onTouchMove, { passive: false });
+  body.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  modalSwipeCleanup = function () {
+    body.removeEventListener('touchstart', onTouchStart);
+    body.removeEventListener('touchmove', onTouchMove);
+    body.removeEventListener('touchend', onTouchEnd);
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    overlay = null;
+  };
 }
 
 // 相册触摸滚动条：点在右侧边任意位置都能拖拽
