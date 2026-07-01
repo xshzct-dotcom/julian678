@@ -2394,6 +2394,7 @@ const oldworldGroups = [
   {
     id: 'friends',
     title: '朋友宇宙&自己',
+    cover: 'images/covers/friends_cover.jpg',
     children: [
       { type: 'album', ref: 'friends-2017-2026', title: '2017.9.2——2026.5.3' }
     ]
@@ -2560,9 +2561,7 @@ worlds.forEach((world, index) => {
     card.classList.add('world-new');
     card.innerHTML = `
       <div class="world-content">
-        <div class="world-icon">📸</div>
         <div class="world-title">${world.title}</div>
-        <div class="world-subtitle">新世界 · New World</div>
       </div>`;
     card.onclick = () => openWorldView(world.id);
   } else {
@@ -2572,9 +2571,7 @@ worlds.forEach((world, index) => {
     card.style.backgroundImage = `url('${coverUrl}')`;
     card.innerHTML = `
       <div class="world-content">
-        <div class="world-icon">🌍</div>
         <div class="world-title">${world.title}</div>
-        <div class="world-subtitle">旧世界 · Old World</div>
       </div>`;
     card.onclick = () => openWorldView(world.id);
   }
