@@ -273,9 +273,7 @@
     @keyframes modalReveal{from{opacity:0;transform:translateY(28px) scale(0.985);backdrop-filter:blur(0px)}to{opacity:1;transform:translateY(0) scale(1);backdrop-filter:blur(12px) saturate(1.2)}}
     #lightbox{backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
     .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
-    #poetryBg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-    #poetryBg span{position:absolute;font-family:var(--font-serif);white-space:nowrap;user-select:none;will-change:transform;contain:layout style}
-    .section,.about-section,.footer,header,.hero,.album-section,main{position:relative;z-index:1}
+    .section{animation:sectionReveal var(--duration-slow) var(--ease-out-expo) both}
     /* ===== 桌面端细化改善 ===== */
     @media(min-width:769px){
       .hero h1{font-size:5rem;letter-spacing:0.18em}
@@ -321,8 +319,7 @@
   </style>
 </head>
 <body>
-  <div id="poetryBg"></div>
-  <header>
+<header>
     <a href="#" class="logo">向天游</a>
     <nav>
       <a href="#albums">随笔</a>
@@ -466,135 +463,6 @@ function formatBody(text) {
 }
 
 // 生成诗词艺术背景
-function generatePoetryBackground() {
-  const bg = document.getElementById('poetryBg');
-  if (!bg) return;
-  if (poems.length === 0) return;
-
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const frag = document.createDocumentFragment();
-
-  // 根据屏幕宽度自适应列数
-  const isMobile = width < 600;
-  const cols = isMobile ? 1 : 3;  // 手机单列从根源上防止水平重叠
-  const rows = Math.ceil(poems.length / cols);
-  const cellW = Math.floor(width / cols);
-  const cellH = Math.floor(height / rows);
-
-  // 安全留白
-  const safePadX = isMobile ? 18 : 24;
-  const safePadY = isMobile ? 16 : 20;
-
-  poems.forEach((poem, idx) => {
-    let lines = poem.body.split('\n').map(l => l.trim()).filter(Boolean);
-    if (lines.length === 0) return;
-
-    const col = idx % cols;
-    const row = Math.floor(idx / cols);
-
-    // 根据诗句行数动态选择字号范围，确保完整显示 + 保留随机
-    let titleSizeRange, lineSizeRange;
-    const lineCount = lines.length;
-    if (isMobile) {
-      if (lineCount <= 2)      { titleSizeRange = [16,22]; lineSizeRange = [13,16]; }
-      else if (lineCount <= 4) { titleSizeRange = [14,18]; lineSizeRange = [12,14]; }
-      else if (lineCount <= 6) { titleSizeRange = [13,16]; lineSizeRange = [11,13]; }
-      else                     { titleSizeRange = [12,14]; lineSizeRange = [10,11]; }
-    } else {
-      titleSizeRange = [22,32]; lineSizeRange = [16,24];
-    }
-    const titleGap = isMobile ? 6 : 16;
-    const lineGap  = isMobile ? 1.2 : 1.4;
-
-    // 先确定字号（保留随机效果）
-    const titleSize = titleSizeRange[0] + Math.floor(Math.random() * (titleSizeRange[1] - titleSizeRange[0]));
-    const avgLineSize = (lineSizeRange[0] + lineSizeRange[1]) / 2;
-    const estimatedHeight = titleSize + titleGap + lines.length * avgLineSize * lineGap + safePadY;
-
-    // anchorX: 在 cell 内安全范围
-    const minX = col * cellW + safePadX;
-    const maxX = (col + 1) * cellW - safePadX;
-    const anchorX = minX + Math.floor(Math.random() * Math.max(1, maxX - minX));
-
-    // anchorY: 保证诗完整显示在 cell 内，如果 cell 不够高则垂直居中
-    const minY = row * cellH + safePadY;
-    const maxY = (row + 1) * cellH - estimatedHeight;
-    const anchorY = maxY > minY
-      ? minY + Math.floor(Math.random() * (maxY - minY))
-      : minY;  // cell 不够高时顶对齐
-
-    // 标题
-    const titleOpacity = isMobile ? (0.25 + Math.random() * 0.10) : (0.28 + Math.random() * 0.12);
-    addSpan(frag, poem.title || '诗', anchorX, anchorY, {
-      fontSize: titleSize,
-      opacity: titleOpacity,
-      isTitle: true
-    });
-
-    // 诗句
-    let cursorY = anchorY + titleSize + titleGap;
-    lines.forEach((line) => {
-      // 保留每行字号的随机效果
-      const lineSize = lineSizeRange[0] + Math.floor(Math.random() * (lineSizeRange[1] - lineSizeRange[0]));
-      const lineOpacity = isMobile ? (0.15 + Math.random() * 0.08) : (0.15 + Math.random() * 0.12);
-      // 水平偏移：保留随机，但手机端缩小范围
-      const maxOffsetX = isMobile ? Math.max(0, Math.min(20, minX + cellW - safePadX - anchorX - 10)) : Math.max(0, Math.min(40, minX + cellW - safePadX - anchorX - 10));
-      const offsetX = Math.floor((Math.random() - 0.5) * maxOffsetX);
-      addSpan(frag, line, anchorX + offsetX, cursorY, {
-        fontSize: lineSize,
-        opacity: lineOpacity
-      });
-      cursorY += lineSize * lineGap;
-    });
-  });
-
-  bg.appendChild(frag);
-}
-
-// 辅助函数：创建单个文字 span
-// 用法1: addSpan(frag, text, left, top, options)
-// 用法2: addSpan(frag, text, left, top, isTitle, fontSize)  兼容旧调用
-function addSpan(frag, text, left, top, optionsOrIsTitle, fontSize) {
-  let options = {};
-  if (typeof optionsOrIsTitle === 'object' && optionsOrIsTitle !== null) {
-    options = optionsOrIsTitle;
-  } else {
-    // 旧调用方式兼容
-    options = {
-      isTitle: optionsOrIsTitle,
-      fontSize: fontSize
-    };
-  }
-
-  const span = document.createElement('span');
-  if (!options.fontSize) {
-    options.fontSize = options.isTitle
-      ? (24 + Math.floor(Math.random() * 10))
-      : (18 + Math.floor(Math.random() * 14));
-  }
-  const opacity = options.opacity !== undefined
-    ? options.opacity
-    : (0.14 + Math.random() * 0.10);
-  const isBold = options.isTitle || (options.isBold !== undefined ? options.isBold : Math.random() > 0.5);
-  const letterSpacing = options.letterSpacing || '0.05em';
-
-  span.textContent = text;
-  span.style.cssText =
-    `position:absolute;left:${left}px;top:${top}px;` +
-    `font-size:${options.fontSize}px;` +
-    `line-height:1.2;` +
-    `font-weight:${isBold ? '600' : '400'};` +
-    `color:rgba(0,0,0,${opacity});` +
-    `font-family:var(--font-serif);` +
-    `white-space:nowrap;` +
-    `user-select:none;` +
-    `pointer-events:none;` +
-    `letter-spacing:${letterSpacing};`;
-  frag.appendChild(span);
-  return { span, fontSize: options.fontSize };
-}
-
 // ==================== 智能预加载 ====================
 class Preloader {
   constructor() { this.cache = new Set(); }
@@ -2486,7 +2354,6 @@ window.addEventListener('load', () => {
   });
   
   // 生成诗词背景（延迟执行，不阻塞交互）
-  setTimeout(generatePoetryBackground, 800);
 });
 
 // ==================== 渲染 ====================
