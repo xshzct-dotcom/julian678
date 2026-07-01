@@ -994,7 +994,12 @@ function prevContent(type, currentIndex) { if (currentIndex > 0) { modalStack[mo
 function openEssayArticle(catIndex, artIndex) { modalStack.push({ type: 'essayArticle', catIndex, index: artIndex }); updateModalView(); }
 function nextEssayArticle(catIndex, currentIndex) { const cat = essayCategories[catIndex]; if (currentIndex < cat.articles.length - 1) { modalStack[modalStack.length - 1].index = currentIndex + 1; updateModalView(); } }
 function prevEssayArticle(catIndex, currentIndex) { if (currentIndex > 0) { modalStack[modalStack.length - 1].index = currentIndex - 1; updateModalView(); } }
-function closeModal() { document.getElementById('cardModal').classList.remove('active'); document.body.style.overflow = ''; modalStack = []; }
+function closeModal() { 
+  if (modalStack.length > 1) { modalGoBack(); return; }
+  document.getElementById('cardModal').classList.remove('active'); 
+  document.body.style.overflow = ''; 
+  modalStack = []; 
+}
 
 // 相册触摸滚动条：点在右侧边任意位置都能拖拽
 var albumScrollCleanup = null;
