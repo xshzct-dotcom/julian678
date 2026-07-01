@@ -63,6 +63,31 @@
     .album-card:hover .album-overlay{background:rgba(0,0,0,0.5)}
     .album-card .album-title{color:white;font-size:1.8rem;font-weight:700;letter-spacing:0.03em;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
     .album-card .album-count{color:rgba(255,255,255,0.8);font-size:0.8rem;margin-top:0.5rem;font-family:var(--font-sans)}
+
+    /* ===== 世界卡片（新世界/旧世界）美化 ===== */
+    .world-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:900px;margin:0 auto;padding:0 1rem}
+    @media(max-width:600px){.world-grid{grid-template-columns:1fr;gap:1.5rem;padding:0 0.8rem}}
+    .world-card{position:relative;overflow:hidden;cursor:pointer;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.1);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s ease;aspect-ratio:4/5;min-height:360px}
+    .world-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 20px 56px rgba(0,0,0,0.18)}
+    .world-card:active{transform:translateY(-2px) scale(0.99)}
+    .world-card .world-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;z-index:2}
+    .world-card .world-icon{font-size:3.2rem;margin-bottom:1rem;opacity:0.9;line-height:1}
+    .world-card .world-title{color:white;font-size:1.7rem;font-weight:700;letter-spacing:0.12em;text-shadow:0 2px 16px rgba(0,0,0,0.5)}
+    .world-card .world-subtitle{color:rgba(255,255,255,0.75);font-size:0.85rem;margin-top:0.6rem;font-family:var(--font-sans);letter-spacing:0.08em}
+    /* 新世界 - 深蓝渐变 */
+    .world-new{background:linear-gradient(145deg,#0a1628 0%,#162744 35%,#2a4365 70%,#1a365d 100%);position:relative;overflow:hidden}
+    .world-new::before{content:'';position:absolute;inset:-50%;background:radial-gradient(circle at 25% 75%,rgba(99,179,237,0.18) 0%,transparent 45%),radial-gradient(circle at 75% 25%,rgba(159,122,234,0.14) 0%,transparent 45%);animation:worldGlow 10s ease-in-out infinite alternate}
+    @keyframes worldGlow{0%{transform:rotate(0deg) scale(1)}100%{transform:rotate(8deg) scale(1.08)}}
+    .world-new .world-content{background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.15) 100%)}
+    /* 旧世界 - 高质量图片+暗色遮罩 */
+    .world-old{position:relative;background-size:cover;background-position:center}
+    .world-old::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.15) 50%,rgba(0,0,0,0.35) 100%);border-radius:16px}
+    /* 二级页面子相册容器 */
+    .sub-album-wrap{max-width:960px;margin:0 auto;padding:1.5rem 2rem}
+    .sub-album-wrap .album-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .sub-album-wrap .album-card{aspect-ratio:3/4;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+    @media(max-width:900px){.sub-album-wrap .album-grid{grid-template-columns:repeat(2,1fr);gap:1.2rem}}
+    @media(max-width:600px){.sub-album-wrap{padding:1rem}.sub-album-wrap .album-grid{grid-template-columns:1fr;gap:1rem}}
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s ease;overflow:hidden}
     .modal.active{opacity:1;pointer-events:all}
     .modal.lb-hidden{opacity:0!important;pointer-events:none!important;content-visibility:hidden!important}
@@ -825,21 +850,31 @@ window.addEventListener('load', () => {
 
 // ==================== 渲染 ====================
 const albumGrid = document.getElementById('album-grid');
+albumGrid.classList.add('world-grid');
 worlds.forEach((world, index) => {
   const card = document.createElement('div');
-  card.className = 'album-card fade-up';
-  card.style.transitionDelay = `${(index % 3) * 0.1}s`;
+  card.className = 'world-card fade-up';
+  card.style.transitionDelay = `${index * 0.12}s`;
   if (world.type === 'placeholder') {
-    card.style.background = '#1a1a1a';
-    card.innerHTML = `<div class="album-overlay" style="background:rgba(0,0,0,0.5)"><div class="album-title">${world.title}</div></div>`;
+    card.classList.add('world-new');
+    card.innerHTML = `
+      <div class="world-content">
+        <div class="world-icon">📸</div>
+        <div class="world-title">${world.title}</div>
+        <div class="world-subtitle">新世界 · New World</div>
+      </div>`;
     card.onclick = () => openWorldView(world.id);
   } else {
-    // 旧世界用默认封面
-    card.style.background = '#222';
-    card.style.backgroundImage = 'url(\'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/covers/oldworld_bg.jpg\')';
-    card.style.backgroundSize = 'cover';
-    card.style.backgroundPosition = 'center';
-    card.innerHTML = `<div class="album-overlay"><div class="album-title">${world.title}</div></div>`;
+    // 旧世界：使用川西封面作为高质量背景
+    const coverUrl = 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/covers/chuanxi.png';
+    card.classList.add('world-old');
+    card.style.backgroundImage = `url('${coverUrl}')`;
+    card.innerHTML = `
+      <div class="world-content">
+        <div class="world-icon">🌍</div>
+        <div class="world-title">${world.title}</div>
+        <div class="world-subtitle">旧世界 · Old World</div>
+      </div>`;
     card.onclick = () => openWorldView(world.id);
   }
   albumGrid.appendChild(card);
@@ -928,13 +963,14 @@ function updateModalView() {
   } else if (current.type === 'worldGroup') {
     const w = worlds.find(x => x.id === current.worldId);
     title.textContent = w ? w.title : '';
-    // 显示子相册列表（使用 album-grid 样式）
-    body.innerHTML = `<div class="album-grid">${(w ? w.children : []).map((aid, i) => {
+    // 显示子相册列表：使用原图封面（非缩略图），限制容器宽度
+    body.innerHTML = `<div class="sub-album-wrap"><div class="album-grid">${(w ? w.children : []).map((aid, i) => {
       const a = albums.find(x => x.id === aid);
       if (!a) return '';
-      const thumb = a.cover ? getThumb(a.cover) : '';
-      return `<div class="album-card" onclick="openAlbumModal('${a.id}')" style="background-image:url('${thumb}');background-size:cover;background-position:center;transition-delay:${i * 0.1}s"><div class="album-overlay"><div class="album-title">${a.title}</div></div></div>`;
-    }).join('')}</div>`;
+      // 封面使用原图（高清），不用缩略图
+      const cover = a.cover ? getFull(a.cover) : '';
+      return `<div class="album-card" onclick="openAlbumModal('${a.id}')" style="background-image:url('${cover}');background-size:cover;background-position:center;transition-delay:${i * 0.1}s"><div class="album-overlay"><div class="album-title">${a.title}</div><div class="album-count">${a.photos.length} 张</div></div></div>`;
+    }).join('')}</div></div>`;
     body.classList.add('album-view');
   } else if (current.type === 'album') {
     title.textContent = albums.find(a => a.id === current.albumId)?.title || '相册';
