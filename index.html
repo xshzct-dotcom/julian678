@@ -899,7 +899,7 @@ function openAlbumModal(albumId) {
   const album = albums.find(a => a.id === albumId);
   if (!album || album.photos.length === 0) return;
   currentAlbumPhotos = album.photos;
-  modalStack = [{ type: 'album', albumId, index: -1 }];
+  modalStack.push({ type: 'album', albumId, index: -1 });
   updateModalView();
   // 预加载缩略图和首张大图
   currentAlbumPhotos.slice(0, 20).forEach(p => preloader.load(getThumb(p)));
