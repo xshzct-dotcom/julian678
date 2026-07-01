@@ -238,9 +238,13 @@
     footer ul{list-style:none;display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem}
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
-    .music-player{position:fixed;bottom:2rem;right:2rem;z-index:3000;width:260px}
-    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.8rem 1rem 0.5rem;border-radius:16px;display:flex;flex-wrap:wrap;align-items:center;gap:0.3rem;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-    .music-btns{display:flex;align-items:center;gap:0.5rem;width:100%;justify-content:center}
+    .music-player{position:fixed;bottom:2rem;right:2rem;z-index:3000}
+    .music-mini{width:48px;height:48px;border-radius:50%;background:rgba(17,17,17,0.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.3rem;box-shadow:0 4px 16px rgba(0,0,0,0.3);transition:opacity 0.3s,transform 0.3s;z-index:3001;position:absolute;top:0;left:0;border:none;touch-action:none}
+    .music-mini:hover{transform:scale(1.08)}
+    .music-mini.hidden{opacity:0;pointer-events:none;transform:scale(0.8)}
+    .music-full{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.8rem 1rem 0.5rem;border-radius:16px;width:240px;box-shadow:0 4px 20px rgba(0,0,0,0.3);opacity:0;pointer-events:none;transform:scale(0.85) translateY(8px);transition:opacity 0.25s,transform 0.25s;touch-action:none}
+    .music-full.open{opacity:1;pointer-events:auto;transform:scale(1) translateY(0)}
+    .music-btns{display:flex;align-items:center;gap:0.5rem;width:100%;justify-content:center;margin-top:0.2rem}
     .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;padding:0.2rem 0.4rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
     .music-title{font-size:0.85rem;color:rgba(255,255,255,0.5);text-align:center;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none}
@@ -250,7 +254,7 @@
     .music-track:hover .music-track-thumb,.music-track.dragging .music-track-thumb{opacity:1}
     .fade-up{opacity:1;transform:translateY(0);transition:opacity 0.6s ease,transform 0.6s ease}
     
-    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem;width:220px}.music-controls{padding:0.6rem 0.8rem 0.4rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.8rem}.music-track{height:5px}.music-track-thumb{width:12px;height:12px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-mini{width:44px;height:44px;font-size:1.1rem}.music-full{width:200px;padding:0.6rem 0.8rem 0.4rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.8rem}.music-track{height:5px}.music-track-thumb{width:12px;height:12px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -377,7 +381,8 @@
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   <div class="music-player" id="musicPlayer">
-    <div class="music-controls">
+    <button class="music-mini" id="musicMini">♪</button>
+    <div class="music-full" id="musicFull">
       <div class="music-title" id="musicTitle">那个夏天（あの夏へ）</div>
       <div class="music-track" id="musicTrack">
         <div class="music-track-bar" id="musicProgress"></div>
@@ -2402,52 +2407,72 @@ if (musicTrack) {
   document.addEventListener('mouseup', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
   document.addEventListener('touchend', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
 }
-// 音乐播放器拖拽移动（避免遮挡内容）
+// 音乐播放器折叠/展开 + 自由拖拽移动
 (function(){
   var player = document.getElementById('musicPlayer');
-  if (!player) return;
-  var startX, startY, origLeft, origRight, origBottom, dragging = false;
-  var isTouchDevice = 'ontouchstart' in window;
-  var startEvt = isTouchDevice ? 'touchstart' : 'mousedown';
-  var moveEvt = isTouchDevice ? 'touchmove' : 'mousemove';
-  var endEvt = isTouchDevice ? 'touchend' : 'mouseup';
-  player.addEventListener(startEvt, function(e) {
-    // 如果点击/触摸在进度条或按钮上，不触发拖拽
+  var mini = document.getElementById('musicMini');
+  var full = document.getElementById('musicFull');
+  if (!player || !mini || !full) return;
+  var playerOpen = false, dragging = false;
+  var startX, startY, origX, origY;
+  // 点击小图标展开
+  mini.addEventListener('click', function(e) {
+    e.stopPropagation();
+    playerOpen = true;
+    mini.classList.add('hidden');
+    full.classList.add('open');
+    // 移到手指位置上方
+    var p = e.touches ? e.touches[0] : e;
+    var w = full.offsetWidth, h = full.offsetHeight;
+    var left = Math.min(window.innerWidth - w - 10, Math.max(10, p.clientX - w/2));
+    var top = Math.min(window.innerHeight - h - 10, Math.max(10, p.clientY - h - 20));
+    player.style.left = left + 'px';
+    player.style.top = top + 'px';
+    player.style.right = 'auto';
+    player.style.bottom = 'auto';
+  });
+  // 点击空白处收起
+  function tryCollapse(e) {
+    if (!playerOpen) return;
     var t = e.target;
-    if (t.closest('.music-track') || t.closest('.music-btn')) return;
+    if (t === mini || t.closest('.music-full')) return;
+    playerOpen = false;
+    mini.classList.remove('hidden');
+    full.classList.remove('open');
+  }
+  document.addEventListener('click', tryCollapse);
+  document.addEventListener('touchstart', tryCollapse, {passive:true});
+  // 自由拖拽 - 按住 mini 或 full（非按钮/进度条区域）
+  function startDrag(e) {
+    var t = e.target;
+    if (t.closest('.music-btn') || t.closest('.music-track')) return;
     dragging = true;
     var p = e.touches ? e.touches[0] : e;
     startX = p.clientX; startY = p.clientY;
-    var cs = getComputedStyle(player);
-    origRight = parseFloat(cs.right) || 32; origBottom = parseFloat(cs.bottom) || 32;
-    origLeft = player.style.left ? parseFloat(player.style.left) : null;
+    origX = player.offsetLeft; origY = player.offsetTop;
     player.style.transition = 'none';
-    player.classList.add('dragging');
     e.preventDefault();
-  });
-  document.addEventListener(moveEvt, function(e) {
+  }
+  function doDrag(e) {
     if (!dragging) return;
     var p = e.touches ? e.touches[0] : e;
     var dx = p.clientX - startX, dy = p.clientY - startY;
-    if (origLeft !== null) {
-      player.style.left = (origLeft + dx) + 'px';
-      player.style.right = 'auto';
-    } else {
-      player.style.right = Math.max(0, origRight - dx) + 'px';
-      player.style.left = 'auto';
-    }
-    player.style.bottom = Math.max(0, origBottom - dy) + 'px';
-  }, { passive: true });
-  document.addEventListener(endEvt, function() {
-    if (!dragging) return;
-    dragging = false;
-    player.classList.remove('dragging');
-    player.style.transition = '';
-    var cs = getComputedStyle(player);
-    origRight = parseFloat(cs.right);
-    origBottom = parseFloat(cs.bottom);
-    if (cs.left !== 'auto') origLeft = parseFloat(cs.left);
-  });
+    player.style.left = (origX + dx) + 'px';
+    player.style.top = (origY + dy) + 'px';
+    player.style.right = 'auto';
+    player.style.bottom = 'auto';
+  }
+  function endDrag() { dragging = false; player.style.transition = ''; }
+  // mini 支持拖拽
+  mini.addEventListener('mousedown', startDrag);
+  mini.addEventListener('touchstart', startDrag, {passive:false});
+  // full 也支持拖拽
+  full.addEventListener('mousedown', startDrag);
+  full.addEventListener('touchstart', startDrag, {passive:false});
+  document.addEventListener('mousemove', doDrag);
+  document.addEventListener('touchmove', doDrag, {passive:true});
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('touchend', endDrag);
 })();
 window.addEventListener('load', () => {
   isPlaying = true; playBtn.textContent = '⏸';
