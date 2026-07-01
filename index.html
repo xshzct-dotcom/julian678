@@ -2192,7 +2192,7 @@ const NEED_REMEMBER = { id: 'oldphone', title: '旧世界', photos: {/* 见 oldw
 
 // 世界分类：我眼中的世界 → 新世界 / 旧世界
 const worlds = [
-  { id: 'newworld', title: '新世界', type: 'placeholder', message: '新世界暂时空白 作者正在努力加载中……' },
+  { id: 'newworld', title: '新世界', type: 'placeholder', message: '新世界暂时空白 作者正在努力创造中……' },
   { id: 'oldworld', title: '旧世界', type: 'group', children: ['friends', 'firstlove'] }
 ];
 
@@ -2372,7 +2372,7 @@ worlds.forEach((world, index) => {
     card.onclick = () => openWorldView(world.id);
   } else {
     // 旧世界：使用川西封面作为高质量背景
-    const coverUrl = 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/covers/chuanxi.png';
+    const coverUrl = 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/images/covers/oldworld_cover.jpg';
     card.classList.add('world-old');
     card.style.backgroundImage = `url('${coverUrl}')`;
     card.innerHTML = `
