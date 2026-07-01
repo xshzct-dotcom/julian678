@@ -2814,6 +2814,7 @@ let lightboxPanY = 0;
 let lightboxPinchStartDist = 0;
 let lightboxPinchStartScale = 1;
 let lightboxControlsVis = true;  // 手机端控制条显隐
+let lightboxLastChangeTime = 0;  // 防止按钮与边缘触摸重复触发跳张
 
 // 重置缩放/平移状态（换片时调用）
 function resetLightboxZoom() {
@@ -3068,6 +3069,10 @@ function closeLightbox() {
 
 function changePhoto(dir) {
   if (!currentAlbumPhotos || !currentAlbumPhotos.length) return;
+  // 防跳保护：250ms 内重复调用忽略（防止手机端按钮+边缘触摸双重触发）
+  const now = Date.now();
+  if (now - lightboxLastChangeTime < 250) return;
+  lightboxLastChangeTime = now;
   // 立即更新索引，零延迟
   const newIndex = (currentPhotoIndex + dir + currentAlbumPhotos.length) % currentAlbumPhotos.length;
   currentPhotoIndex = newIndex;
@@ -3142,7 +3147,7 @@ function handleSwipeEnd(x, y) {
       const stage = document.getElementById('lightboxStage');
       const rect = stage ? stage.getBoundingClientRect() : { left: 0, width: window.innerWidth };
       const relX = x - rect.left;
-      const edgeWidth = rect.width * 0.2;
+      const edgeWidth = rect.width * 0.14;
       if (relX < edgeWidth) { changePhoto(-1); return; }
       if (relX > rect.width - edgeWidth) { changePhoto(1); return; }
       // 中间区域：切换控制栏
