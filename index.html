@@ -239,14 +239,16 @@
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
     .music-player{position:fixed;bottom:2rem;right:2rem;z-index:3000;touch-action:none}
-    .music-compact{background:rgba(17,17,17,0.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;border-radius:50px;padding:0.4rem 0.6rem;display:flex;align-items:center;gap:0.3rem;box-shadow:0 4px 16px rgba(0,0,0,0.3);cursor:grab;user-select:none;font-size:0.9rem}
+    .music-compact{background:rgba(17,17,17,0.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;border-radius:50px;padding:0.3rem 0.6rem 0.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:0.25rem;box-shadow:0 4px 16px rgba(0,0,0,0.3);cursor:grab;user-select:none;font-size:0.9rem;width:auto;position:relative;overflow:hidden}
     .music-compact:active{cursor:grabbing}
-    .music-compact .music-icon{font-size:1rem;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,0.1);flex:none}
-    .music-compact .music-info{max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem;color:rgba(255,255,255,0.6)}
-    .music-compact .music-act{background:none;border:none;color:white;cursor:pointer;font-size:0.85rem;padding:0.15rem 0.25rem;line-height:1;border-radius:50%;transition:background 0.2s;flex:none}
+    .music-compact .music-icon{font-size:0.9rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,0.1);flex:none}
+    .music-compact .music-info{max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.7rem;color:rgba(255,255,255,0.6)}
+    .music-compact .music-act{background:none;border:none;color:white;cursor:pointer;font-size:0.8rem;padding:0.1rem 0.2rem;line-height:1;border-radius:50%;transition:background 0.2s;flex:none}
     .music-compact .music-act:hover{background:rgba(255,255,255,0.1)}
+    .music-progress{width:100%;height:2px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden;margin-top:0.1rem}
+    .music-progress-bar{height:100%;background:rgba(255,255,255,0.5);width:0;transition:none}
     
-    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-compact{padding:0.3rem 0.5rem;font-size:0.8rem}.music-compact .music-icon{width:24px;height:24px;font-size:0.85rem}.music-compact .music-info{max-width:55px;font-size:0.7rem}.music-compact .music-act{font-size:0.8rem;padding:0.1rem 0.2rem}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-compact{padding:0.25rem 0.5rem 0.15rem;font-size:0.8rem}.music-compact .music-icon{width:22px;height:22px;font-size:0.8rem}.music-compact .music-info{max-width:50px;font-size:0.65rem}.music-compact .music-act{font-size:0.75rem;padding:0.05rem 0.15rem}.music-progress{height:1.5px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -378,6 +380,7 @@
       <span class="music-info" id="musicTitle">那个夏天</span>
       <button class="music-act" id="playBtn" onclick="event.stopPropagation(); togglePlay();" title="播放/暂停">▶</button>
       <button class="music-act" onclick="event.stopPropagation(); nextSong();" title="下一首">⏭</button>
+      <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
     </div>
   </div>
 
@@ -2364,6 +2367,7 @@ let currentPlaylist = playlist;
 loadSong(0);
 audio.addEventListener('canplay', onSongReady);
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
+audio.addEventListener('timeupdate', function() { if (audio.duration) { var el = document.getElementById('musicProgress'); if (el) el.style.width = (audio.currentTime / audio.duration) * 100 + '%'; } });
 audio.addEventListener('play', () => { preloadNext(); });
 // 音乐播放器自由拖拽（带屏幕边界约束）
 (function(){
