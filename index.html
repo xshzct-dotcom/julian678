@@ -450,66 +450,6 @@ function getFull(path) {
   return CDN.image(path);
 }
 
-// 兼容旧API
-function toAbs(url) {
-  if (url.startsWith('http')) return url;
-  return getFull(url);
-}
-
-// 从照片文件名中提取日期
-function extractDateFromFilename(path) {
-  if (!path) return null;
-  const filename = path.split('/').pop().split('?')[0];
-  // 匹配 IMG_YYYYMMDD_HHMMSS.jpg / VID_YYYYMMDD_HHMMSS.mp4
-  let m = filename.match(/(?:IMG|VID)_(\d{4})(\d{2})(\d{2})_\d{6}/);
-  if (m) return `${m[1]}-${m[2]}-${m[3]}`;
-  // 匹配微信相机文件名 wx_camera_1234567890123.jpg
-  m = filename.match(/wx_camera_(\d{13})/);
-  if (m) {
-    const d = new Date(parseInt(m[1]));
-    if (!isNaN(d)) return d.toISOString().slice(0, 10);
-  }
-  return null;
-}
-
-// 格式化日期分组标题
-function formatDateGroup(dateStr) {
-  if (!dateStr) return '其他';
-  const today = new Date().toISOString().slice(0, 10);
-  if (dateStr === today) return '今天';
-  const d = new Date(dateStr);
-  if (isNaN(d)) return dateStr;
-  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
-}
-
-// 按日期对照片分组，返回按日期排序的 {date, photos:[{path, index}], title} 数组
-function groupPhotosByDate(photos) {
-  const groups = {};
-  photos.forEach((path, index) => {
-    const date = extractDateFromFilename(path) || '其他';
-    if (!groups[date]) groups[date] = [];
-    groups[date].push({ path, index });
-  });
-  // 按日期倒序（新日期在前），"其他"放最后
-  const sortedDates = Object.keys(groups).filter(d => d !== '其他').sort().reverse();
-  if (groups['其他']) sortedDates.push('其他');
-  return sortedDates.map(date => ({
-    date,
-    title: formatDateGroup(date),
-    photos: groups[date]
-  }));
-}
-
-// 按日期倒序排列照片（最新的在前面）
-function sortPhotosByDate(photos) {
-  return photos.slice().sort((a, b) => {
-    const da = extractDateFromFilename(a) || '9999-99-99';
-    const db = extractDateFromFilename(b) || '9999-99-99';
-    // 同日期内按文件名排序，保持相对稳定顺序
-    return db.localeCompare(da) || a.localeCompare(b);
-  });
-}
-
 // 格式化文章内容，将换行转为段落，段落开头用CSS统一空两格
 function formatBody(text) {
   if (!text) return '';
