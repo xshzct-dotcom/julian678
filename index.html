@@ -457,7 +457,7 @@ function formatBody(text) {
   var html = '';
   for (var i = 0; i < paras.length; i++) {
     var p = paras[i].trim();
-    if (p) html += '<p>\u3000\u3000' + p.replace(/\n/g, '<br>\n\u3000\u3000') + '</p>';
+    if (p) html += '<p>' + p.replace(/\n/g, '<br>') + '</p>';
   }
   return html;
 }
