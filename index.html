@@ -238,17 +238,19 @@
     footer ul{list-style:none;display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem}
     footer a{color:var(--gray);text-decoration:none;transition:color var(--transition)}
     footer a:hover{color:var(--black)}
-    .music-player{position:fixed;bottom:2rem;right:2rem;z-index:3000}
-    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.6rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:border-radius var(--transition)}
-    .music-player:hover .music-controls{border-radius:20px}
-    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1rem;padding:0.2rem 0.3rem;transition:opacity var(--transition);line-height:1}
+    .music-player{position:fixed;bottom:2rem;right:2rem;z-index:3000;width:260px}
+    .music-controls{background:rgba(17,17,17,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:white;padding:0.8rem 1rem 0.5rem;border-radius:16px;display:flex;flex-wrap:wrap;align-items:center;gap:0.3rem;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+    .music-btns{display:flex;align-items:center;gap:0.5rem;width:100%;justify-content:center}
+    .music-btn{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;padding:0.2rem 0.4rem;transition:opacity var(--transition);line-height:1}
     .music-btn:hover{opacity:0.6}
-    .music-title{font-size:1rem;color:rgba(255,255,255,0.45);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none;font-weight:400}
-    .music-progress{width:100%;height:3px;background:rgba(0,0,0,0.05);border-radius:3px;overflow:hidden;margin-top:0.3rem;padding:0 1rem;box-sizing:border-box}
-    .music-progress-bar{height:100%;background:rgba(0,0,0,0.4);width:0;transition:width 0.3s}
+    .music-title{font-size:0.85rem;color:rgba(255,255,255,0.5);text-align:center;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none}
+    .music-track{width:100%;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;cursor:pointer;position:relative;margin-top:0.15rem;touch-action:none}
+    .music-track-bar{height:100%;background:rgba(255,255,255,0.5);border-radius:3px;width:0;pointer-events:none;transition:none}
+    .music-track-thumb{position:absolute;top:50%;width:14px;height:14px;background:white;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,0.3);pointer-events:none;opacity:0;transition:opacity 0.2s}
+    .music-track:hover .music-track-thumb,.music-track.dragging .music-track-thumb{opacity:1}
     .fade-up{opacity:1;transform:translateY(0);transition:opacity 0.6s ease,transform 0.6s ease}
     
-    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem}.music-controls{padding:0.5rem 0.8rem;gap:0.3rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.9rem;max-width:90px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
+    @media(max-width:768px){header{padding:1rem 1.5rem;backdrop-filter:none;-webkit-backdrop-filter:none}.hero h1{font-size:2.6rem;letter-spacing:0.12em}.hero{background-attachment:scroll}.hero p{font-size:1rem}.section{padding:3rem 1.5rem}.page-title h1{font-size:1.8rem}.modal-header{padding:1.5rem}.modal-body{padding:1.5rem}.music-player{bottom:1rem;right:1rem;width:220px}.music-controls{padding:0.6rem 0.8rem 0.4rem}.music-btn{font-size:0.95rem;padding:0.1rem 0.25rem}.music-title{font-size:0.8rem}.music-track{height:5px}.music-track-thumb{width:12px;height:12px}.lightbox-nav{width:45px;height:45px;font-size:1.8rem}}
     /* 通用过渡动画 */
     a,button,.card,.album-card,.post-card,.music-btn,.nav-link,.album-photo-item{transition:transform 0.4s cubic-bezier(0.34,1.0,0.64,1.0),box-shadow 0.4s ease,opacity 0.4s ease,background-color 0.4s ease}
     a:active,button:active,.card:active,.album-card:active{transform:scale(0.97);opacity:0.9}
@@ -376,12 +378,17 @@
 
   <div class="music-player" id="musicPlayer">
     <div class="music-controls">
-      <button class="music-btn" onclick="event.stopPropagation(); prevSong();" title="上一首">⏮</button>
-      <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();" title="播放/暂停">▶</button>
-      <button class="music-btn" onclick="event.stopPropagation(); nextSong();" title="下一首">⏭</button>
-      <div class="music-title" id="musicTitle">海芋恋</div>
+      <div class="music-title" id="musicTitle">那个夏天（あの夏へ）</div>
+      <div class="music-track" id="musicTrack">
+        <div class="music-track-bar" id="musicProgress"></div>
+        <div class="music-track-thumb" id="musicThumb"></div>
+      </div>
+      <div class="music-btns">
+        <button class="music-btn" onclick="event.stopPropagation(); prevSong();" title="上一首">⏮</button>
+        <button class="music-btn" id="playBtn" onclick="event.stopPropagation(); togglePlay();" title="播放/暂停">▶</button>
+        <button class="music-btn" onclick="event.stopPropagation(); nextSong();" title="下一首">⏭</button>
+      </div>
     </div>
-    <div class="music-progress"><div class="music-progress-bar" id="musicProgress"></div></div>
   </div>
 
   <div class="modal" id="cardModal">
@@ -1514,7 +1521,7 @@ const albums = [
     'images/oldworld/初恋宇宙/2017-2025/1522366400564.jpg',
     'images/oldworld/初恋宇宙/2017-2025/1522366397843.jpg',
     'images/oldworld/初恋宇宙/2017-2025/1522366395127.jpg'
-  ], songs: [{ name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') }, { name: 'Never Been Kissed (Acoustic Version)', url: CDN.music + '/' + encodeURIComponent('Never Been Kissed (Acoustic Version).mp3') }] },
+  ], songs: [{ name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') }, { name: 'Never Been Kissed (Acoustic Version)', url: CDN.music + '/' + encodeURIComponent('Never Been Kissed (Acoustic Version).mp3') }, { name: 'Swing - 小流星', url: CDN.music + '/' + encodeURIComponent('Swing - 小流星.mp3') }, { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }] },
   { id: 'friends-2017-2026', title: '2017.9.2——2026.5.3', cover: 'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg', photos: [
     'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg',
     'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063344.jpg',
@@ -2353,11 +2360,37 @@ function restorePlaylist() {
 }
 
 let currentPlaylist = playlist;
+var progressDragging = false;
+function updateProgress(pct) {
+  pct = Math.min(100, Math.max(0, pct));
+  var bar = document.getElementById('musicProgress');
+  var thumb = document.getElementById('musicThumb');
+  if (bar) bar.style.width = pct + '%';
+  if (thumb) thumb.style.left = pct + '%';
+}
+function seekTo(e) {
+  var track = document.getElementById('musicTrack');
+  if (!track || !audio.duration) return;
+  var rect = track.getBoundingClientRect();
+  var x = (e.clientX || e.touches[0].clientX) - rect.left;
+  var pct = Math.min(1, Math.max(0, x / rect.width));
+  audio.currentTime = pct * audio.duration;
+}
 loadSong(0);
 audio.addEventListener('canplay', onSongReady);
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
-audio.addEventListener('timeupdate', () => { if (audio.duration) musicProgress.style.width = (audio.currentTime / audio.duration) * 100 + '%'; });
+audio.addEventListener('timeupdate', () => { if (audio.duration && !progressDragging) updateProgress((audio.currentTime / audio.duration) * 100); });
 audio.addEventListener('play', () => { preloadNext(); });
+// 进度条交互
+var musicTrack = document.getElementById('musicTrack');
+if (musicTrack) {
+  musicTrack.addEventListener('mousedown', function(e) { progressDragging = true; this.classList.add('dragging'); seekTo(e); });
+  musicTrack.addEventListener('touchstart', function(e) { progressDragging = true; this.classList.add('dragging'); seekTo(e); }, {passive:true});
+  document.addEventListener('mousemove', function(e) { if (progressDragging) seekTo(e); });
+  document.addEventListener('touchmove', function(e) { if (progressDragging) seekTo(e); }, {passive:true});
+  document.addEventListener('mouseup', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
+  document.addEventListener('touchend', function() { if (progressDragging) { progressDragging = false; var t = document.getElementById('musicTrack'); if (t) t.classList.remove('dragging'); } });
+}
 window.addEventListener('load', () => {
   isPlaying = true; playBtn.textContent = '⏸';
   audio.play().catch(() => {
