@@ -2345,9 +2345,12 @@ const musicTitle = document.getElementById('musicTitle');
 const musicProgress = document.getElementById('musicProgress');
 const musicPlayer = document.getElementById('musicPlayer');
 
-function loadSong(index) {
+function loadSong(index, seekTo) {
   currentSong = (index + currentPlaylist.length) % currentPlaylist.length;
-  audio.src = currentPlaylist[currentSong].url;
+  var url = currentPlaylist[currentSong].url;
+  // #t= 是HTML5标准媒体片段，所有浏览器原生支持seek到指定秒数
+  if (seekTo != null && seekTo > 1) url += '#t=' + seekTo;
+  audio.src = url;
   musicTitle.textContent = currentPlaylist[currentSong].name;
 }
 function onSongReady() {
@@ -2371,16 +2374,15 @@ function saveGroupState(groupId) {
     groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime };
   }
 }
-// 核心：加载歌曲 → play（在用户手势内直接调用）→ 成功后 seek
+// 核心：利用HTML5 #t= 媒体片段实现浏览器原生seek，兼容所有设备
 function loadAndPlay(idx, seekTo) {
-  loadSong(idx);
+  loadSong(idx, seekTo);
   audio.load();
   var p = audio.play();
   if (p) {
     p.then(function() {
       isPlaying = true;
       playBtn.textContent = '⏸';
-      if (seekTo != null && audio.duration) audio.currentTime = Math.min(seekTo, audio.duration);
     }).catch(function(){});
   }
 }
