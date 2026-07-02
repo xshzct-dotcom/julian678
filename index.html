@@ -2365,6 +2365,12 @@ function prevSong() { loadSong(currentSong - 1); onSongReady(); }
 function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
 function preloadNext() { const next = (currentSong + 1) % currentPlaylist.length; const link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[next].url; document.head.appendChild(link); }
 var savedPlaylist = null, savedSong = 0;
+var groupState = {};
+function saveGroupState(groupId) {
+  if (groupId && audio.duration) {
+    groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime };
+  }
+}
 function switchPlaylist(newList) {
   savedPlaylist = playlist;
   savedSong = currentSong;
@@ -2372,6 +2378,21 @@ function switchPlaylist(newList) {
   currentSong = 0;
   loadSong(0);
   onSongReady();
+}
+function switchToGroupPlaylist(groupId, newList) {
+  var st = groupState[groupId];
+  if (st && st.songIndex < newList.length) {
+    savedPlaylist = playlist;
+    savedSong = currentSong;
+    currentPlaylist = newList;
+    currentSong = st.songIndex;
+    loadSong(0);
+    var restoreTime = st.currentTime || 0;
+    audio.currentTime = restoreTime;
+    onSongReady();
+  } else {
+    switchPlaylist(newList);
+  }
 }
 function restorePlaylist() {
   if (savedPlaylist) {
@@ -2387,7 +2408,14 @@ let currentPlaylist = playlist;
 loadSong(0);
 audio.addEventListener('canplay', onSongReady);
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
-audio.addEventListener('timeupdate', function() { if (audio.duration && !progressDragging) { var el = document.getElementById('musicProgress'); if (el) { var pct = (audio.currentTime / audio.duration) * 100; el.style.width = pct + '%'; var th = document.getElementById('musicThumb'); if (th) th.style.left = pct + '%'; } } });
+audio.addEventListener('timeupdate', function() { 
+  if (audio.duration && !progressDragging) { 
+    var el = document.getElementById('musicProgress'); 
+    if (el) { var pct = (audio.currentTime / audio.duration) * 100; el.style.width = pct + '%'; var th = document.getElementById('musicThumb'); if (th) th.style.left = pct + '%'; } 
+  } 
+  // 记住当前群组的歌曲进度
+  if (savedPlaylist && modalStack.length > 0) { var top = modalStack[modalStack.length - 1]; if (top && top.type === 'subGroup') { groupState[top.groupId] = { songIndex: currentSong, currentTime: audio.currentTime }; } }
+});
 audio.addEventListener('play', () => { preloadNext(); });
 // 可拖拽进度条
 var progressDragging = false;
@@ -2502,9 +2530,9 @@ function openOldworldGroup(groupId) {
   const group = oldworldGroups.find(g => g.id === groupId);
   if (!group) return;
   modalStack.push({ type: 'subGroup', groupId });
-  // 切换到群组的专属歌单
+  // 切换到群组的专属歌单（记住上次进度）
   if (group.songs && group.songs.length > 0) {
-    switchPlaylist(group.songs);
+    switchToGroupPlaylist(groupId, group.songs);
   }
   updateModalView();
 }
@@ -2522,9 +2550,10 @@ function openCategory(catIndex) { modalStack.push({ type: 'essayCategory', catIn
 function openContent(type, index) { modalStack.push({ type, index }); updateModalView(); }
 function modalGoBack() {
   if (modalStack.length > 1) {
-    // 如果当前是 subGroup（群组视图），退回时恢复全局歌单
-    const cur = modalStack[modalStack.length - 1];
+    // 退出群组前保存专属歌单进度
+    var cur = modalStack[modalStack.length - 1];
     if (cur && cur.type === 'subGroup' && savedPlaylist) {
+      saveGroupState(cur.groupId);
       restorePlaylist();
     }
     modalStack.pop();
