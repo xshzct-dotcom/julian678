@@ -2360,8 +2360,8 @@ function togglePlay() {
     if (audio.paused) audio.play().catch(() => {});
   }
 }
-function nextSong() { loadSong(currentSong + 1); onSongReady(); }
-function prevSong() { loadSong(currentSong - 1); onSongReady(); }
+function nextSong() { loadAndPlay(currentSong + 1); }
+function prevSong() { loadAndPlay(currentSong - 1); }
 function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
 function preloadNext() { const next = (currentSong + 1) % currentPlaylist.length; const link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[next].url; document.head.appendChild(link); }
 var savedPlaylist = null, savedSong = 0;
@@ -2371,13 +2371,25 @@ function saveGroupState(groupId) {
     groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime };
   }
 }
+function playCurrent() {
+  if (!isPlaying) return;
+  var p = audio.play();
+  if (p) p.catch(function(){});
+}
+function loadAndPlay(idx, seekTo) {
+  loadSong(idx);
+  audio.load();
+  if (isPlaying) {
+    var p = audio.play();
+    if (p) p.then(function() { if (seekTo != null && audio.duration) audio.currentTime = Math.min(seekTo, audio.duration); }).catch(function(){});
+  }
+}
 function switchPlaylist(newList) {
   savedPlaylist = playlist;
   savedSong = currentSong;
   currentPlaylist = newList;
   currentSong = 0;
-  loadSong(0);
-  onSongReady();
+  loadAndPlay(0);
 }
 function switchToGroupPlaylist(groupId, newList) {
   var st = groupState[groupId];
@@ -2386,11 +2398,7 @@ function switchToGroupPlaylist(groupId, newList) {
     savedSong = currentSong;
     currentPlaylist = newList;
     currentSong = st.songIndex;
-    loadSong(st.songIndex);
-    var rt = st.currentTime || 0;
-    // 音频加载完成后 seek + 播放（手机端必须等 canplay）
-    var seeker = function() { audio.currentTime = Math.min(rt, audio.duration || 0); audio.removeEventListener('canplay', seeker); if (isPlaying) audio.play().catch(function(){}); };
-    audio.addEventListener('canplay', seeker);
+    loadAndPlay(st.songIndex, st.currentTime);
   } else {
     switchPlaylist(newList);
   }
@@ -2400,15 +2408,12 @@ function restorePlaylist() {
     currentPlaylist = savedPlaylist;
     currentSong = savedSong;
     savedPlaylist = null;
-    loadSong(savedSong);
-    var resume = function() { audio.removeEventListener('canplay', resume); if (isPlaying) audio.play().catch(function(){}); };
-    audio.addEventListener('canplay', resume);
+    loadAndPlay(savedSong);
   }
 }
 
 let currentPlaylist = playlist;
 loadSong(0);
-audio.addEventListener('canplay', onSongReady);
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
 audio.addEventListener('timeupdate', function() { 
   if (audio.duration && !progressDragging) { 
