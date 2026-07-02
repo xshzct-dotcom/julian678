@@ -2362,8 +2362,8 @@ function togglePlay() {
 }
 function nextSong() { loadAndPlay(currentSong + 1); }
 function prevSong() { loadAndPlay(currentSong - 1); }
-function togglePlayer() { musicPlayer.classList.toggle('expanded'); }
-function preloadNext() { const next = (currentSong + 1) % currentPlaylist.length; const link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[next].url; document.head.appendChild(link); }
+function togglePlayer() { var el = document.getElementById('musicPlayer'); if (el) el.classList.toggle('expanded'); }
+function preloadNext() { var next = (currentSong + 1) % currentPlaylist.length; var link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[next].url; document.head.appendChild(link); }
 var savedPlaylist = null, savedSong = 0;
 var groupState = {};
 function saveGroupState(groupId) {
@@ -2371,19 +2371,23 @@ function saveGroupState(groupId) {
     groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime };
   }
 }
-function playCurrent() {
-  if (!isPlaying) return;
-  var p = audio.play();
-  if (p) p.catch(function(){});
-}
+// 核心：加载歌曲 → play（在用户手势内直接调用）→ 成功后 seek
 function loadAndPlay(idx, seekTo) {
   loadSong(idx);
   audio.load();
-  if (isPlaying) {
-    var p = audio.play();
-    if (p) p.then(function() { if (seekTo != null && audio.duration) audio.currentTime = Math.min(seekTo, audio.duration); }).catch(function(){});
+  var p = audio.play();
+  if (p) {
+    p.then(function() {
+      isPlaying = true;
+      playBtn.textContent = '⏸';
+      if (seekTo != null && audio.duration) audio.currentTime = Math.min(seekTo, audio.duration);
+    }).catch(function(){});
   }
 }
+// 非手势场景（自动下一首、首屏加载）靠 canplay 触发播放
+audio.addEventListener('canplay', function() {
+  if (isPlaying) audio.play().catch(function(){});
+});
 function switchPlaylist(newList) {
   savedPlaylist = playlist;
   savedSong = currentSong;
@@ -2414,6 +2418,7 @@ function restorePlaylist() {
 
 let currentPlaylist = playlist;
 loadSong(0);
+audio.load();
 audio.addEventListener('ended', () => { nextSong(); preloadNext(); });
 audio.addEventListener('timeupdate', function() { 
   if (audio.duration && !progressDragging) { 
@@ -2478,16 +2483,13 @@ if (musicTrack) {
   document.addEventListener('mouseup', endDrag);
   document.addEventListener('touchend', endDrag);
 })();
-window.addEventListener('load', () => {
-  isPlaying = true; playBtn.textContent = '⏸';
-  audio.play().catch(() => {
-    isPlaying = false; playBtn.textContent = '▶';
-    const initMusic = () => {
-      isPlaying = true; playBtn.textContent = '⏸';
-      audio.play().catch(() => {});
-      document.removeEventListener('click', initMusic);
-    };
-    document.addEventListener('click', initMusic, { once: true });
+// 首屏：尝试自动播放（手机端会被拦截，等用户第一次点击触发 loadAndPlay）
+window.addEventListener('load', function() {
+  isPlaying = true;
+  playBtn.textContent = '⏸';
+  audio.play().catch(function() {
+    isPlaying = false;
+    playBtn.textContent = '▶';
   });
 });
 
