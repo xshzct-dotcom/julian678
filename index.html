@@ -2385,14 +2385,19 @@ function preloadNext() {
 var savedPlaylist = null, savedSong = 0;
 var groupState = {};
 function saveGroupState(groupId) {
-  if (groupId && audio.duration) {
-    groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime };
+  if (groupId) {
+    groupState[groupId] = { songIndex: currentSong, currentTime: audio.currentTime || 0 };
   }
 }
 // 核心：利用HTML5 #t= 媒体片段实现浏览器原生seek，兼容所有设备
 function loadAndPlay(idx, seekTo) {
   loadSong(idx, seekTo);
   audio.load();
+  // JS fallback seek: #t= 在某些浏览器（如小米）可能不生效，额外保底
+  if (seekTo != null && seekTo > 1) {
+    var doSeek = function() { audio.currentTime = Math.min(seekTo, audio.duration || Infinity); audio.removeEventListener('canplay', doSeek); };
+    audio.addEventListener('canplay', doSeek);
+  }
   var p = audio.play();
   if (p) {
     p.then(function() {
