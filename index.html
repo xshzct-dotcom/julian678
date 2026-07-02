@@ -493,6 +493,9 @@ const preloader = new Preloader();
 
 // ==================== 数据 ====================
 const playlist = [
+  { name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') },
+  { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') },
+  { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') },
   { name: '那个夏天（あの夏へ）', url: CDN.music + '/' + encodeURIComponent('那个夏天（あの夏へ）.mp3') }
 ];
 
@@ -506,9 +509,9 @@ const poems = [
 ];
 
 const albums = [
-  { id: 'chuanxi', title: '川西', noGroup: true, cover: 'images/covers/chuanxi.png', photos: ['images/chuanxi/1.jpg','images/chuanxi/DSC_3812_看图王.jpg','images/chuanxi/DSC_3860_看图王.jpg','images/chuanxi/DSC_3970_看图王.jpg','images/chuanxi/DSC_4045_看图王.jpg','images/chuanxi/DSC_4124_看图王.jpg','images/chuanxi/DSC_4216_看图王.jpg','images/chuanxi/DSC_4217_看图王.jpg','images/chuanxi/DSC_4438_看图王.jpg','images/chuanxi/DSC_4447_看图王.jpg','images/chuanxi/DSC_4530_看图王.jpg','images/chuanxi/DSC_4531_看图王.jpg','images/chuanxi/DSC_4544_看图王.jpg','images/chuanxi/DSC_4820_看图王.jpg','images/chuanxi/DSC_4824_看图王.jpg','images/chuanxi/DSC_4845_看图王.jpg','images/chuanxi/DSC_5024_看图王.jpg','images/chuanxi/DSC_5025_看图王.jpg'], songs: [{ name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') }, { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') }, { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') }] },
-  { id: 'xinjiang', title: '新疆', noGroup: true, cover: 'images/covers/xinjiang.png', photos: ['images/xinjiang/1.jpg','images/xinjiang/2.jpg','images/xinjiang/3.jpg','images/xinjiang/6.jpg','images/xinjiang/IMG_20250804_020042_看图王.jpg','images/xinjiang/IMG_20250805_001615_看图王.jpg','images/xinjiang/Z30_5295_看图王.jpg','images/xinjiang/Z30_5308_看图王.jpg','images/xinjiang/Z30_5347_看图王.jpg','images/xinjiang/Z30_5431_看图王.jpg','images/xinjiang/Z30_5437_看图王.jpg','images/xinjiang/Z30_5579_看图王.jpg','images/xinjiang/Z30_5580_看图王.jpg','images/xinjiang/Z30_5601_看图王.jpg','images/xinjiang/Z30_5610_看图王.jpg','images/xinjiang/Z30_5668_看图王.jpg','images/xinjiang/Z30_5801_看图王.jpg','images/xinjiang/Z30_5823_看图王.jpg','images/xinjiang/Z30_5917_看图王.jpg','images/xinjiang/Z30_5918_看图王.jpg','images/xinjiang/Z30_5937_看图王.jpg','images/xinjiang/Z30_6215_看图王.jpg','images/xinjiang/Z30_6291_看图王.jpg','images/xinjiang/Z30_6292_看图王.jpg','images/xinjiang/Z30_6293_看图王.jpg','images/xinjiang/Z30_6294_看图王.jpg','images/xinjiang/Z30_6448_看图王.jpg','images/xinjiang/Z30_6452_看图王.jpg','images/xinjiang/Z30_6472_看图王.jpg','images/xinjiang/Z30_6505_看图王.jpg','images/xinjiang/Z30_6512_看图王.jpg','images/xinjiang/Z30_7091_看图王.jpg','images/xinjiang/Z30_7242_看图王.jpg'], songs: [{ name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') }, { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') }, { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') }] },
-  { id: 'malaysia', title: '仙本那', noGroup: true, cover: 'images/covers/semporna.png', photos: ['images/malaysia/DSC_0175_看图王.jpg','images/malaysia/DSC_0189_看图王.jpg','images/malaysia/DSC_0266_看图王.jpg','images/malaysia/DSC_0272_看图王.jpg','images/malaysia/DSC_0349_看图王.jpg','images/malaysia/DSC_0430_看图王.jpg','images/malaysia/DSC_0550_看图王.jpg','images/malaysia/DSC_0574_看图王.jpg','images/malaysia/DSC_0575_看图王.jpg','images/malaysia/DSC_0625_看图王.jpg','images/malaysia/DSC_0626_看图王.jpg','images/malaysia/DSC_0653_看图王.jpg','images/malaysia/DSC_0884_看图王.jpg','images/malaysia/DSC_0903_看图王.jpg','images/malaysia/IMG_20250112_215954_看图王.jpg'], songs: [{ name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') }, { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') }, { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') }] },
+  { id: 'chuanxi', title: '川西', noGroup: true, cover: 'images/covers/chuanxi.png', photos: ['images/chuanxi/1.jpg','images/chuanxi/DSC_3812_看图王.jpg','images/chuanxi/DSC_3860_看图王.jpg','images/chuanxi/DSC_3970_看图王.jpg','images/chuanxi/DSC_4045_看图王.jpg','images/chuanxi/DSC_4124_看图王.jpg','images/chuanxi/DSC_4216_看图王.jpg','images/chuanxi/DSC_4217_看图王.jpg','images/chuanxi/DSC_4438_看图王.jpg','images/chuanxi/DSC_4447_看图王.jpg','images/chuanxi/DSC_4530_看图王.jpg','images/chuanxi/DSC_4531_看图王.jpg','images/chuanxi/DSC_4544_看图王.jpg','images/chuanxi/DSC_4820_看图王.jpg','images/chuanxi/DSC_4824_看图王.jpg','images/chuanxi/DSC_4845_看图王.jpg','images/chuanxi/DSC_5024_看图王.jpg','images/chuanxi/DSC_5025_看图王.jpg'] },
+  { id: 'xinjiang', title: '新疆', noGroup: true, cover: 'images/covers/xinjiang.png', photos: ['images/xinjiang/1.jpg','images/xinjiang/2.jpg','images/xinjiang/3.jpg','images/xinjiang/6.jpg','images/xinjiang/IMG_20250804_020042_看图王.jpg','images/xinjiang/IMG_20250805_001615_看图王.jpg','images/xinjiang/Z30_5295_看图王.jpg','images/xinjiang/Z30_5308_看图王.jpg','images/xinjiang/Z30_5347_看图王.jpg','images/xinjiang/Z30_5431_看图王.jpg','images/xinjiang/Z30_5437_看图王.jpg','images/xinjiang/Z30_5579_看图王.jpg','images/xinjiang/Z30_5580_看图王.jpg','images/xinjiang/Z30_5601_看图王.jpg','images/xinjiang/Z30_5610_看图王.jpg','images/xinjiang/Z30_5668_看图王.jpg','images/xinjiang/Z30_5801_看图王.jpg','images/xinjiang/Z30_5823_看图王.jpg','images/xinjiang/Z30_5917_看图王.jpg','images/xinjiang/Z30_5918_看图王.jpg','images/xinjiang/Z30_5937_看图王.jpg','images/xinjiang/Z30_6215_看图王.jpg','images/xinjiang/Z30_6291_看图王.jpg','images/xinjiang/Z30_6292_看图王.jpg','images/xinjiang/Z30_6293_看图王.jpg','images/xinjiang/Z30_6294_看图王.jpg','images/xinjiang/Z30_6448_看图王.jpg','images/xinjiang/Z30_6452_看图王.jpg','images/xinjiang/Z30_6472_看图王.jpg','images/xinjiang/Z30_6505_看图王.jpg','images/xinjiang/Z30_6512_看图王.jpg','images/xinjiang/Z30_7091_看图王.jpg','images/xinjiang/Z30_7242_看图王.jpg'] },
+  { id: 'malaysia', title: '仙本那', noGroup: true, cover: 'images/covers/semporna.png', photos: ['images/malaysia/DSC_0175_看图王.jpg','images/malaysia/DSC_0189_看图王.jpg','images/malaysia/DSC_0266_看图王.jpg','images/malaysia/DSC_0272_看图王.jpg','images/malaysia/DSC_0349_看图王.jpg','images/malaysia/DSC_0430_看图王.jpg','images/malaysia/DSC_0550_看图王.jpg','images/malaysia/DSC_0574_看图王.jpg','images/malaysia/DSC_0575_看图王.jpg','images/malaysia/DSC_0625_看图王.jpg','images/malaysia/DSC_0626_看图王.jpg','images/malaysia/DSC_0653_看图王.jpg','images/malaysia/DSC_0884_看图王.jpg','images/malaysia/DSC_0903_看图王.jpg','images/malaysia/IMG_20250112_215954_看图王.jpg'] },
 
 
 
@@ -1521,7 +1524,7 @@ const albums = [
     'images/oldworld/初恋宇宙/2017-2025/1522366400564.jpg',
     'images/oldworld/初恋宇宙/2017-2025/1522366397843.jpg',
     'images/oldworld/初恋宇宙/2017-2025/1522366395127.jpg'
-  ], songs: [{ name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') }, { name: 'Never Been Kissed (Acoustic Version)', url: CDN.music + '/' + encodeURIComponent('Never Been Kissed (Acoustic Version).mp3') }, { name: 'Swing - 小流星', url: CDN.music + '/' + encodeURIComponent('Swing - 小流星.mp3') }, { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }] },
+  ] },
   { id: 'friends-2017-2026', title: '2017.9.2——2026.5.3', cover: 'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg', photos: [
     'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg',
     'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063344.jpg',
@@ -2187,7 +2190,7 @@ const albums = [
     'images/oldworld/朋友宇宙&自己/2017-2026/298ddffe234b1d0f.jpg',
     'images/oldworld/朋友宇宙&自己/2017-2026/567a3d08575656d1.jpg',
     'images/oldworld/朋友宇宙&自己/2017-2026/DSC00777.jpg'
-  ], songs: [{ name: 'Cookies - Forever Friends', url: CDN.music + '/' + encodeURIComponent('Cookies - Forever Friends.mp3') }, { name: 'Cookies - 眼浅', url: CDN.music + '/' + encodeURIComponent('Cookies - 眼浅.mp3') }] }
+  ] }
 
 
 ];
@@ -2207,6 +2210,12 @@ const oldworldGroups = [
     id: 'firstlove',
     title: '初恋宇宙',
     cover: 'images/covers/firstlove_cover.jpg',
+    songs: [
+      { name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') },
+      { name: '我喜欢上你时的内心活动', url: CDN.music + '/' + encodeURIComponent('我喜欢上你时的内心活动.mp3') },
+      { name: '初恋世界-旅行的意义', url: CDN.music + '/' + encodeURIComponent('初恋世界-旅行的意义.mp3') },
+      { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }
+    ],
     children: [
       { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
       { type: 'album', ref: 'chuanxi', title: '川西' },
@@ -2218,6 +2227,12 @@ const oldworldGroups = [
     id: 'friends',
     title: '我的青春期',
     cover: 'images/covers/friends_cover.jpg',
+    songs: [
+      { name: 'Cookies - Forever Friends', url: CDN.music + '/' + encodeURIComponent('Cookies - Forever Friends.mp3') },
+      { name: 'Cookies - 眼浅', url: CDN.music + '/' + encodeURIComponent('Cookies - 眼浅.mp3') },
+      { name: '五月天 - 干杯', url: CDN.music + '/' + encodeURIComponent('五月天 - 干杯.mp3') },
+      { name: '那些年', url: CDN.music + '/' + encodeURIComponent('那些年.mp3') }
+    ],
     children: [
       { type: 'album', ref: 'friends-2017-2026', title: '2017.9.2——2026.5.3' }
     ]
@@ -2489,6 +2504,10 @@ function openOldworldGroup(groupId) {
   const group = oldworldGroups.find(g => g.id === groupId);
   if (!group) return;
   modalStack.push({ type: 'subGroup', groupId });
+  // 切换到群组的专属歌单
+  if (group.songs && group.songs.length > 0) {
+    switchPlaylist(group.songs);
+  }
   updateModalView();
 }
 function openAlbumModal(albumId) {
@@ -2496,10 +2515,6 @@ function openAlbumModal(albumId) {
   if (!album || album.photos.length === 0) return;
   currentAlbumPhotos = album.photos;
   modalStack.push({ type: 'album', albumId, index: -1 });
-  // 切换相册歌单
-  if (album.songs && album.songs.length > 0) {
-    switchPlaylist(album.songs);
-  }
   updateModalView();
   // 预加载缩略图和首张大图
   currentAlbumPhotos.slice(0, 20).forEach(p => preloader.load(getThumb(p)));
@@ -2509,12 +2524,12 @@ function openCategory(catIndex) { modalStack.push({ type: 'essayCategory', catIn
 function openContent(type, index) { modalStack.push({ type, index }); updateModalView(); }
 function modalGoBack() {
   if (modalStack.length > 1) {
-    modalStack.pop();
-    // 检查是否回到了非 album 层级，恢复全局歌单
-    const prev = modalStack[modalStack.length - 1];
-    if (prev && prev.type !== 'album') {
-      if (savedPlaylist) restorePlaylist();
+    // 如果当前是 subGroup（群组视图），退回时恢复全局歌单
+    const cur = modalStack[modalStack.length - 1];
+    if (cur && cur.type === 'subGroup' && savedPlaylist) {
+      restorePlaylist();
     }
+    modalStack.pop();
     updateModalView();
   }
 }
