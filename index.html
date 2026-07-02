@@ -421,7 +421,7 @@
 
   <div class="album-zoom-hint" id="zoomHint">按住 Ctrl + 滚动鼠标滚轮缩放缩略图</div>
 
-  <audio id="bgMusic" preload="metadata"></audio>
+  <audio id="bgMusic" preload="auto"></audio>
 
 <script>
 // ==================== CDN图片优化配置 ====================
@@ -2367,7 +2367,22 @@ function togglePlay() {
 function nextSong() { loadAndPlay(currentSong + 1); }
 function prevSong() { loadAndPlay(currentSong - 1); }
 function togglePlayer() { var el = document.getElementById('musicPlayer'); if (el) el.classList.toggle('expanded'); }
-function preloadNext() { var next = (currentSong + 1) % currentPlaylist.length; var link = document.createElement('link'); link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[next].url; document.head.appendChild(link); }
+function preloadNext() { 
+  // 预加载当前列表所有歌曲
+  for (var i = 0; i < currentPlaylist.length; i++) {
+    var link = document.createElement('link');
+    link.rel = 'preload'; link.as = 'audio'; link.href = currentPlaylist[i].url;
+    document.head.appendChild(link);
+  }
+  // 预加载两个群组的歌单
+  oldworldGroups.forEach(function(g) {
+    if (g.songs) g.songs.forEach(function(s) {
+      var link = document.createElement('link');
+      link.rel = 'preload'; link.as = 'audio'; link.href = s.url;
+      document.head.appendChild(link);
+    });
+  });
+}
 var savedPlaylist = null, savedSong = 0;
 var groupState = {};
 function saveGroupState(groupId) {
