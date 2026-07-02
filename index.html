@@ -2388,10 +2388,9 @@ function switchToGroupPlaylist(groupId, newList) {
     currentSong = st.songIndex;
     loadSong(st.songIndex);
     var rt = st.currentTime || 0;
-    // 等音频加载完成后 seek 到保存的进度
-    var seeker = function() { audio.currentTime = Math.min(rt, audio.duration || 0); audio.removeEventListener('canplay', seeker); };
+    // 音频加载完成后 seek + 播放（手机端必须等 canplay）
+    var seeker = function() { audio.currentTime = Math.min(rt, audio.duration || 0); audio.removeEventListener('canplay', seeker); if (isPlaying) audio.play().catch(function(){}); };
     audio.addEventListener('canplay', seeker);
-    onSongReady();
   } else {
     switchPlaylist(newList);
   }
@@ -2402,7 +2401,8 @@ function restorePlaylist() {
     currentSong = savedSong;
     savedPlaylist = null;
     loadSong(savedSong);
-    onSongReady();
+    var resume = function() { audio.removeEventListener('canplay', resume); if (isPlaying) audio.play().catch(function(){}); };
+    audio.addEventListener('canplay', resume);
   }
 }
 
