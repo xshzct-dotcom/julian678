@@ -2349,6 +2349,7 @@ function loadSong(index, seekTo) {
   currentSong = (index + currentPlaylist.length) % currentPlaylist.length;
   var url = currentPlaylist[currentSong].url;
   // #t= 是HTML5标准媒体片段，所有浏览器原生支持seek到指定秒数
+  url = url.split('#')[0]; // 清除旧的#t=
   if (seekTo != null && seekTo > 1) url += '#t=' + seekTo;
   audio.src = url;
   musicTitle.textContent = currentPlaylist[currentSong].name;
