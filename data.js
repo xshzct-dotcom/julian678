@@ -2734,10 +2734,10 @@ const oldworldGroups = [
       { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }
     ],
     children: [
-      { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
       { type: 'album', ref: 'chuanxi', title: '川西' },
-      { type: 'album', ref: 'malaysia', title: '仙本那' },
       { type: 'album', ref: 'xinjiang', title: '新疆' },
+      { type: 'album', ref: 'malaysia', title: '仙本那' },
+      { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
       { type: 'album', ref: 'zhoubianyou', title: '周边游' },
       { type: 'album', ref: 'dali', title: '大理' },
       { type: 'album', ref: 'guilin', title: '桂林' },
