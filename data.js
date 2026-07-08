@@ -99,7 +99,6 @@ const childhoodPlaylist = [
 
 const albums = [
     { id: 'chuanxi', title: '川西', noGroup: true, cover: 'images/covers/chuanxi.png', photos: [
-    [
         'images/chuanxi/DSC_3770_看图王.jpg',
         'images/chuanxi/DSC_3812_看图王.jpg',
         'images/chuanxi/DSC_3814_看图王.jpg',
@@ -238,9 +237,9 @@ const albums = [
         'images/chuanxi/DSC_4997_看图王.jpg',
         'images/chuanxi/DSC_5003_看图王.jpg',
         'images/chuanxi/DSC_5024_看图王.jpg',
-    ] },
+    ],
+  },
     { id: 'xinjiang', title: '新疆', noGroup: true, cover: 'images/covers/xinjiang.png', photos: [
-    [
         'images/xinjiang/IMG_20250805_204040_看图王.jpg',
         'images/xinjiang/Z30_5291_看图王.jpg',
         'images/xinjiang/Z30_5295_看图王.jpg',
@@ -414,9 +413,9 @@ const albums = [
         'images/xinjiang/Z30_6812_看图王.jpg',
         'images/xinjiang/Z30_6834_看图王.jpg',
         'images/xinjiang/Z30_6839_看图王.jpg',
-    ] },
+    ],
+  },
     { id: 'malaysia', title: '仙本那', noGroup: true, cover: 'images/covers/semporna.png', photos: [
-    [
         'images/malaysia/DSC_0034_看图王.jpg',
         'images/malaysia/DSC_0038_看图王.jpg',
         'images/malaysia/DSC_0066_看图王.jpg',
@@ -535,12 +534,12 @@ const albums = [
         'images/malaysia/DSC_0920_看图王.jpg',
         'images/malaysia/DSC_0922_看图王.jpg',
         'images/malaysia/IMG_20250112_215954_看图王.jpg',
-    ] },
+    ],
+  },
 
 
 
   { id: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6', cover: 'images/oldworld/初恋宇宙/2017-2025/IMG_20260525_115819.jpg', photos: [
-    [
         'images/oldworld/初恋宇宙/2017-2025/-5c71f7254e8a0b60.jpg',
         'images/oldworld/初恋宇宙/2017-2025/-7daf5b12cf1bf175.jpg',
         'images/oldworld/初恋宇宙/2017-2025/1522366395127.jpg',
@@ -1541,9 +1540,9 @@ const albums = [
         'images/oldworld/初恋宇宙/2017-2025/wx_camera_1739509679583.jpg',
         'images/oldworld/初恋宇宙/2017-2025/wx_camera_1746371961918.jpg',
         'images/oldworld/初恋宇宙/2017-2025/wx_camera_1748594191306.jpg',
-    ] },
+    ],
+  },
   { id: 'friends-2017-2026', title: '2017.9.2——2026.5.3', cover: 'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg', photos: [
-    [
         'images/oldworld/朋友宇宙&自己/2017-2026/-359d221ec36cd008.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/-542619652b8c6cbb.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/-60aee18813310af6.jpg',
@@ -2160,9 +2159,9 @@ const albums = [
         'images/oldworld/朋友宇宙&自己/2017-2026/wx_camera_1751292152137.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/wx_camera_1775571574189.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/wx_camera_1775734213463.jpg',
-    ] },
+    ],
+  },
   { id: 'zhoubianyou', title: '周边游', cover: 'images/oldworld/周边游/_AAA7497_看图王.jpg', photos: [
-    [
         'images/oldworld/周边游/DSC_1001_看图王.jpg',
         'images/oldworld/周边游/DSC_1002_看图王.jpg',
         'images/oldworld/周边游/DSC_3436_看图王.jpg',
@@ -2406,9 +2405,9 @@ const albums = [
         'images/oldworld/周边游/_AAA7992_看图王.jpg',
         'images/oldworld/周边游/_AAA7994_看图王.jpg',
         'images/oldworld/周边游/_AAA8000_看图王.jpg',
-    ] },
+    ],
+  },
   { id: 'dali', title: '大理', cover: 'images/oldworld/大理/DSC_0640_看图王.jpg', photos: [
-    [
         'images/oldworld/大理/DSC_0588_看图王.jpg',
         'images/oldworld/大理/DSC_0591_看图王.jpg',
         'images/oldworld/大理/DSC_0592_看图王.jpg',
@@ -2501,9 +2500,9 @@ const albums = [
         'images/oldworld/大理/DSC_1497_看图王.jpg',
         'images/oldworld/大理/DSC_1506_看图王.jpg',
         'images/oldworld/大理/DSC_1522_看图王.jpg',
-    ] },
+    ],
+  },
   { id: 'guilin', title: '桂林', cover: 'images/oldworld/桂林/DSC_1871_看图王.jpg', photos: [
-    [
         'images/oldworld/桂林/DSC_1609_看图王.jpg',
         'images/oldworld/桂林/DSC_1616_看图王.jpg',
         'images/oldworld/桂林/DSC_1621_看图王.jpg',
@@ -2559,9 +2558,9 @@ const albums = [
         'images/oldworld/桂林/DSC_1959_看图王.jpg',
         'images/oldworld/桂林/DSC_1962_看图王.jpg',
         'images/oldworld/桂林/DSC_1969_看图王.jpg',
-    ] },
+    ],
+  },
   { id: 'qinghai', title: '青海', cover: 'images/oldworld/青海/Z30_7266_看图王.jpg', photos: [
-    [
         'images/oldworld/青海/Z30_6848_看图王.jpg',
         'images/oldworld/青海/Z30_6851_看图王.jpg',
         'images/oldworld/青海/Z30_6852_看图王.jpg',
@@ -2621,9 +2620,9 @@ const albums = [
         'images/oldworld/青海/Z30_7273_看图王.jpg',
         'images/oldworld/青海/Z30_7279_看图王.jpg',
         'images/oldworld/青海/Z30_7292_看图王.jpg',
-    ] },
+    ],
+  },
   { id: 'life', title: '生活', photos: [
-    [
         'images/oldworld/生活/AAA8273_看图王.jpg',
         'images/oldworld/生活/AAA8275_看图王.jpg',
         'images/oldworld/生活/AAA8293_看图王.jpg',
@@ -2710,8 +2709,8 @@ const albums = [
         'images/oldworld/生活/_AAA8190_看图王.jpg',
         'images/oldworld/生活/_AAA8191_看图王.jpg',
         'images/oldworld/生活/_AAA8211-HDR_看图王.jpg',
-    ] }
-
+    ],
+  }
 ];
 // 旧世界照片数据（用户删除了照片但保留引用，后续重新上传时使用）
 // 旧世界照片数据保留（待重新上传）
@@ -2720,7 +2719,8 @@ const NEED_REMEMBER = { id: 'oldphone', title: '旧世界', photos: {/* 见 oldw
 // 世界分类：我眼中的世界 → 新世界 / 旧世界
 const worlds = [
   { id: 'newworld', title: '新世界', type: 'placeholder', message: '作者正在建造中……' },
-  { id: 'oldworld', title: '旧世界', type: 'group', children: ['firstlove', 'friends'] }
+  { id: 'oldworld', title: '旧世界', type: 'group', children: ['firstlove', 'friends'],
+  }
 ];
 
 // 旧世界分层结构
@@ -2742,7 +2742,7 @@ const oldworldGroups = [
       { type: 'album', ref: 'dali', title: '大理' },
       { type: 'album', ref: 'guilin', title: '桂林' },
       { type: 'album', ref: 'qinghai', title: '青海' }
-    ]
+    ],
   },
   {
     id: 'friends',
@@ -2756,7 +2756,7 @@ const oldworldGroups = [
     children: [
       { type: 'album', ref: 'friends-2017-2026', title: '2017.9.2——2026.5.3' },
       { type: 'album', ref: 'life', title: '生活' }
-    ]
+    ],
   }
 ];
 const essayCategories = [
@@ -2792,7 +2792,8 @@ const essayCategories = [
     想起他们，怀念他们，很大原因也是因为越长大，越发现这个世界太过现实、功利，所以才会对小时候那种单纯、童真的一种迷恋吧，另外，我好像一直都在尝试对抗长大，失去，时间流逝、 童真死亡，很多人说自己童年的时候，说那时候总想着长大，而我很幸运，那时候就已意识到，这些时光终将会一去不复返
    “涟漪”，现在这些仍还记得的名字，都曾在我淡淡无趣的生命中，泛起过一朵朵小涟漪，也都或多或少影响、塑造了现在的我，我一直都认为，你能记住某个人最突出的个性特点，恰恰也映射了你内心所缺少与向往成为的人格，所以，可能我内心里面，还住着兴趣启蒙的老大，叛逆的女顽童，好奇心的阿志，还有腼腆的彤
     可以的话，我想把从小到大曾在我生命中出现过的人，都为他写一篇印象小短文，可越长大后越发觉自己好像变得越来越浮躁，能像今晚这样能够静下心来，稍微感性地回忆写点东西，都是一种奢侈，是啊，忙碌劳累过后，我也没有这个兴致了` }
-    ] },
+    ],
+  },
   { id: 'firstlove', title: '初恋篇', articles: [
 { title: "围巾", date: "2026.5.17", body: `周末没事就回三水待了，晚上无聊，就又重新看了喜剧之王，看到最后女主帮男主织衣服的情节，突然想起你之前读书时帮我织过围巾，又给我低落一晚上，Gemini说这叫摇摆反刍阶段，实在忍不住好奇那围巾还在不在，记得是放在了一个箱子里跟旧衣服一起，我怕我妈把它扔了，行吧，想了想还是临时决定回去，顺便把在三水那袋遗留物都带回去，全部整理放好，不然心里总是乱乱的
   隔天回到，翻出了好多东西，以前读书时的旧衣服，还有一只大玩具熊，已经忘记是我买给你的还是你送我的，打开抽屉，鲨鱼萝卜发箍，各种冷帽渔夫帽，毕业照，校卡，毕业分别时同学送的礼物，还有我留长头发那时候剃光头留下的一扎头发，你的牙齿石膏模型，你送的礼物盒，想打开看吧，我又怕会难过，还是没忍住，里面是一沓我们刚开始热恋期时的非主流照片，还有你写着固定的小卡片，才发现你原来这么可爱，当晚又给我干哭了
@@ -2865,7 +2866,8 @@ P2
 大到它会帮我擦干眼泪
 大到手中的烟我抽一半
 它抽一半` }
-] },
+],
+  },
   { id: 'thoughts', title: '所思所想', articles: [
     { title: '2021.10.20', body: `吃药不能吃柑橘类水果，会把药效放大1000倍（毒药）` },
     { title: '2021.12.20', body: `肩膀下面疼，妈逼，军训没意思，累其实一般可以接受，就是回来的时候肩膀开始疼，今天天气陌生，不知道怎么说，今天一整天都走了神似的，要不就是第一次接受这种生活模式` },
@@ -2923,7 +2925,8 @@ p2
     但，那晚也没哭，只是情绪很低落，可怜吗？可怜，但也可恨，我学不会沟通，让彼此都受折磨，这也就是你所说的活该吧
     只是今天偶然间想起，我也不想再提了，一方面会对你愧疚，另一方面也会心酸自己，那十个月的画面是灰色的，思绪复杂，我再不想回忆那段灰色的时光了` },
     { title: '2026.6.18', body: `还是报了澳洲的whv，我也知道大概率不会中签，就当是为了学英语逼自己一把，也多一种可能性吧，反正，怎么说你以后也要去环游世界的是不是？ckr，你总不能对自己食言吧？就算全世界都不爱你了，我也会爱你，而且我以后我会更加爱你，你是julian，而julian也是你，还记得那晚你对自己说过的，说谁离开以后决定自己会再重活一遍，而我，就是那个重生后的你。` }
-  ]}
+  ],
+  }
 ];
 
 const travels = [
