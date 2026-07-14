@@ -18,14 +18,14 @@ function getThumb(path) {
     .replace(/\.jpg$/i, '.webp')
     .replace(/\.jpeg$/i, '.webp')
     .replace(/\.png$/i, '.webp');
-  return `${CDN.thumbs}/${thumb}?v=20260714`;
+  return `${CDN.thumbs}/${thumb}?v=20260714-3`;
 }
 
 // 获取完整大图（灯箱查看用原图）
 function getFull(path) {
   if (!path) return '';
   if (path.startsWith('http')) return path;
-  return path + '?v=20260714';
+  return path + '?v=20260714-3';
 }
 
 // 格式化文章内容，散文分段落，诗保持分行居中
