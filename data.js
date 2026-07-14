@@ -18,14 +18,14 @@ function getThumb(path) {
     .replace(/\.jpg$/i, '.webp')
     .replace(/\.jpeg$/i, '.webp')
     .replace(/\.png$/i, '.webp');
-  return `${CDN.thumbs}/${thumb}?v=20260711`;
+  return `${CDN.thumbs}/${thumb}?v=20260714`;
 }
 
 // 获取完整大图（灯箱查看用原图）
 function getFull(path) {
   if (!path) return '';
   if (path.startsWith('http')) return path;
-  return path + '?v=20260711';
+  return path + '?v=20260714';
 }
 
 // 格式化文章内容，散文分段落，诗保持分行居中
@@ -82,15 +82,9 @@ const preloader = new Preloader();
 
 // ==================== 数据 ====================
 const playlist = [
-  { name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') },
   { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') },
-  { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') },
-  { name: '那个夏天（あの夏へ）', url: CDN.music + '/' + encodeURIComponent('那个夏天（あの夏へ）.mp3') }
-];
-
-// 随笔区背景音乐（童年篇专属）
-const childhoodPlaylist = [
-  { name: 'opus', url: CDN.music + '/' + encodeURIComponent('Haruka Nakamura - opus.mp3') }
+  { name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') },
+  { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') }
 ];
 
 
@@ -2727,8 +2721,9 @@ const oldworldGroups = [
     title: '初恋宇宙',
     cover: 'images/covers/firstlove_cover.jpg',
     songs: [
-      { name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') },
-      { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }
+      { name: '陈绮贞 - 告诉我', url: CDN.music + '/' + encodeURIComponent('陈绮贞 - 告诉我.mp3') },
+      { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') },
+      { name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') }
     ],
     children: [
       { type: 'album', ref: 'chuanxi', title: '川西' },
