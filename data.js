@@ -1796,42 +1796,7 @@ const albums = [
   { id: 'qinghai', title: '青海', cover: 'images/oldworld/青海/Z30_7266_看图王.jpg', photos: [
     'images/oldworld/青海/Z30_6848_看图王.jpg','images/oldworld/青海/Z30_6851_看图王.jpg','images/oldworld/青海/Z30_6852_看图王.jpg','images/oldworld/青海/Z30_6854_看图王.jpg','images/oldworld/青海/Z30_6862_看图王.jpg','images/oldworld/青海/Z30_6870_看图王.jpg','images/oldworld/青海/Z30_6874_看图王.jpg','images/oldworld/青海/Z30_6875_看图王.jpg','images/oldworld/青海/Z30_6880_看图王.jpg','images/oldworld/青海/Z30_6881_看图王.jpg','images/oldworld/青海/Z30_6928_看图王.jpg','images/oldworld/青海/Z30_6936_看图王.jpg','images/oldworld/青海/Z30_6940_看图王.jpg','images/oldworld/青海/Z30_6953_看图王.jpg','images/oldworld/青海/Z30_6956_看图王.jpg','images/oldworld/青海/Z30_6962_看图王.jpg','images/oldworld/青海/Z30_6971_看图王.jpg','images/oldworld/青海/Z30_6983_看图王.jpg','images/oldworld/青海/Z30_7005_看图王.jpg','images/oldworld/青海/Z30_7018_看图王.jpg','images/oldworld/青海/Z30_7020_看图王.jpg','images/oldworld/青海/Z30_7026_看图王.jpg','images/oldworld/青海/Z30_7032_看图王.jpg','images/oldworld/青海/Z30_7042_看图王.jpg','images/oldworld/青海/Z30_7045_看图王.jpg','images/oldworld/青海/Z30_7048_看图王.jpg','images/oldworld/青海/Z30_7051_看图王.jpg','images/oldworld/青海/Z30_7055_看图王.jpg','images/oldworld/青海/Z30_7061_看图王.jpg','images/oldworld/青海/Z30_7064_看图王.jpg','images/oldworld/青海/Z30_7074_看图王.jpg','images/oldworld/青海/Z30_7079_看图王.jpg','images/oldworld/青海/Z30_7085_看图王.jpg','images/oldworld/青海/Z30_7090_看图王.jpg','images/oldworld/青海/Z30_7092_看图王.jpg','images/oldworld/青海/Z30_7100_看图王.jpg','images/oldworld/青海/Z30_7104_看图王.jpg','images/oldworld/青海/Z30_7105_看图王.jpg','images/oldworld/青海/Z30_7109_看图王.jpg','images/oldworld/青海/Z30_7125_看图王.jpg','images/oldworld/青海/Z30_7187_看图王.jpg','images/oldworld/青海/Z30_7199_看图王.jpg','images/oldworld/青海/Z30_7208_看图王.jpg','images/oldworld/青海/Z30_7214_看图王.jpg','images/oldworld/青海/Z30_7216_看图王.jpg','images/oldworld/青海/Z30_7217_看图王.jpg','images/oldworld/青海/Z30_7219_看图王.jpg','images/oldworld/青海/Z30_7220_看图王.jpg','images/oldworld/青海/Z30_7223_看图王.jpg','images/oldworld/青海/Z30_7224_看图王.jpg','images/oldworld/青海/Z30_7226_看图王.jpg','images/oldworld/青海/Z30_7227_看图王.jpg','images/oldworld/青海/Z30_7230_看图王.jpg','images/oldworld/青海/Z30_7233_看图王.jpg','images/oldworld/青海/Z30_7243_看图王.jpg','images/oldworld/青海/Z30_7248_看图王.jpg','images/oldworld/青海/Z30_7266_看图王.jpg','images/oldworld/青海/Z30_7270_看图王.jpg','images/oldworld/青海/Z30_7273_看图王.jpg','images/oldworld/青海/Z30_7279_看图王.jpg','images/oldworld/青海/Z30_7292_看图王.jpg'
   ] },
-  { id: 'life', title: '生活', photos: [
-    'images/oldworld/生活/_AAA6863_看图王.jpg','images/oldworld/生活/_AAA6866_看图王.jpg','images/oldworld/生活/_AAA6870_看图王.jpg','images/oldworld/生活/_AAA6873_看图王.jpg','images/oldworld/生活/_AAA7298_看图王.jpg','images/oldworld/生活/_AAA7315_看图王.jpg','images/oldworld/生活/_AAA7321_看图王.jpg','images/oldworld/生活/_AAA7326_看图王.jpg','images/oldworld/生活/_AAA7746_看图王.jpg','images/oldworld/生活/_AAA7747_看图王.jpg','images/oldworld/生活/_AAA7751_看图王.jpg','images/oldworld/生活/_AAA7753_看图王.jpg','images/oldworld/生活/_AAA7756_看图王.jpg','images/oldworld/生活/_AAA7775_看图王.jpg','images/oldworld/生活/_AAA7841_看图王.jpg','images/oldworld/生活/_AAA7893_看图王.jpg','images/oldworld/生活/_AAA7894_看图王.jpg','images/oldworld/生活/_AAA7895_看图王.jpg','images/oldworld/生活/_AAA7896_看图王.jpg','images/oldworld/生活/_AAA7900_看图王.jpg','images/oldworld/生活/_AAA7911_看图王.jpg','images/oldworld/生活/_AAA7927_看图王.jpg','images/oldworld/生活/_AAA7929_看图王.jpg','images/oldworld/生活/_AAA8032_看图王.jpg','images/oldworld/生活/_AAA8033_看图王.jpg','images/oldworld/生活/_AAA8035_看图王.jpg','images/oldworld/生活/_AAA8043_看图王.jpg','images/oldworld/生活/_AAA8045_看图王.jpg','images/oldworld/生活/_AAA8047_看图王.jpg','images/oldworld/生活/_AAA8049_看图王.jpg','images/oldworld/生活/_AAA8050_看图王.jpg','images/oldworld/生活/_AAA8051_看图王.jpg','images/oldworld/生活/_AAA8052_看图王.jpg','images/oldworld/生活/_AAA8053_看图王.jpg','images/oldworld/生活/_AAA8058_看图王.jpg','images/oldworld/生活/_AAA8059_看图王.jpg','images/oldworld/生活/_AAA8065_看图王.jpg','images/oldworld/生活/_AAA8068_看图王.jpg','images/oldworld/生活/_AAA8069_看图王.jpg','images/oldworld/生活/_AAA8097_看图王.jpg','images/oldworld/生活/_AAA8122_看图王.jpg','images/oldworld/生活/_AAA8130_看图王.jpg','images/oldworld/生活/_AAA8131_看图王.jpg','images/oldworld/生活/_AAA8132_看图王.jpg','images/oldworld/生活/_AAA8133_看图王.jpg','images/oldworld/生活/_AAA8134_看图王.jpg','images/oldworld/生活/_AAA8136_看图王.jpg','images/oldworld/生活/_AAA8139_看图王.jpg','images/oldworld/生活/_AAA8140_看图王.jpg','images/oldworld/生活/_AAA8141_看图王.jpg','images/oldworld/生活/_AAA8145_看图王.jpg','images/oldworld/生活/_AAA8160_看图王.jpg','images/oldworld/生活/_AAA8164_看图王.jpg','images/oldworld/生活/_AAA8167_看图王.jpg','images/oldworld/生活/_AAA8183_看图王.jpg','images/oldworld/生活/_AAA8185_看图王.jpg','images/oldworld/生活/_AAA8186_看图王.jpg','images/oldworld/生活/_AAA8187_看图王.jpg','images/oldworld/生活/_AAA8189_看图王.jpg','images/oldworld/生活/_AAA8190_看图王.jpg','images/oldworld/生活/_AAA8191_看图王.jpg','images/oldworld/生活/_AAA8211-HDR_看图王.jpg','images/oldworld/生活/AAA8273_看图王.jpg','images/oldworld/生活/AAA8275_看图王.jpg','images/oldworld/生活/AAA8293_看图王.jpg','images/oldworld/生活/AAA8295_看图王.jpg','images/oldworld/生活/AAA8308_看图王.jpg','images/oldworld/生活/AAA8315_看图王.jpg','images/oldworld/生活/AAA8316_看图王.jpg','images/oldworld/生活/AAA8340_看图王.jpg','images/oldworld/生活/AAA8351_看图王.jpg','images/oldworld/生活/AAA8363_看图王.jpg','images/oldworld/生活/AAA8368_看图王.jpg','images/oldworld/生活/AAA8370_看图王.jpg','images/oldworld/生活/AAA8386_看图王.jpg','images/oldworld/生活/AAA8398_看图王.jpg','images/oldworld/生活/AAA8400_看图王.jpg','images/oldworld/生活/AAA8404_看图王.jpg','images/oldworld/生活/AAA8406_看图王.jpg','images/oldworld/生活/AAA8415_看图王.jpg','images/oldworld/生活/DSC_0005_看图王.jpg','images/oldworld/生活/DSC_0008_看图王.jpg','images/oldworld/生活/DSC_0044_看图王.jpg','images/oldworld/生活/DSC_0045_看图王.jpg','images/oldworld/生活/DSC_0059_看图王.jpg','images/oldworld/生活/DSC_1550_看图王.jpg','images/oldworld/生活/DSC_1593_看图王.jpg','images/oldworld/生活/Z30_4645_看图王.jpg','images/oldworld/生活/Z30_5080_看图王.jpg','images/oldworld/生活/Z30_5091_看图王.jpg'
-  ] }
-
-];
-// 旧世界照片数据（用户删除了照片但保留引用，后续重新上传时使用）
-// 旧世界照片数据保留（待重新上传）
-const NEED_REMEMBER = { id: 'oldphone', title: '旧世界', photos: {/* 见 oldworld_backup_data.txt */} };
-
-// 世界分类：我眼中的世界 → 新世界 / 旧世界
-const worlds = [
-  { id: 'newworld', title: '新世界', type: 'placeholder', message: '作者正在建造中……' },
-  { id: 'oldworld', title: '旧世界', type: 'group', children: ['firstlove', 'friends'] }
-];
-
-// 旧世界分层结构
-const oldworldGroups = [
-  {
-    id: 'firstlove',
-    title: '初恋宇宙',
-    cover: 'images/covers/firstlove_cover.jpg',
-    songs: [
-      { name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') },
-      { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') }
-    ],
-    children: [
-      { type: 'album', ref: 'firstlove-2017-2025', title: '2017.11.5——2025.6.6' },
-      { type: 'album', ref: 'chuanxi', title: '川西' },
-      { type: 'album', ref: 'malaysia', title: '仙本那' },
-      { type: 'album', ref: 'xinjiang', title: '新疆' },
-      { type: 'album', ref: 'zhoubianyou', title: '周边游' },
-      { type: 'album', ref: 'dali', title: '大理' },
-      { type: 'album', ref: 'guilin', title: '桂林' },
-      { type: 'album', ref: 'qinghai', title: '青海' }
-    ]
-  },
+  ,
   {
     id: 'friends',
     title: '我的青春期',
