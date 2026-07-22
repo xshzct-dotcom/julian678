@@ -1,12 +1,12 @@
 // ==================== CDN图片优化配置 ====================
 // 使用jsDelivr CDN加速GitHub内容，国内访问更快
 const CDN = {
-  base: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main',
+  base: 'https://xshzct-dotcom.github.io',
   image: function(path) {
     return this.base + '/' + path;
   },
-  music: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main/music',
-  thumbs: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main/thumbs'
+  music: 'https://xshzct-dotcom.github.io/music',
+  thumbs: 'https://xshzct-dotcom.github.io/thumbs'
 };
 // ==================== 获取缩略图 ====================
 function getThumb(path) {
