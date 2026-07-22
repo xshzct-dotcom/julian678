@@ -1,12 +1,12 @@
 // ==================== CDN图片优化配置 ====================
 // 使用jsDelivr CDN加速GitHub内容，国内访问更快
 const CDN = {
-  base: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main',
+  base: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main',
   image: function(path) {
     return this.base + '/' + path;
   },
-  music: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/music',
-  thumbs: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/julian678@main/thumbs'
+  music: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main/music',
+  thumbs: 'https://cdn.jsdelivr.net/gh/xshzct-dotcom/xshzct-dotcom.github.io@main/thumbs'
 };
 // ==================== 获取缩略图 ====================
 function getThumb(path) {
@@ -86,15 +86,15 @@ const preloader = new Preloader();
 
 // ==================== 数据 ====================
 const playlist = [
-  { name: '那个夏天（あの夏へ）', url: CDN.music + '/' + encodeURIComponent('那个夏天（あの夏へ）.mp3') },
+  { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') },
   { name: 'Cookies - Forever Friends', url: CDN.music + '/' + encodeURIComponent('Cookies - Forever Friends.mp3') },
   { name: 'Cookies - 最后一块', url: CDN.music + '/' + encodeURIComponent('Cookies - 最后一块.mp3') },
   { name: 'Cookies - 眼浅', url: CDN.music + '/' + encodeURIComponent('Cookies - 眼浅.mp3') },
   { name: '五月天 - 干杯', url: CDN.music + '/' + encodeURIComponent('五月天 - 干杯.mp3') },
   { name: '杨千嬅 - 小飞侠', url: CDN.music + '/' + encodeURIComponent('杨千嬅 - 小飞侠.mp3') },
+  { name: '那个夏天（あの夏へ）', url: CDN.music + '/' + encodeURIComponent('那个夏天（あの夏へ）.mp3') },
   { name: '旅行的意义', url: CDN.music + '/' + encodeURIComponent('旅行的意义.mp3') },
   { name: '太聪明', url: CDN.music + '/' + encodeURIComponent('太聪明.mp3') },
-  { name: '海芋恋', url: CDN.music + '/' + encodeURIComponent('海芋恋.mp3') },
   { name: '陈绮贞 - 告诉我', url: CDN.music + '/' + encodeURIComponent('陈绮贞 - 告诉我.mp3') }
 ];
 
