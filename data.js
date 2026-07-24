@@ -1541,7 +1541,7 @@ const albums = [
         'images/oldworld/初恋宇宙/2017-2025/retouch_20201102222452.jpg',
         'images/oldworld/初恋宇宙/2017-2025/retouch_2021081200382764.jpg',
     ] },
-  { id: 'friends-2017-2026', title: '我的青春期 2017.9.2——2026.5.3', cover: 'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg', photos: [
+  { id: 'friends-2017-2026', title: '青春期 2017.9.2——2026.5.3', cover: 'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg', photos: [
         'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063344.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260621_063513.jpg',
         'images/oldworld/朋友宇宙&自己/2017-2026/IMG_20260612_091705.jpg',
@@ -2587,7 +2587,7 @@ const albums = [
   ,
   {
     id: 'friends',
-    title: '我的青春期',
+    title: '青春期',
     cover: 'images/covers/friends_cover.jpg',
     songs: [
       { name: '五月天 - 干杯', url: CDN.music + '/' + encodeURIComponent('五月天 - 干杯.mp3') },
@@ -2595,7 +2595,7 @@ const albums = [
       { name: 'Cookies - 眼浅', url: CDN.music + '/' + encodeURIComponent('Cookies - 眼浅.mp3') }
     ],
     children: [
-      { type: 'album', ref: 'friends-2017-2026', title: '我的青春期 2017.9.2——2026.5.3' },
+      { type: 'album', ref: 'friends-2017-2026', title: '青春期 2017.9.2——2026.5.3' },
       { type: 'album', ref: 'life', title: '生活' }
     ]
   }
